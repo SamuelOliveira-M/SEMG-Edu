@@ -11,10 +11,164 @@ datasource db {
 }
 
 model Address{
-  id        String       @id @default(uuid())
-  rua       String 
-  cidade    String
-  estado    String
-  cep       String       @unique 
+  id                      String      @id @default(uuid())
+  rua                     String 
+  cidade                  String
+  estado                  String
+  cep                     String      @unique
+
+  alunos                  Aluno[]     @relation("AddressToAlunos")
+  escolas                 Escola[]    @relation("AdressToEscola")
+
 }
+
+model Responsavel{
+  id                      String      @id @default(uuid())
+  nome_pai                String ?
+  nome_mae                String ?
+  telefone                String
+  telefone_secundario     String ?
+ 
+  aluno                 Aluno[]       @relation("ResposibleToAlunos")
+}
+
+model Aluno{
+  id                      String      @id @default(uuid())
+  nome                    String
+  data_nascimento         DateTime
+  municipio_nascimento    String
+  uf_nascimento           String
+  cpf                     String ?    @unique
+
+  responsavelId           String      @unique
+  addressId               String      @unique
+  
+  responsavel             Responsavel @relation("ResposibleToAlunos",fields: [responsavelId], references: [id])
+  address                 Address     @relation("AddressToAlunos",fields: [addressId],references: [id])
+}
+
+model Escola {
+  id                      String      @id @default(uuid())
+  nome                    String
+  cod_inep                Int         @unique
+  email                   String      @unique
+
+  addressId               String      @unique
+  matriculas              Matricula[] 
+  
+  turmas                  Turma[]     @relation("EscolaToTurma")
+  address                 Address     @relation("AdressToEscola",fields: [addressId],references: [id])
+}
+
+model AnoLetivo{
+  id                      String      @id @default(uuid())
+  data_inicio             DateTime    @default(now())
+  data_finalizacao        DateTime ?
+
+  turmas                  Turma[]     @relation("AnoLetivoToTurma")
+
+
+}
+
+model Turma {
+  id                      String      @id @default(uuid())
+  nome                    String
+  serie                   Int
+  turno                   String
+
+  escolaId                String      @unique
+  ano_letivoId            String      @unique  
+  
+  disciplinas             TurmaDisciplina[]
+  matriculas              Matricula[]
+  escola                  Escola      @relation("EscolaToTurma",fields: [escolaId],references: [id])
+  ano_letivo              AnoLetivo   @relation("AnoLetivoToTurma",fields: [ano_letivoId],references: [id])
+}
+
+model Matricula {
+  id                      String      @id @default(uuid())
+  numero_matricula        String ?
+  
+  escolaId                String      @unique          
+  turmaId                 String      @unique
+
+  escola                  Escola      @relation(fields: [escolaId],references: [id])
+  turma                   Turma       @relation(fields: [turmaId], references: [id])
+  notas                   Nota[]
+
+
+}
+
+model Nota{
+  id                      String      @id @default(uuid())
+  nota                    Int
+  mes                     Int         
+
+  disciplinaId            String      @unique
+  matriculaId             String      @unique
+
+  disciplina              Disciplina  @relation(fields: [disciplinaId],references: [id])
+  matricula               Matricula   @relation(fields: [matriculaId],references: [id])
+
+}
+
+model Disciplina {
+  id                      String      @id @default(uuid())
+  nome                    String
+  carga_horaria           Int
+
+  turmas                  TurmaDisciplina[]
+  notas                   Nota[]
+}
+
+model Professor {
+  id                      String      @id @default(uuid())
+  nome                    String
+  email                   String      @unique
+  senha                   String      
+
+  refresh_token           RefreshTokenProfessor?
+
+  disciplinas             TurmaDisciplina[]
+}
+
+model TurmaDisciplina {
+  turmaId                 String
+  disciplinaId            String
+  professorId             String
+
+  turma                   Turma       @relation(fields: [turmaId], references: [id])
+  disciplina              Disciplina  @relation(fields: [disciplinaId], references: [id])
+  professor               Professor   @relation(fields: [professorId], references: [id])
+  
+  @@id([turmaId, disciplinaId])
+}
+
+model Gestor{
+  id                      String      @id @default(uuid())
+  nome                    String
+  email                   String      @unique
+  senha                   String
+
+  refresh_token           RefreshTokenGestor?
+}
+
+model RefreshTokenGestor{
+  id                      String      @id @default(uuid())
+  expiresIn               Int
+  gestor                  Gestor     @relation(fields: [gestorId],references: [id], onDelete: Cascade)
+  gestorId                String   @unique
+
+  @@map("refresh_token")
+}
+
+model RefreshTokenProfessor{
+  id                      String   @id @default(uuid())
+  expiresIn               Int
+  professor               Professor     @relation(fields: [professorId],references: [id], onDelete: Cascade)
+  professorId             String   @unique
+
+  @@map("refresh_token_professor")
+}
+
 
