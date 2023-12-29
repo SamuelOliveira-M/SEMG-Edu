@@ -35,16 +35,17 @@ model Responsavel{
 model Aluno{
   id                      String      @id @default(uuid())
   nome                    String
-  data_nascimento         DateTime
+  data_nascimento         DateTime  
   municipio_nascimento    String
   uf_nascimento           String
   cpf                     String ?    @unique
 
   responsavelId           String      @unique
   addressId               String      @unique
+  matricula               Matricula?   
   
-  responsavel             Responsavel @relation("ResposibleToAlunos",fields: [responsavelId], references: [id])
-  address                 Address     @relation("AddressToAlunos",fields: [addressId],references: [id])
+  responsavel             Responsavel @relation("ResposibleToAlunos",fields: [responsavelId], references: [id],onDelete: Cascade)
+  address                 Address     @relation("AddressToAlunos",fields: [addressId],references: [id],onDelete: Cascade)
 }
 
 model Escola {
@@ -57,7 +58,7 @@ model Escola {
   matriculas              Matricula[] 
   
   turmas                  Turma[]     @relation("EscolaToTurma")
-  address                 Address     @relation("AdressToEscola",fields: [addressId],references: [id])
+  address                 Address     @relation("AdressToEscola",fields: [addressId],references: [id],onDelete: Cascade)
 }
 
 model AnoLetivo{
@@ -81,8 +82,8 @@ model Turma {
   
   disciplinas             TurmaDisciplina[]
   matriculas              Matricula[]
-  escola                  Escola      @relation("EscolaToTurma",fields: [escolaId],references: [id])
-  ano_letivo              AnoLetivo   @relation("AnoLetivoToTurma",fields: [ano_letivoId],references: [id])
+  escola                  Escola      @relation("EscolaToTurma",fields: [escolaId],references: [id],onDelete: Cascade)
+  ano_letivo              AnoLetivo   @relation("AnoLetivoToTurma",fields: [ano_letivoId],references: [id],onDelete: Cascade)
 }
 
 model Matricula {
@@ -91,12 +92,12 @@ model Matricula {
   
   escolaId                String      @unique          
   turmaId                 String      @unique
+  alunoId                 String      @unique
 
-  escola                  Escola      @relation(fields: [escolaId],references: [id])
-  turma                   Turma       @relation(fields: [turmaId], references: [id])
+  escola                  Escola      @relation(fields: [escolaId],references: [id] ,onDelete: Cascade)
+  turma                   Turma       @relation(fields: [turmaId], references: [id],onDelete: Cascade)
+  aluno                   Aluno       @relation(fields: [alunoId], references: [id],onDelete: Cascade)
   notas                   Nota[]
-
-
 }
 
 model Nota{
@@ -107,8 +108,8 @@ model Nota{
   disciplinaId            String      @unique
   matriculaId             String      @unique
 
-  disciplina              Disciplina  @relation(fields: [disciplinaId],references: [id])
-  matricula               Matricula   @relation(fields: [matriculaId],references: [id])
+  disciplina              Disciplina  @relation(fields: [disciplinaId],references: [id],onDelete: Cascade)
+  matricula               Matricula   @relation(fields: [matriculaId],references: [id],onDelete: Cascade)
 
 }
 
@@ -137,9 +138,9 @@ model TurmaDisciplina {
   disciplinaId            String
   professorId             String
 
-  turma                   Turma       @relation(fields: [turmaId], references: [id])
-  disciplina              Disciplina  @relation(fields: [disciplinaId], references: [id])
-  professor               Professor   @relation(fields: [professorId], references: [id])
+  turma                   Turma       @relation(fields: [turmaId], references: [id],onDelete: Cascade)
+  disciplina              Disciplina  @relation(fields: [disciplinaId], references: [id],onDelete: Cascade)
+  professor               Professor   @relation(fields: [professorId], references: [id],onDelete: Cascade)
   
   @@id([turmaId, disciplinaId])
 }
