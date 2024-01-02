@@ -43,9 +43,7 @@ class Validator {
       data_nascimento: Joi.date().iso().max('now').required(),
 			cpf: Joi.string().min(11).max(11),
 			municipio_nascimento: Joi.string().min(2).max(40).required(),
-      uf_nascimento: Joi.string().min(2).max(2).required(),
-			responsavelId: Joi.string().uuid().required(),
-			addressId: Joi.string().uuid().required(),
+      uf_nascimento: Joi.string().min(2).max(2).required()
     });  
 		
     const validationResult = schema.validate(aluno);

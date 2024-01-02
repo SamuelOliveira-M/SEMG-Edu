@@ -4,33 +4,30 @@ import CreateStudentGuardiansModel from "./CreateStudentGuardiansModel";
 
 class CreateStudentGuardiansController{
 	async CreateStudentGuardians(dataResponsibile:IStudentGuardians){
+		
 		const {nome_pai, nome_mae,telefone,telefone_secundario} = dataResponsibile
 
-		try{
-			const validatorStudentGuardions = Validator.StudentGuardionsValidator({
-				nome_pai,
-				nome_mae,
-				telefone,
-				telefone_secundario
-			})
-			
+		const validatorStudentGuardions = Validator.StudentGuardionsValidator({
+			nome_pai,
+			nome_mae,
+			telefone,
+			telefone_secundario
+		})
+		
 
-			if(validatorStudentGuardions){
-				return validatorStudentGuardions
-			}
-
-			const studentGuardions = await CreateStudentGuardiansModel.createStudentGuardians({
-				nome_pai,
-				nome_mae,
-				telefone,
-				telefone_secundario
+		if(validatorStudentGuardions){
+			return({
+				"error":true,
+				"message":"O campo "+validatorStudentGuardions+" é invalido"
 			})
-			
-			return studentGuardions
-			
-		}catch(e){
-			console.log(e)
 		}
+
+		return({
+			"error":false,
+			"message":"Campos validos"
+		})
+			
+		
 	}
 }
 

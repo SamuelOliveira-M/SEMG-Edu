@@ -1,39 +1,25 @@
 import Validator from "../../../services/Validator"
-import CreateAlunoModel from "./CreateAlunoModel"
 import IAluno from "../../../interface/IStudent"
 
 
 class CreateAlunoController{
 	async createAlunoController(dataStudent:IAluno){
-		const {
-			nome,
-			data_nascimento,
-			municipio_nascimento,
-			uf_nascimento,
-			cpf,
-			responsavelId,
-			addressId
-		} = dataStudent
 		
 		try{
 			const ValidatorStudent = Validator.studentValidator(dataStudent)
-		
+
+			console.log(ValidatorStudent)
 			if(ValidatorStudent){
-				return ValidatorStudent
+				return({
+					"error":true,
+					"message":"O Campo "+ValidatorStudent +" é invalido"
+				})
 			}
-
-			const student = await CreateAlunoModel.createAlunoModel({
-				nome,
-				data_nascimento,
-				municipio_nascimento,
-				uf_nascimento,
-				cpf,
-				responsavelId,
-				addressId
-			})
 			
-			return student
-
+			return({
+				"error":false,
+				"message":"Campos validos"
+			})
 
 		}catch(e){
 			console.log(e)

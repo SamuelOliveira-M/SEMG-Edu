@@ -10,16 +10,18 @@ class CreateAddressController{
 
 			const validatorAddress = await Validator.addressValidar({rua,cidade,estado,cep})
 			
-			if(!validatorAddress){
+			if(validatorAddress){
 				return({
-					"error":true,
-					"message":"Endereço invalido"
+					"error":false,
+					"message":"Endereço valido"
 				})
 			}
 
-			// const address = await CreateAddressModel.createAddressModel({rua,cidade,estado,cep})
+			return ({
+				"error":true,
+				"message":"Endereço invalido"
+			})
 
-			return(validatorAddress)			
 		}catch(e){
 			console.log(e)
 		}

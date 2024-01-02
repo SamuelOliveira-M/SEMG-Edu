@@ -7,9 +7,9 @@ class CreateStudentGuardiansModel{
   	nome_mae,
   	telefone,
   	telefone_secundario
-	}:IStudentGuardians){
+	}:IStudentGuardians,tx:any){
 
-		const responsaveis = await prisma.responsavel.findFirst({
+		const responsaveis = await tx.responsavel.findFirst({
 			where: {
 				nome_pai: nome_pai,
 				nome_mae: nome_mae,
@@ -17,13 +17,10 @@ class CreateStudentGuardiansModel{
 		});
 
 		if(responsaveis){
-			return {
-				"message":"Resposáveis já cadastrados no sistema",
-				"data":responsaveis
-			}
+			return responsaveis
 		}
 
-		const studentGuardians = await prisma.responsavel.create({
+		const studentGuardians = await tx.responsavel.create({
 			data:{
 				nome_pai,
 				nome_mae,
@@ -31,10 +28,8 @@ class CreateStudentGuardiansModel{
 				telefone_secundario
 			}
 		})
-		return {
-			"message":"Resposáveis cadastrados com socesso",
-			"data":studentGuardians
-		}
+		return studentGuardians
+		
 	}
 }
 export default new CreateStudentGuardiansModel()

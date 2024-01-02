@@ -9,14 +9,12 @@ class CreateAlunoModel{
 		municipio_nascimento,
 		uf_nascimento,
 		cpf,
-		responsavelId,
-		addressId
-		}: IAluno) {
+		}: IAluno,tx:any,responsavelId:string,addressId:string) {
 		
 		const dataNascimentos = new Date(data_nascimento)
 
 
-			const alunoAlreadyExist = await prisma.aluno.findFirst({
+			const alunoAlreadyExist = await tx.aluno.findFirst({
 				where:{
 					cpf
 				}
@@ -29,7 +27,7 @@ class CreateAlunoModel{
 				}
 			}
 
-			const aluno = await prisma.aluno.create({
+			const aluno = await tx.aluno.create({
 				data:{
 					nome ,
 					data_nascimento:dataNascimentos,
