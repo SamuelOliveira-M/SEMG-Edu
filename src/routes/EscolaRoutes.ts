@@ -6,7 +6,7 @@ import express  from "express";
 
 const escolaRoutes = express.Router();
 
-escolaRoutes.use("/user",(request,response)	=>{
+escolaRoutes.use("/escola",(request,response)	=>{
 	response.send("Hello, I'm running in a cotainer !")
 })
 

@@ -3,22 +3,12 @@ import axios from 'axios';
 
 import IAluno from '../interface/IStudent';
 import IEndereco from '../interface/IAddrees';
+import IStudentGuardians from '../interface/IStudentGuardians';
 
 class Validator {
-  validarAluno(aluno:IAluno ) {
-    const schema = Joi.object({
-      nome: Joi.string().min(2).max(60).required(),
-      data_nascimento: Joi.date().iso().max('now').required(),
-			cpf: Joi.string().min(11).max(11),
-			municipio_nascimento: Joi.string().min(2).max(40).required(),
-      uf_nascimento: Joi.string().min(2).max(2).required(),
-			responsavelId: Joi.string().uuid().required(),
-			addressId: Joi.string().uuid().required(),
-    });
-    
-    return schema.validate(aluno);
-  }
-  async validarCep({rua,cidade,estado,cep}:IEndereco){
+  
+  async addressValidar({rua,cidade,estado,cep}:IEndereco){
+		
     try{		
 			const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
     	const endereco = response.data
@@ -46,6 +36,43 @@ class Validator {
 			return error
 		}		
   }
+
+	studentValidator(aluno:IAluno ) {
+    const schema = Joi.object({
+      nome: Joi.string().min(2).max(60).required(),
+      data_nascimento: Joi.date().iso().max('now').required(),
+			cpf: Joi.string().min(11).max(11),
+			municipio_nascimento: Joi.string().min(2).max(40).required(),
+      uf_nascimento: Joi.string().min(2).max(2).required(),
+			responsavelId: Joi.string().uuid().required(),
+			addressId: Joi.string().uuid().required(),
+    });  
+		
+    const validationResult = schema.validate(aluno);
+
+  	if (validationResult.error) {
+    	const invalidField = validationResult.error?.details[0].path;
+    	return invalidField;
+  	}
+
+  	return null;
+  }
+
+	StudentGuardionsValidator(studentGuardians:IStudentGuardians){
+	const schema = Joi.object({
+		nome_pai: Joi.string().min(2).max(60).required(),
+		nome_mae: Joi.string().min(2).max(60).required(),
+    telefone:Joi.string().pattern(/^\d{11}$/).required(),
+		telefone_secundario:Joi.string().pattern(/^\d{11}$/)
+    });  
+    const validationResult = schema.validate(studentGuardians);
+
+  	if (validationResult.error) {
+    	const invalidField = validationResult.error?.details[0].path;
+    	return invalidField;
+  	}
+  	return null;
+	}
 }
 
 export default new Validator;

@@ -9,7 +9,7 @@ interface IBodyAddress{
 }
 
 class CreateAddressModel{
-	async createAddress({rua,cidade,estado,cep}:IBodyAddress){
+	async createAddressModel({rua,cidade,estado,cep}:IBodyAddress){
 		
 		const addressAlreadyExists = await prisma.address.findFirst({
 			where:{

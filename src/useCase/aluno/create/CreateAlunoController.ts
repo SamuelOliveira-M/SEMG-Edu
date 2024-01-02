@@ -1,53 +1,43 @@
-import { Request,Response } from "express"
 import Validator from "../../../services/Validator"
 import CreateAlunoModel from "./CreateAlunoModel"
+import IAluno from "../../../interface/IStudent"
+
 
 class CreateAlunoController{
-	async createAlunoController(req:Request,res:Response){
-		
-		const {dataStudent,dataAddrees,dataResponsibile} = req.body 
-
-		// let {
-		// 	nome ,
-		// 	data_nascimento,
-		// 	cpf,
-		// 	municipio_nascimento,
-		// 	uf_nascimento,
-		// 	responsavelId, 
-		// 	addressId} = dataStudent
-		
-		// const {rua,cidade,estado,cep} = dataAddrees
-
-		// const {nome_pai,nome_mae,telefone,telefone_secundario} = dataResponsibile
-		
+	async createAlunoController(dataStudent:IAluno){
+		const {
+			nome,
+			data_nascimento,
+			municipio_nascimento,
+			uf_nascimento,
+			cpf,
+			responsavelId,
+			addressId
+		} = dataStudent
 		
 		try{
+			const ValidatorStudent = Validator.studentValidator(dataStudent)
+		
+			if(ValidatorStudent){
+				return ValidatorStudent
+			}
 
-			// data_nascimento = new Date(data_nascimento)
-
-			// const validadorEndereco = Validator.validarCep({rua,cidade,estado,cep})
-				
-			// const validadorAluno = Validator.validarAluno({
-			// 	nome ,
-			// 	data_nascimento,
-			// 	cpf,
-			// 	municipio_nascimento,
-			// 	uf_nascimento,
-			// 	responsavelId, 
-			// 	addressId
-			// })
-			const data = req.body
-			const certo = await CreateAlunoModel.createAluno({data})
-
+			const student = await CreateAlunoModel.createAlunoModel({
+				nome,
+				data_nascimento,
+				municipio_nascimento,
+				uf_nascimento,
+				cpf,
+				responsavelId,
+				addressId
+			})
 			
-			res.json(certo)
- 			
+			return student
 
 
 		}catch(e){
-
+			console.log(e)
 		}
-
 	}
 }
 
