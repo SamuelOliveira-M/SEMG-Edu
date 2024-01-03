@@ -1,13 +1,12 @@
 import IStudentGuardians from "../../../interface/IStudentGuardians";
 import Validator from "../../../services/Validator";
-import CreateStudentGuardiansModel from "./CreateStudentGuardiansModel";
 
 class CreateStudentGuardiansController{
 	async CreateStudentGuardians(dataResponsibile:IStudentGuardians){
 		
 		const {nome_pai, nome_mae,telefone,telefone_secundario} = dataResponsibile
 
-		const validatorStudentGuardions = Validator.StudentGuardionsValidator({
+		const validatorStudentGuardions = Validator.studentGuardionsValidator({
 			nome_pai,
 			nome_mae,
 			telefone,
