@@ -2,7 +2,7 @@ import { Request,Response } from "express";
 
 import CreateAddresController from "../../endereco/create/CreateAddresController";
 import CreateStudentGuardiansController from "../../responsaveis/create/CreateStudentGuardiansController";
-import CreateAlunoController from "./CreateAlunoController";
+import CreateAlunoController from "../create/CreateAlunoController";
 
 import TransectionStudentModel from "./TransectionStudentModel";
 

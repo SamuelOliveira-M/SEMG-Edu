@@ -1,6 +1,6 @@
 import express  from "express";
 import CreateAlunoController from "../useCase/aluno/create/CreateAlunoController";
-import TransectionStudentController from "../useCase/aluno/create/TransectionStudentController";
+import TransectionStudentController from "../useCase/aluno/transation/TransectionStudentController";
 
 const studentRoutes = express.Router();
 

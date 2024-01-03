@@ -4,6 +4,7 @@ import axios from 'axios';
 import IAluno from '../interface/IStudent';
 import IEndereco from '../interface/IAddrees';
 import IStudentGuardians from '../interface/IStudentGuardians';
+import ISchool from '../interface/ISchool';
 
 class Validator {
   
@@ -56,7 +57,7 @@ class Validator {
   	return null;
   }
 
-	StudentGuardionsValidator(studentGuardians:IStudentGuardians){
+	studentGuardionsValidator(studentGuardians:IStudentGuardians){
 	const schema = Joi.object({
 		nome_pai: Joi.string().min(2).max(60).required(),
 		nome_mae: Joi.string().min(2).max(60).required(),
@@ -70,6 +71,23 @@ class Validator {
     	return invalidField;
   	}
   	return null;
+	}
+
+	schoolValidator(school:ISchool){
+		const schema = Joi.object({
+			nome: Joi.string().min(2).max(60).required(),
+			cod_inep: Joi.number().integer().positive().max(999999999),
+			email:Joi.string().email().max(60),
+		});
+
+		const validationResult = schema.validate(school);
+
+		if (validationResult.error) {
+			const invalidField = validationResult.error?.details[0].path;
+			return invalidField;
+		}
+
+		return null;
 	}
 }
 

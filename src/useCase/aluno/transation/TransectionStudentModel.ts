@@ -2,7 +2,7 @@ import ITransaction from "../../../interface/ITransetion";
 import { prisma } from "../../../lib/prisma";
 
 import CreateAddressModel from "../../endereco/create/CreateAddressModel"; 
-import CreateAlunoModel from "./CreateAlunoModel";
+import CreateAlunoModel from "../create/CreateAlunoModel";
 import CreateStudentGuardiansModel from "../../responsaveis/create/CreateStudentGuardiansModel";
 
 
@@ -14,8 +14,8 @@ class TransactionStudantModel{
 	
 			const guardians = await CreateStudentGuardiansModel.createStudentGuardians(dataResponsibile,tx);
 			
-			const addressId = address.id
-			const responsavelId = guardians.id
+			const addressId = address.data.id
+			const responsavelId = guardians.data.id
 			console.log(responsavelId)
 
 			const student = await CreateAlunoModel.createAlunoModel(

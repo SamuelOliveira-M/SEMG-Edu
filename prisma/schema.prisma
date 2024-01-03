@@ -12,10 +12,10 @@ datasource db {
 
 model Address{
   id                      String      @id @default(uuid())
-  rua                     String 
+  rua                     String  
   cidade                  String
   estado                  String
-  cep                     String      @unique
+  cep                     String ?      @unique
 
   alunos                  Aluno[]     @relation("AddressToAlunos")
   escolas                 Escola[]    @relation("AdressToEscola")

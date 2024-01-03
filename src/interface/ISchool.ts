@@ -1,5 +1,4 @@
-interface ISchool{
-	id: string      
+interface ISchool{      
   nome: string
   cod_inep: number   
   email: string

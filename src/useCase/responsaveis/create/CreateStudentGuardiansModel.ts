@@ -17,7 +17,10 @@ class CreateStudentGuardiansModel{
 		});
 
 		if(responsaveis){
-			return responsaveis
+			return{
+				"message":"Responsável já existe no sistema",
+				"data":responsaveis
+			}
 		}
 
 		const studentGuardians = await tx.responsavel.create({
@@ -28,7 +31,10 @@ class CreateStudentGuardiansModel{
 				telefone_secundario
 			}
 		})
-		return studentGuardians
+		return{
+			"message":"Responsavél criado com sucesso",
+			"data":studentGuardians
+		}
 		
 	}
 }

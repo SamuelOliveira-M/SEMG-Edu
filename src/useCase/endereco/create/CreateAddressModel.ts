@@ -18,7 +18,10 @@ class CreateAddressModel{
 		})
 
 		if(addressAlreadyExists){
-			return addressAlreadyExists
+			return{
+				"message":"Endereço já existe no sistema",
+				"data":addressAlreadyExists
+			}
 		}
 
 		const address = await tx.address.create({
@@ -30,7 +33,10 @@ class CreateAddressModel{
 			}
 		})
 
-		return address
+		return{
+			"message":"Endereço criado com sucesso",
+			"data":address
+		}
 	}
 }
 
