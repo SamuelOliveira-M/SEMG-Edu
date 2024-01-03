@@ -4,11 +4,17 @@ class CreateSchoolClassModel{
 		const {nome,serie,turno,escolaId,ano_letivoId} = dataSchooClass
 		
 		const schoolClassAlreadyExist = await tx.turma.findFirst({
-			where:{
-				nome,
-				escolaId,
-				ano_letivoId
-			}
+			where: {
+				nome: {
+					equals: nome,
+				},
+				escolaId: {
+					equals: escolaId,
+				},
+				ano_letivoId: {
+					equals: ano_letivoId,
+				},
+			},
 		});
 
 		if(schoolClassAlreadyExist){

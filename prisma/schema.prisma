@@ -77,8 +77,8 @@ model Turma {
   serie                   Int
   turno                   String
 
-  escolaId                String      @unique
-  ano_letivoId            String      @unique  
+  escolaId                String      
+  ano_letivoId            String        
   
   disciplinas             TurmaDisciplina[]
   matriculas              Matricula[]
