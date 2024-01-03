@@ -89,6 +89,22 @@ class Validator {
 
 		return null;
 	}
+
+	schoolYearValidator(schoolYear:ISchoolYear){
+		const schema = Joi.object({
+			data_inicio: Joi.date().required(),
+			data_finalizacao:Joi.date().required()
+		});
+
+		const validationResult = schema.validate(schoolYear);
+
+		if (validationResult.error) {
+			const invalidField = validationResult.error?.details[0].path;
+			return invalidField;
+		}
+
+		return null;
+	}
 }
 
 export default new Validator;

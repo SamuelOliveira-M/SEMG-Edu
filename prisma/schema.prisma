@@ -63,7 +63,7 @@ model Escola {
 
 model AnoLetivo{
   id                      String      @id @default(uuid())
-  data_inicio             DateTime    @default(now())
+  data_inicio             DateTime    
   data_finalizacao        DateTime ?
 
   turmas                  Turma[]     @relation("AnoLetivoToTurma")
