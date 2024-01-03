@@ -1,8 +1,8 @@
 
 
-class SchoolYearModel{
+class CreateSchoolYearModel{
 	async createSchoolYearModel(dataSchooYear:ISchoolYear,tx:any){
-		let {data_inicio,data_finalizacao} = dataSchooYear
+		const {data_inicio,data_finalizacao} = dataSchooYear
 		
 		
 		const schoolYearAlreadyExist = await tx.anoLetivo.findFirst({
@@ -31,4 +31,4 @@ class SchoolYearModel{
 		}
 	}
 }
-export default new SchoolYearModel()
+export default new CreateSchoolYearModel()

@@ -1,9 +1,11 @@
-import { Request,Response } from "express";
 import Validator from "../../../services/Validator";
 
-class SchoolYearController{
+class CreateSchoolYearController{
 	createSchoolYear(dataSchooYear:ISchoolYear){
-		
+
+		dataSchooYear.data_inicio = new Date(dataSchooYear.data_inicio)
+		dataSchooYear.data_finalizacao = new Date(dataSchooYear.data_finalizacao)
+
 		try{
 			const validatorSchoolYear = Validator.schoolYearValidator(dataSchooYear)
 
@@ -23,4 +25,4 @@ class SchoolYearController{
 		}
 	}
 }
-export default new SchoolYearController()
+export default new CreateSchoolYearController()

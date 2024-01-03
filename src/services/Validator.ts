@@ -76,7 +76,7 @@ class Validator {
 	schoolValidator(school:ISchool){
 		const schema = Joi.object({
 			nome: Joi.string().min(2).max(60).required(),
-			cod_inep: Joi.number().integer().positive().max(999999999),
+			cod_inep: Joi.string().min(8).max(8).trim().pattern(/^[0-9]+$/),
 			email:Joi.string().email().max(60),
 		});
 
@@ -97,6 +97,23 @@ class Validator {
 		});
 
 		const validationResult = schema.validate(schoolYear);
+
+		if (validationResult.error) {
+			const invalidField = validationResult.error?.details[0].path;
+			return invalidField;
+		}
+
+		return null;
+	}
+
+	schoolClassValidator(schoolClass:ISchollClass){
+		const schema = Joi.object({
+			nome: Joi.string().min(2).max(40).required(),
+			serie: Joi.number().integer().positive().max(9),
+			turno: Joi.string().min(2).max(40).required(),
+		});
+
+		const validationResult = schema.validate(schoolClass);
 
 		if (validationResult.error) {
 			const invalidField = validationResult.error?.details[0].path;

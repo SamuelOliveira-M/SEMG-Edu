@@ -1,5 +1,4 @@
 interface ISchollClass{
-	id: string 
   nome: string
   serie: number
   turno: string

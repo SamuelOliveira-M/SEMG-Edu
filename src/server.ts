@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 
 import studentRoutes from './routes/studentRoutes';
 import escolaRoutes from './routes/EscolaRoutes'; 
+import schoolClassRoutes from './routes/schoolClassRoutes';
 
 dotenv.config();
 
@@ -20,6 +21,7 @@ app.use('/docs',swaggerUi.serve,swaggerUi.setup(swaggerDocs))
 
 app.use(studentRoutes)
 app.use(escolaRoutes)
+app.use(schoolClassRoutes)
 
 
 app.use((error:Error,request:Request,response:Response,next:NextFunction)=>{

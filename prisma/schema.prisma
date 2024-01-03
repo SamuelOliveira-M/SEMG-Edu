@@ -51,7 +51,7 @@ model Aluno{
 model Escola {
   id                      String      @id @default(uuid())
   nome                    String
-  cod_inep                Int         @unique
+  cod_inep                String         @unique
   email                   String      @unique
 
   addressId               String      @unique
