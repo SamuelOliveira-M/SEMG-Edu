@@ -2,7 +2,7 @@
 class CreateSchoolClassModel{
 	async schoolClassModel(dataSchooClass:ISchollClass,tx:any){
 		const {nome,serie,turno,escolaId,ano_letivoId} = dataSchooClass
-		
+
 		const schoolClassAlreadyExist = await tx.turma.findFirst({
 			where: {
 				nome: {

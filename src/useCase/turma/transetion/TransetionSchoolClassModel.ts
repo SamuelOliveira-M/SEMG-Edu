@@ -20,8 +20,11 @@ class TransetionSchoolClassModel{
 
 			const schoolYear = await CreateSchoolYearModel.createSchoolYearModel(dataSchooYear,tx)
 			
+			const nomeTurma = `${dataSchoolClass.serie} ano ${dataSchoolClass.nome} - ${dataSchoolClass.turno} - ${schoolYear.data.data_inicio}`
+			
 			dataSchoolClass.escolaId = SchoolAlreadyExist.id
 			dataSchoolClass.ano_letivoId = schoolYear.data.id
+			dataSchoolClass.nome = nomeTurma
 
 			const schoolClass = await CreateSchoolClassModel.schoolClassModel(dataSchoolClass,tx)
 			

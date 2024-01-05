@@ -90,8 +90,8 @@ model Matricula {
   id                      String      @id @default(uuid())
   numero_matricula        String ?
   
-  escolaId                String      @unique          
-  turmaId                 String      @unique
+  escolaId                String                
+  turmaId                 String      
   alunoId                 String      @unique
 
   escola                  Escola      @relation(fields: [escolaId],references: [id] ,onDelete: Cascade)
@@ -105,8 +105,8 @@ model Nota{
   nota                    Int
   mes                     Int         
 
-  disciplinaId            String      @unique
-  matriculaId             String      @unique
+  disciplinaId            String      
+  matriculaId             String      
 
   disciplina              Disciplina  @relation(fields: [disciplinaId],references: [id],onDelete: Cascade)
   matricula               Matricula   @relation(fields: [matriculaId],references: [id],onDelete: Cascade)
