@@ -5,6 +5,7 @@ import IAluno from '../interface/IStudent';
 import IEndereco from '../interface/IAddrees';
 import IStudentGuardians from '../interface/IStudentGuardians';
 import ISchool from '../interface/ISchool';
+import IRegistration from '../interface/IRegistration';
 
 class Validator {
   
@@ -108,7 +109,7 @@ class Validator {
 
 	schoolClassValidator(schoolClass:ISchollClass){
 		const schema = Joi.object({
-			nome: Joi.string().min(2).max(40).required(),
+			nome: Joi.string().min(1).max(1).required(),
 			serie: Joi.number().integer().positive().max(9),
 			turno: Joi.string().min(2).max(40).required(),
 		});
@@ -122,6 +123,26 @@ class Validator {
 
 		return null;
 	}
+
+	registrationValidator(registration:IRegistration){
+		const schema = Joi.object({
+			numero_matricula:Joi.string(),
+			status: Joi.string().min(2).max(40).required(),
+			escola: Joi.string().min(8).max(8).trim().pattern(/^[0-9]+$/),
+			turma: Joi.string().min(2).max(40).required(),
+			alunoId:Joi.string().min(2).max(40).required()
+		});
+
+		const validationResult = schema.validate(registration);
+
+		if (validationResult.error) {
+			const invalidField = validationResult.error?.details[0].path;
+			return invalidField;
+		}
+
+		return null;
+	}
+
 }
 
 export default new Validator;

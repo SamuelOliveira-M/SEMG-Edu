@@ -1,6 +1,10 @@
+
 interface IRegistration{
-	id: string
   numero_matricula: string
-	escolaId: string          
-  turmaId: string
+	status: string
+	escola: string          
+  turma: string
+	alunoId: string
 }
+
+export default IRegistration

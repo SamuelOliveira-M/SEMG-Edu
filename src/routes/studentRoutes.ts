@@ -1,11 +1,12 @@
 import express  from "express";
-import CreateAlunoController from "../useCase/aluno/create/CreateAlunoController";
 import TransectionStudentController from "../useCase/aluno/transation/TransectionStudentController";
+import CreateRegistrationController from "../useCase/matricula/create/CreateRegistrationController"; 
+
 
 const studentRoutes = express.Router();
 
 
 studentRoutes.post("/aluno",TransectionStudentController.studentCreationTransaction)
-
+studentRoutes.post("/matricular",CreateRegistrationController.createAlunoController)
 
 export default studentRoutes;

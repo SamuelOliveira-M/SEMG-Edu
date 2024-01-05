@@ -73,7 +73,7 @@ model AnoLetivo{
 
 model Turma {
   id                      String      @id @default(uuid())
-  nome                    String
+  nome                    String      @unique
   serie                   Int
   turno                   String
 
@@ -88,10 +88,11 @@ model Turma {
 
 model Matricula {
   id                      String      @id @default(uuid())
-  numero_matricula        String ?
+  numero_matricula        String
+  status                  String 
   
   escolaId                String                
-  turmaId                 String      
+  turmaId                 String     
   alunoId                 String      @unique
 
   escola                  Escola      @relation(fields: [escolaId],references: [id] ,onDelete: Cascade)
