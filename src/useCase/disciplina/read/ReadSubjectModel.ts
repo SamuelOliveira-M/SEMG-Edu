@@ -13,10 +13,8 @@ class ReadSubjectModel{
 			}
 		});
 
-		return {
-			"message":"Disciplina criado com sucesso",	
-			"data":subjectAlreadyExists
-		}
+		return subjectAlreadyExists
+		
 	}
 }
 export default new ReadSubjectModel()

@@ -12,10 +12,7 @@ class ReadAddressModel{
 			}
 		})
 
-		return{
-			"message":"Endereço criado com sucesso",
-			"data":addressAlreadyExists
-		}
+		return addressAlreadyExists
 	}
 }
 

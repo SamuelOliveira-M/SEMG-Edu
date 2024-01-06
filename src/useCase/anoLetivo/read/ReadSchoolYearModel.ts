@@ -12,10 +12,8 @@ class ReadSchoolYearModel{
 			}
 		});
 
-		return {
-			"message":"Escola cadastrada com socesso",
-			"data":schoolYearAlreadyExist
-		}
+		return schoolYearAlreadyExist
+		
 	}
 }
 

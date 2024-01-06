@@ -11,10 +11,7 @@ class ReadStudentModel{
 				cpf
 			}
 		})
-		return ({
-			"message":"Aluno criado com sucesso",	
-			"data":alunoAlreadyExist
-		})
+		return alunoAlreadyExist
 	}
 
 }
