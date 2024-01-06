@@ -1,17 +1,11 @@
-import exp from "constants";
-import { prisma } from "../../../lib/prisma";
 import ISchool from "../../../interface/ISchool";
-
+import ReadSchoolModel from "../read/ReadSchoolModel";
 
 class CreateSchoolModel {
 	async createSchoolModel(dataSchool:ISchool,tx:any){
 		const {nome,cod_inep,email,addressId} = dataSchool
 		
-		const schoolAlreadyExist = await tx.escola.findFirst({
-			where:{
-				cod_inep,
-			}
-		});
+		const schoolAlreadyExist = await ReadSchoolModel.readSchool(dataSchool)
 
 		if(schoolAlreadyExist){
 			return {

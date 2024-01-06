@@ -1,6 +1,6 @@
 interface ISchool{      
   nome: string
-  cod_inep: number   
+  cod_inep: string   
   email: string
   addressId: string
 }
