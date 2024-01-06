@@ -1,4 +1,4 @@
-interface IAluno {
+interface IStudent {
 	nome : string
 	data_nascimento: Date
 	cpf: string
@@ -6,5 +6,5 @@ interface IAluno {
   uf_nascimento: string
 }
 
-export default IAluno
+export default IStudent
 

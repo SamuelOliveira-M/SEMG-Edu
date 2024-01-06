@@ -1,9 +1,9 @@
 import Validator from "../../../services/Validator"
-import IAluno from "../../../interface/IStudent"
+import IStudent from "../../../interface/IStudent"
 
 
 class CreateAlunoController{
-	async createAlunoController(dataStudent:IAluno){
+	async createAlunoController(dataStudent:IStudent){
 		
 		try{
 			const ValidatorStudent = Validator.studentValidator(dataStudent)

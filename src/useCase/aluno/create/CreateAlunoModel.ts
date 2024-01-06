@@ -1,24 +1,16 @@
 import { prisma } from "../../../lib/prisma";
-import IAluno from "../../../interface/IStudent";
-
+import IStudent from "../../../interface/IStudent";
+import ReadStudentModel from "../read/ReadStudentModel";
 
 class CreateAlunoModel{
-	async createAlunoModel({ 
-		nome,
-		data_nascimento,
-		municipio_nascimento,
-		uf_nascimento,
-		cpf,
-		}: IAluno,tx:any,responsavelId:string,addressId:string) {
+	async createAlunoModel(dataStudent: IStudent,tx:any,responsavelId:string,addressId:string) {
+		
+		const {nome,data_nascimento,municipio_nascimento,uf_nascimento,cpf} = dataStudent 
 		
 		const dataNascimentos = new Date(data_nascimento)
-
-
-			const alunoAlreadyExist = await tx.aluno.findFirst({
-				where:{
-					cpf
-				}
-			})
+		
+		const alunoAlreadyExist = await ReadStudentModel.readStudent(dataStudent)
+			
 
 			if(alunoAlreadyExist){
 				return {
