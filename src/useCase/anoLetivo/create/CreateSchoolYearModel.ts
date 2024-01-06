@@ -1,15 +1,12 @@
-
+import ISchoolYear from "../../../interface/ISchoolYear";
+import ReadSchoolYearModel from "../read/ReadSchoolYearModel";
 
 class CreateSchoolYearModel{
 	async createSchoolYearModel(dataSchooYear:ISchoolYear,tx:any){
 		const {data_inicio,data_finalizacao} = dataSchooYear
 		
 		
-		const schoolYearAlreadyExist = await tx.anoLetivo.findFirst({
-			where:{
-				data_inicio
-			}
-		});
+		const schoolYearAlreadyExist = await ReadSchoolYearModel.readSchoolYear(dataSchooYear)
 
 		if(schoolYearAlreadyExist){
 			return {
