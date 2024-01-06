@@ -1,21 +1,12 @@
-import { prisma } from "../../../lib/prisma"
-import Validator from "../../../services/Validator"
-
-interface IBodyAddress{     
-	rua: string 
-	cidade: string
-	estado: string
-	cep: string     
-}
+import IAddress from "../../../interface/IAddrees"
+import ReadAddressModel from "../read/ReadAddressModel"
 
 class CreateAddressModel{
-	async createAddressModel({rua,cidade,estado,cep}:IBodyAddress,tx:any){
+	async createAddressModel(dataAddress:IAddress,tx:any){
 		
-		const addressAlreadyExists = await tx.address.findFirst({
-			where:{
-				cep:cep
-			}
-		})
+		const {rua,cidade,estado,cep} = dataAddress
+
+		const addressAlreadyExists = await ReadAddressModel.readAddress(dataAddress)
 
 		if(addressAlreadyExists){
 			return{

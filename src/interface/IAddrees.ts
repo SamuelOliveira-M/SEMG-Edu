@@ -1,4 +1,4 @@
-interface IEndereco {
+interface IAddress {
 	rua:string;
   cidade:string;
   estado:string;
@@ -6,4 +6,4 @@ interface IEndereco {
   
 }
 
-export default IEndereco
+export default IAddress
