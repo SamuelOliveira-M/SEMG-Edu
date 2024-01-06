@@ -143,6 +143,22 @@ class Validator {
 		return null;
 	}
 
+	subjectValidator(registration:IRegistration){
+		const schema = Joi.object({
+			nome: Joi.string().min(2).max(60).required(),
+			carga_horaria:Joi.number().integer().positive().max(9999),
+		});
+
+		const validationResult = schema.validate(registration);
+
+		if (validationResult.error) {
+			const invalidField = validationResult.error?.details[0].path;
+			return invalidField;
+		}
+
+		return null;
+	}
+
 }
 
 export default new Validator;

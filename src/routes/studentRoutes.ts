@@ -7,6 +7,6 @@ const studentRoutes = express.Router();
 
 
 studentRoutes.post("/aluno",TransectionStudentController.studentCreationTransaction)
-studentRoutes.post("/matricular",CreateRegistrationController.createAlunoController)
+studentRoutes.post("/matricular",CreateRegistrationController.createMatriculaController)
 
 export default studentRoutes;

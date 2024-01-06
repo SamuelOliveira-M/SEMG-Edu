@@ -5,8 +5,7 @@ import swaggerDocs from './swagger.json'
 import dotenv from "dotenv";
 
 import studentRoutes from './routes/studentRoutes';
-import escolaRoutes from './routes/EscolaRoutes'; 
-import schoolClassRoutes from './routes/schoolClassRoutes';
+import schoolRoutes from './routes/schoolRoutes';
 
 dotenv.config();
 
@@ -20,9 +19,7 @@ app.use(morgan('dev'))
 app.use('/docs',swaggerUi.serve,swaggerUi.setup(swaggerDocs))
 
 app.use(studentRoutes)
-app.use(escolaRoutes)
-app.use(schoolClassRoutes)
-
+app.use(schoolRoutes)
 
 app.use((error:Error,request:Request,response:Response,next:NextFunction)=>{
   response.json({

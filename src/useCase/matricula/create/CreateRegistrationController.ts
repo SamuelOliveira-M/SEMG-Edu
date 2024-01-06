@@ -4,7 +4,7 @@ import CreateRegistrationModel from "./CreateRegistrationModel"
 
 
 class CreateRegistrationController{
-	async createAlunoController(req:Request,res:Response){
+	async createMatriculaController(req:Request,res:Response){
 		
 		let dataRegistration = req.body
 
@@ -20,7 +20,7 @@ class CreateRegistrationController{
 				})
 			}
 			
-			const registration = await CreateRegistrationModel.createAlunoModel(dataRegistration)
+			const registration = await CreateRegistrationModel.createMatriculaModel(dataRegistration)
 
 			if(registration.erro){
 				return res.json({

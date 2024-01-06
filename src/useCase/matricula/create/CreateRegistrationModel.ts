@@ -3,7 +3,7 @@ import IRegistration from "../../../interface/IRegistration";
 
 
 class CreateRegistrationModel{
-	async createAlunoModel(dataRegistration:IRegistration) {
+	async createMatriculaModel(dataRegistration:IRegistration) {
 		
 		const {numero_matricula,status,escola,turma,alunoId} = dataRegistration
 

@@ -68,7 +68,6 @@ model AnoLetivo{
 
   turmas                  Turma[]     @relation("AnoLetivoToTurma")
 
-
 }
 
 model Turma {
