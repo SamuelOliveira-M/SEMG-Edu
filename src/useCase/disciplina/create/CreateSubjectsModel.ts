@@ -1,5 +1,5 @@
 import { prisma } from "../../../lib/prisma";
-import ISubject from "../../../interface/IDiscipline";
+import ISubject from "../../../interface/ISubject";
 
 class CreateSubjectsModel{
 	async createSubjectsModel(dataSubject:ISubject) {

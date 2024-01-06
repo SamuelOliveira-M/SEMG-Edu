@@ -4,3 +4,4 @@ interface ITeacher{
   email: string
   senha: string      
 }
+export default ITeacher

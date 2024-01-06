@@ -159,6 +159,23 @@ class Validator {
 		return null;
 	}
 
+	teacherValidator(registration:IRegistration){
+		const schema = Joi.object({
+			nome: Joi.string().min(2).max(60).required(),
+			email:Joi.string().email().max(60),
+			senha: Joi.string().min(6).max(30).required(),
+		});
+
+		const validationResult = schema.validate(registration);
+
+		if (validationResult.error) {
+			const invalidField = validationResult.error?.details[0].path;
+			return invalidField;
+		}
+
+		return null;
+	}
+
 }
 
 export default new Validator;
