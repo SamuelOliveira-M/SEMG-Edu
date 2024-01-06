@@ -176,6 +176,23 @@ class Validator {
 		return null;
 	}
 
+	gradeValidator(registration:IRegistration){
+		const schema = Joi.object({
+			nota:Joi.number().integer().min(0).max(10),
+			mes:Joi.number().integer().min(0).max(12),
+
+		});
+
+		const validationResult = schema.validate(registration);
+
+		if (validationResult.error) {
+			const invalidField = validationResult.error?.details[0].path;
+			return invalidField;
+		}
+
+		return null;
+	}
+
 }
 
 export default new Validator;

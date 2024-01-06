@@ -9,17 +9,21 @@ class CreateStudentGuardiansModel{
   	telefone_secundario
 	}:IStudentGuardians,tx:any){
 
-		const responsaveis = await tx.responsavel.findFirst({
+		const responsaveisAlreadyExists = await tx.responsavel.findFirst({
 			where: {
-				nome_pai: nome_pai,
-				nome_mae: nome_mae,
+				nome_pai: {
+					equals: nome_pai,
+				},
+				nome_mae: {
+					equals: nome_mae,
+				},
 			},
 		});
 
-		if(responsaveis){
+		if(responsaveisAlreadyExists){
 			return{
 				"message":"Responsável já existe no sistema",
-				"data":responsaveis
+				"data":responsaveisAlreadyExists
 			}
 		}
 

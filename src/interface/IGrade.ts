@@ -1,7 +1,9 @@
-interface INote{
+interface IGrade{
 	id: string
   nota: number
   mes: number      
-  disciplinaId: string
+  disciplina: string
   matriculaId: string
 }
+
+export default IGrade
