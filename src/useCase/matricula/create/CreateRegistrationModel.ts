@@ -1,20 +1,14 @@
 import { prisma } from "../../../lib/prisma";
 import IRegistration from "../../../interface/IRegistration";
+import ReadStudentModel from "../../aluno/read/ReadStudentModel";
 
 
 class CreateRegistrationModel{
 	async createMatriculaModel(dataRegistration:IRegistration) {
 		
-		const {numero_matricula,status,escola,turma,alunoId} = dataRegistration
+		const {numero_matricula,status,escola,turma,cpf} = dataRegistration
 
-		const studentAlreadyExists= await prisma.aluno.findUnique({
-			where: {
-				id: alunoId,
-			},
-			include: {
-				matricula: true,
-			},
-		});
+		const studentAlreadyExists = await ReadStudentModel.readStudent(cpf)
 
 		if (studentAlreadyExists && studentAlreadyExists.matricula) {
 			return {
@@ -40,23 +34,23 @@ class CreateRegistrationModel{
 		if (school) {
 			
 			if (school.turmas && school.turmas.length > 0) {
+				if(studentAlreadyExists){
+					const registration = await prisma.matricula.create({
+						data:{
+							numero_matricula,
+							status,
+							escolaId:school.id,
+							turmaId:school.turmas[0].id,
+							alunoId:studentAlreadyExists.id
+						}
+					})
 			
-				const registration = await prisma.matricula.create({
-					data:{
-						numero_matricula,
-						status,
-						escolaId:school.id,
-						turmaId:school.turmas[0].id,
-						alunoId
+					return {
+						"erro":false,
+						"message":"Matricula criado com sucesso",	
+						"data":registration
 					}
-				})
-		
-				return {
-					"erro":false,
-					"message":"Matricula criado com sucesso",	
-					"data":registration
 				}
-				
 			
 			} else {
 				return {

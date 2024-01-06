@@ -4,7 +4,7 @@ interface IRegistration{
 	status: string
 	escola: string          
   turma: string
-	alunoId: string
+	cpf: string
 }
 
 export default IRegistration

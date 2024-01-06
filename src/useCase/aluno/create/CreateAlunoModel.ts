@@ -9,7 +9,7 @@ class CreateAlunoModel{
 		
 		const dataNascimentos = new Date(data_nascimento)
 		
-		const alunoAlreadyExist = await ReadStudentModel.readStudent(dataStudent)
+		const alunoAlreadyExist = await ReadStudentModel.readStudent(cpf)
 			
 
 			if(alunoAlreadyExist){
