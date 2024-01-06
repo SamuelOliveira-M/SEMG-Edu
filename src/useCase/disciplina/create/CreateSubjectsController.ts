@@ -22,13 +22,6 @@ class CreateSubjectsController{
 			
 			const subject = await CreateRegistrationModel.createSubjectsModel(dataSubject)
 
-			if(subject.erro){
-				return res.json({
-					"error":subject.erro,
-					"message":subject.message
-				})
-			}
-
 			return res.json(subject)
 
 		}catch(e){

@@ -27,7 +27,6 @@ class CreateSubjectsModel{
 		})
 		
 		return {
-			"erro":false,
 			"message":"Disciplina criado com sucesso",	
 			"data":subject
 		}
