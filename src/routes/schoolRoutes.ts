@@ -1,6 +1,6 @@
 import express  from "express";
 import TransetionSchoolClassController from "../useCase/turma/transetion/TransetionSchoolClassController";
-import CreateSubjectsController from "../useCase/disciplina/create/CreateSubjectsController";
+import CreateSubjectsController from "../useCase/disciplina/create/CreateSubjectController";
 import TransetionSchoolController from "../useCase/escola/transetion/TransetionSchoolController";
 import CreateTeacherController from "../useCase/professor/create/CreateTeacherController";
 import CreateGradeController from "../useCase/notas/create/CreateGradeController";

@@ -1,16 +1,13 @@
 import { prisma } from "../../../lib/prisma";
 import ISubject from "../../../interface/ISubject";
+import ReadSubjectModel from "../read/ReadSubjectModel";
 
 class CreateSubjectsModel{
 	async createSubjectsModel(dataSubject:ISubject) {
 		
 		const {nome,carga_horaria} = dataSubject
 
-		const subjectAlreadyExists= await prisma.disciplina.findUnique({
-			where: {
-				id: nome,
-			}
-		});
+		const subjectAlreadyExists= await ReadSubjectModel.readSubject(dataSubject)
 
 		if (subjectAlreadyExists) {
 			return {

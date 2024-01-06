@@ -1,6 +1,6 @@
 import { Request,Response } from "express"
 import Validator from "../../../services/Validator"
-import CreateRegistrationModel from "./CreateSubjectsModel"
+import CreateRegistrationModel from "./CreateSubjectModel"
 
 
 class CreateSubjectsController{
