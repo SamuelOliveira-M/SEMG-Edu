@@ -1,5 +1,7 @@
 import { prisma } from "../../../lib/prisma";
 import IGrade from "../../../interface/IGrade";
+import ReadSubjectModel from "../../disciplina/read/ReadSubjectModel";
+import ReadGradeModel from "../read/ReadGradeModel";
 
 class CreateGradeModel{
 	async createGradeModel(dataGrade:IGrade) {
@@ -7,11 +9,7 @@ class CreateGradeModel{
 		const {nota,mes,disciplina,matriculaId} = dataGrade
 
 
-		const subjectAlreadyExist = await prisma.disciplina.findFirst({
-			where:{
-				nome:disciplina
-			}
-		})
+		const subjectAlreadyExist = await ReadSubjectModel.readSubject(disciplina)
 
 		if(!subjectAlreadyExist){
 			return({
@@ -20,23 +18,11 @@ class CreateGradeModel{
 			})
 		}
 
-		const gradeAlreadyExists = await prisma.nota.findFirst({
-			where: {
-				nota: {
-					equals: nota,
-				},
-				mes: {
-					equals: mes,
-				},
-				disciplinaId:{
-					equals: subjectAlreadyExist.id,
-				},
-				matriculaId:{
-					equals: matriculaId,
-				}
-			},
-		});
-
+		const gradeAlreadyExists = await ReadGradeModel.readGrade(
+			dataGrade,
+			subjectAlreadyExist.id,
+			matriculaId
+		)
 
 		if (gradeAlreadyExists) {
 			return {

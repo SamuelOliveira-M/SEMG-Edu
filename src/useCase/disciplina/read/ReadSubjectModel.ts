@@ -3,9 +3,7 @@ import { prisma } from "../../../lib/prisma"
 
 
 class ReadSubjectModel{
-	async readSubject(dataSubject:ISubject){
-		
-		const {nome} = dataSubject
+	async readSubject(nome:string){
 		
 		const subjectAlreadyExists= await prisma.disciplina.findFirst({
 			where: {

@@ -1,6 +1,7 @@
 import { prisma } from "../../../lib/prisma";
 import ITeacher from "../../../interface/ITeacher";
 import { hash } from "bcryptjs";
+import ReadTeacherModel from "../read/ReadTeacherModel";
 
 
 class CreateTeacherModel{
@@ -8,11 +9,7 @@ class CreateTeacherModel{
 		
 		const {nome,email,senha} = dataTeacher
 
-		const teacherAlreadyExists= await prisma.professor.findUnique({
-			where: {
-				id: nome,
-			}
-		});
+		const teacherAlreadyExists= await ReadTeacherModel.readTeacher(email)
 
 		if (teacherAlreadyExists) {
 			return {

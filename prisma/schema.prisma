@@ -125,6 +125,8 @@ model Disciplina {
 model Professor {
   id                      String      @id @default(uuid())
   nome                    String
+  
+  cpf                     String ?    @unique
   email                   String      @unique
   senha                   String      
 
