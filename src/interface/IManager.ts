@@ -3,5 +3,6 @@ interface IManager{
   nome: string
   email: string      
 	senha: string
-
 }
+
+export default IManager
