@@ -5,3 +5,5 @@ interface ISchollClass{
   escolaId: string
   ano_letivoId: string  
 }
+
+export default ISchollClass

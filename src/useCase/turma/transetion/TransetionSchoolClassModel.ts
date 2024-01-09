@@ -1,6 +1,8 @@
 import { prisma } from "../../../lib/prisma"
+import ISchoolYear from "../../../interface/ISchoolYear";
 import CreateSchoolYearModel from "../../anoLetivo/create/CreateSchoolYearModel";
 import CreateSchoolClassModel from "../create/CreateSchoolClassModel";
+import ISchollClass from "../../../interface/ISchoolClass";
 
 class TransetionSchoolClassModel{
 	async TransetionSchoolClassModel(dataSchooYear:ISchoolYear,dataSchoolClass:ISchollClass,cod_inep:string){

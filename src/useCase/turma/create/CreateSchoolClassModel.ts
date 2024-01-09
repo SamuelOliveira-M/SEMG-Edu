@@ -1,21 +1,16 @@
+import ISchollClass from "../../../interface/ISchoolClass";
+import ReadSchoolClassModel from "../read/ReadSchoolClassModel";
 
 class CreateSchoolClassModel{
 	async schoolClassModel(dataSchooClass:ISchollClass,tx:any){
 		const {nome,serie,turno,escolaId,ano_letivoId} = dataSchooClass
 
-		const schoolClassAlreadyExist = await tx.turma.findFirst({
-			where: {
-				nome: {
-					equals: nome,
-				},
-				escolaId: {
-					equals: escolaId,
-				},
-				ano_letivoId: {
-					equals: ano_letivoId,
-				},
-			},
-		});
+		const schoolClassAlreadyExist = await ReadSchoolClassModel.readSchoolClass(
+			nome,
+			escolaId,
+			ano_letivoId
+		)
+
 
 		if(schoolClassAlreadyExist){
 			return {
