@@ -1,24 +1,15 @@
-import { prisma } from "../../../lib/prisma";
 import IStudentGuardians from "../../../interface/IStudentGuardians";
+import ReadStudentGuardiansModel from "../read/ReadStudentGuardiansModel"; 
 
 class CreateStudentGuardiansModel{
-	async createStudentGuardians({ 
-  	nome_pai, 
-  	nome_mae,
-  	telefone,
-  	telefone_secundario
-	}:IStudentGuardians,tx:any){
+	async createStudentGuardians(dataStudentGuardians:IStudentGuardians,tx:any){
 
-		const responsaveisAlreadyExists = await tx.responsavel.findFirst({
-			where: {
-				nome_pai: {
-					equals: nome_pai,
-				},
-				nome_mae: {
-					equals: nome_mae,
-				},
-			},
-		});
+		const {nome_pai,nome_mae,telefone,telefone_secundario} = dataStudentGuardians
+
+		const responsaveisAlreadyExists = await ReadStudentGuardiansModel.readStudentGuardians(
+			nome_pai,
+			nome_mae,
+		);
 
 		if(responsaveisAlreadyExists){
 			return{
