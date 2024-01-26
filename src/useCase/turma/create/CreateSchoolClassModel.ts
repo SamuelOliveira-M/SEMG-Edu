@@ -3,12 +3,12 @@ import ReadSchoolClassModel from "../read/ReadSchoolClassModel";
 
 class CreateSchoolClassModel{
 	async schoolClassModel(dataSchooClass:ISchollClass,tx:any){
-		const {nome,serie,turno,escolaId,ano_letivoId} = dataSchooClass
+		const {nome,serie,turno,escolaId,ano_letivoId,status} = dataSchooClass
 
 		const schoolClassAlreadyExist = await ReadSchoolClassModel.readSchoolClass(
 			nome,
 			escolaId,
-			ano_letivoId
+			ano_letivoId,
 		)
 
 
@@ -24,6 +24,7 @@ class CreateSchoolClassModel{
 				nome,
 				serie,
 				turno,
+				status,
 				escolaId,
 				ano_letivoId
 			}

@@ -18,6 +18,17 @@ class ReadSchoolClassModel{
 
 		return schoolClassAlreadyExist
 	}
+
+	async readSchoolClassAll(){
+		const schoolClassAlreadyExist = await prisma.turma.findMany({
+			include:{
+				ano_letivo:true
+			}
+
+		})
+					
+		return schoolClassAlreadyExist
+	}
 }
 
 export default new ReadSchoolClassModel()

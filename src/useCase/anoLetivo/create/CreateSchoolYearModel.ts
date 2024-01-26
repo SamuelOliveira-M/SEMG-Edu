@@ -3,7 +3,7 @@ import ReadSchoolYearModel from "../read/ReadSchoolYearModel";
 
 class CreateSchoolYearModel{
 	async createSchoolYearModel(dataSchooYear:ISchoolYear,tx:any){
-		const {data_inicio,data_finalizacao} = dataSchooYear
+		const {data_inicio} = dataSchooYear
 		
 		
 		const schoolYearAlreadyExist = await ReadSchoolYearModel.readSchoolYear(dataSchooYear)
@@ -18,7 +18,6 @@ class CreateSchoolYearModel{
 		const schoolYear = await tx.anoLetivo.create({
 			data:{
 				data_inicio,
-				data_finalizacao
 			}
 		});
 

@@ -6,6 +6,10 @@ import IEndereco from '../interface/IAddrees';
 import IStudentGuardians from '../interface/IStudentGuardians';
 import ISchool from '../interface/ISchool';
 import IRegistration from '../interface/IRegistration';
+import ISchoolYear from '../interface/ISchoolYear';
+import ISchollClass from '../interface/ISchoolClass'; 
+import IManager from '../interface/IManager';
+import ITeacher from '../interface/ITeacher';
 
 class Validator {
   
@@ -93,8 +97,7 @@ class Validator {
 
 	schoolYearValidator(schoolYear:ISchoolYear){
 		const schema = Joi.object({
-			data_inicio: Joi.date().required(),
-			data_finalizacao:Joi.date().required()
+			data_inicio: Joi.date().iso().required(),
 		});
 
 		const validationResult = schema.validate(schoolYear);
@@ -112,6 +115,7 @@ class Validator {
 			nome: Joi.string().min(1).max(1).required(),
 			serie: Joi.number().integer().positive().max(9),
 			turno: Joi.string().min(2).max(40).required(),
+			status: Joi.string().valid('concluido', 'pendente').required(),
 		});
 
 		const validationResult = schema.validate(schoolClass);
@@ -159,14 +163,14 @@ class Validator {
 		return null;
 	}
 
-	teacherValidator(registration:IRegistration){
+	teacherValidator(teacher:ITeacher){
 		const schema = Joi.object({
 			nome: Joi.string().min(2).max(60).required(),
 			email:Joi.string().email().max(60),
 			senha: Joi.string().min(6).max(30).required(),
 		});
 
-		const validationResult = schema.validate(registration);
+		const validationResult = schema.validate(teacher);
 
 		if (validationResult.error) {
 			const invalidField = validationResult.error?.details[0].path;
@@ -184,6 +188,23 @@ class Validator {
 		});
 
 		const validationResult = schema.validate(registration);
+
+		if (validationResult.error) {
+			const invalidField = validationResult.error?.details[0].path;
+			return invalidField;
+		}
+
+		return null;
+	}
+
+	managerValidator(manager:IManager){
+		const schema = Joi.object({
+			nome: Joi.string().min(2).max(60).required(),
+			email:Joi.string().email().max(60),
+			senha: Joi.string().min(6).max(30).required(),
+		});
+
+		const validationResult = schema.validate(manager);
 
 		if (validationResult.error) {
 			const invalidField = validationResult.error?.details[0].path;

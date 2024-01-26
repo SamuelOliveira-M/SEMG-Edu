@@ -1,4 +1,5 @@
 import Validator from "../../../services/Validator";
+import ISchollClass from "../../../interface/ISchoolClass";
 
 class CreateSchoolClassController{
 	createSchoolClass(dataSchoolClass:ISchollClass){

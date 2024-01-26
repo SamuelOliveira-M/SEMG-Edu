@@ -1,11 +1,10 @@
 import Validator from "../../../services/Validator";
+import ISchoolYear from "../../../interface/ISchoolYear";
 
 class CreateSchoolYearController{
 	createSchoolYear(dataSchooYear:ISchoolYear){
 
-		dataSchooYear.data_inicio = new Date(dataSchooYear.data_inicio)
-		dataSchooYear.data_finalizacao = new Date(dataSchooYear.data_finalizacao)
-
+	
 		try{
 			const validatorSchoolYear = Validator.schoolYearValidator(dataSchooYear)
 

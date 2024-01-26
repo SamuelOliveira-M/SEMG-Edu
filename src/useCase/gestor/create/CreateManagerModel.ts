@@ -4,6 +4,7 @@ import { hash } from "bcryptjs";
 import ReadManagerModel from "../read/ReadManagerModel";
 
 
+
 class CreateManagerModel{
 	async createManagerModel(dataManager:IManager) {
 		
@@ -13,7 +14,7 @@ class CreateManagerModel{
 
 		if (managerAlreadyExists) {
 			return {
-				"message":"Disciplina já existe no sistema",
+				"message":"Gestor já existe no sistema",
 				"data":managerAlreadyExists
 			}
 		}
@@ -29,7 +30,7 @@ class CreateManagerModel{
 		})
 		
 		return {
-			"message":"Disciplina criado com sucesso",	
+			"message":"Gestor criado com sucesso",	
 			"data":manager
 		}
 	}
