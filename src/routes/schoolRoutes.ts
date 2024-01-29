@@ -22,5 +22,7 @@ schoolRoutes.post("/gestor",CreateManagerController.createTeacherController)
 schoolRoutes.post("/professo",ReadTeacherController.readTeacherController)
 schoolRoutes.get("/gestor",ReadManagerController.readManagerController)
 schoolRoutes.get("/class",ReadSchoolClassController.readSchoolClass)
+schoolRoutes.get("/class/:id",ReadSchoolClassController.readSchoolClassFindFirst)
+
 
 export default schoolRoutes;
