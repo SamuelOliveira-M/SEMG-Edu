@@ -3,7 +3,7 @@ interface IRegistration{
   numero_matricula: string
 	status: string
 	escola: string          
-  turma: string
+  idTurma: string
 	cpf: string
 }
 

@@ -39,6 +39,7 @@ model Aluno{
   municipio_nascimento    String
   uf_nascimento           String
   cpf                     String ?    @unique
+  url_image               String ?
 
   responsavelId           String      @unique
   addressId               String      @unique
@@ -91,7 +92,7 @@ model Matricula {
   status                  String 
   
   escolaId                String                
-  turmaId                 String     
+  turmaId                 String      
   alunoId                 String      @unique
 
   escola                  Escola      @relation(fields: [escolaId],references: [id] ,onDelete: Cascade)

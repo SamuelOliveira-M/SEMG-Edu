@@ -26,6 +26,7 @@ class CreateStudentGuardiansModel{
 				telefone_secundario
 			}
 		})
+
 		return{
 			"message":"Responsavél criado com sucesso",
 			"data":studentGuardians

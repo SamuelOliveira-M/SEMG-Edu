@@ -13,20 +13,17 @@ class CreateStudentGuardiansController{
 			telefone_secundario
 		})
 		
-
 		if(validatorStudentGuardions){
 			return({
 				"error":true,
 				"message":"O campo "+validatorStudentGuardions+" é invalido"
 			})
 		}
-
+		
 		return({
 			"error":false,
 			"message":"Campos validos"
 		})
-			
-		
 	}
 }
 

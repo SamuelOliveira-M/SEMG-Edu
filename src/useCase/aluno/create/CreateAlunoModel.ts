@@ -1,9 +1,15 @@
-import { prisma } from "../../../lib/prisma";
+// import { prisma } from "../../../lib/prisma";
 import IStudent from "../../../interface/IStudent";
 import ReadStudentModel from "../read/ReadStudentModel";
 
 class CreateAlunoModel{
-	async createAlunoModel(dataStudent: IStudent,tx:any,responsavelId:string,addressId:string) {
+	async createAlunoModel (
+		dataStudent: IStudent,
+		tx:any,
+		responsavelId:string,
+		addressId:string,
+		urlImage:string
+		) {
 		
 		const {nome,data_nascimento,municipio_nascimento,uf_nascimento,cpf} = dataStudent 
 		
@@ -18,18 +24,21 @@ class CreateAlunoModel{
 					"data":alunoAlreadyExist
 				}
 			}
-
+			
 			const aluno = await tx.aluno.create({
 				data:{
-					nome ,
+					nome,
 					data_nascimento:dataNascimentos,
 					municipio_nascimento,
 					uf_nascimento,
 					cpf,
+					url_image:	urlImage,
 					responsavelId,
 					addressId
 				}
 			})
+			console.log('satttsaa')
+
 
 		return {
 			"message":"Aluno criado com sucesso",	

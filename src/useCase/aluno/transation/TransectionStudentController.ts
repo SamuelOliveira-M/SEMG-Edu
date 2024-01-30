@@ -10,16 +10,18 @@ import TransectionStudentModel from "./TransectionStudentModel";
 class TransactionStudantController{
 	async studentCreationTransaction(req:Request,res:Response){
 		const error = []
+			
+		const jsonString = req.body.data
+		const { dataStudent, dataAddress, dataResponsibile } = JSON.parse(jsonString);
 		
-		const {dataStudent,dataAddress,dataResponsibile} = req.body
-
+		const urlImage = req.headers.filebaseUrl as string;
 		try{
+				
 			const address = await CreateAddresController.createAddress(dataAddress)
-
+			
 			if(address.error){
 				error.push(address)
 			}
-
 			const resposibile = await CreateStudentGuardiansController.CreateStudentGuardians(dataResponsibile)
 			if(resposibile.error){
 				error.push(resposibile)
@@ -29,11 +31,8 @@ class TransactionStudantController{
 			
 			const student = await CreateAlunoController.createAlunoController(dataStudent) 
 			if(student?.error){
-				console.log(student?.error)
 				error.push(student)
 			}
-
-			console.log(error)
 
 			if(error.length>0){
 				res.json(error) 
@@ -42,11 +41,27 @@ class TransactionStudantController{
 			const transactionStudant = await TransectionStudentModel.transactionStudantModel({
 				dataStudent,
 				dataAddress,
-				dataResponsibile
+				dataResponsibile,
+				urlImage
 			})
+
+			const file = transactionStudant.student.data.url_image
+
+			const signedUrl = await file.getSignedUrl({
+				action: 'read',
+				expires: Date.now() + 60 * 60 * 1000, // 1 hora em milissegundos
+			});
+
+			console.log('URL assinado:', signedUrl[0]);
+
+
 			res.json(transactionStudant)
 
 		}catch(e){
+			// if(error.length>0){
+			// 	res.json(error)
+			// }
+			// res.status(500).json(e)
 			console.log(e)
 		}
 	}

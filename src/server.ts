@@ -3,11 +3,37 @@ import morgan from 'morgan'
 import swaggerUi from 'swagger-ui-express'
 import swaggerDocs from './swagger.json'
 import dotenv from "dotenv";
+import admin from "firebase-admin";
+import path from 'path';
+import * as fs from 'fs';
 
 import studentRoutes from './routes/studentRoutes';
 import schoolRoutes from './routes/schoolRoutes';
 
 dotenv.config();
+
+const configPath = process.env.FIREBASE_CONFIG_PATH;
+
+if (!configPath) {
+  console.error('Variável de ambiente FIREBASE_CONFIG_PATH não definida.');
+  process.exit(1);
+}
+
+// Crie o caminho absoluto para o arquivo de configuração JSON
+const absoluteConfigPath = path.resolve(__dirname, configPath);
+// Carrega o arquivo de configuração JSON usando fs.readFileSync
+const configData = fs.readFileSync(absoluteConfigPath, 'utf8');
+
+const serviceAccount = JSON.parse(configData) as admin.ServiceAccount;
+
+const BUCKET = process.env.FIREBASE_STORAGE_BUCKET;
+
+// Initialize Firebase
+admin.initializeApp({
+  credential:admin.credential.cert(serviceAccount),
+  storageBucket: BUCKET
+});
+
 
 const app = express()
 const port = process.env.PORT || 3333

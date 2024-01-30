@@ -130,3 +130,4 @@ dist
 .pnp.*
 
 /src/config/service-account-file.json
+/src/config/serviceAccountKey.json

@@ -22,7 +22,7 @@ class CreateRegistrationController{
 			
 			const registration = await CreateRegistrationModel.createMatriculaModel(dataRegistration)
 
-			if(registration.erro){
+			if(registration?.erro){
 				return res.json({
 					"error":registration.erro,
 					"message":registration.message

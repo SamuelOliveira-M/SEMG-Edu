@@ -6,6 +6,9 @@ interface ITransaction {
   dataStudent: IAluno; 
   dataAddress: IEndereco; 
   dataResponsibile: IStudentGuardians;
+  urlImage:string;
 }
+
+
 
 export default ITransaction;

@@ -133,7 +133,7 @@ class Validator {
 			numero_matricula:Joi.string(),
 			status: Joi.string().min(2).max(40).required(),
 			escola: Joi.string().min(8).max(8).trim().pattern(/^[0-9]+$/),
-			turma: Joi.string().min(2).max(40).required(),
+			idTurma: Joi.string().min(2).max(80).required(),
 			alunoId:Joi.string().min(2).max(40).required()
 		});
 

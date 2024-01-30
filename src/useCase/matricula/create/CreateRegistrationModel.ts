@@ -6,7 +6,7 @@ import ReadStudentModel from "../../aluno/read/ReadStudentModel";
 class CreateRegistrationModel{
 	async createMatriculaModel(dataRegistration:IRegistration) {
 		
-		const {numero_matricula,status,escola,turma,cpf} = dataRegistration
+		const {numero_matricula,status,escola,idTurma,cpf} = dataRegistration
 
 		const studentAlreadyExists = await ReadStudentModel.readStudent(cpf)
 
@@ -24,7 +24,7 @@ class CreateRegistrationModel{
 			include: {
 				turmas: {
 					where: {
-						nome: turma,
+						id: idTurma,
 					},
 				},
 			},

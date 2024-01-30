@@ -5,7 +5,7 @@ class CreateAddressModel{
 	async createAddressModel(dataAddress:IAddress,tx:any){
 		
 		const {rua,cidade,estado,cep} = dataAddress
-
+		
 		const addressAlreadyExists = await ReadAddressModel.readAddress(dataAddress)
 
 		if(addressAlreadyExists){
