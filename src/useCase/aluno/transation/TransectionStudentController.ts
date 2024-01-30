@@ -44,17 +44,7 @@ class TransactionStudantController{
 				dataResponsibile,
 				urlImage
 			})
-
-			const file = transactionStudant.student.data.url_image
-
-			const signedUrl = await file.getSignedUrl({
-				action: 'read',
-				expires: Date.now() + 60 * 60 * 1000, // 1 hora em milissegundos
-			});
-
-			console.log('URL assinado:', signedUrl[0]);
-
-
+			
 			res.json(transactionStudant)
 
 		}catch(e){

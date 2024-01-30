@@ -25,7 +25,6 @@ class TransactionStudantModel{
 				addressId,
 				urlImage
 			);
-			console.log(student)
 			
 			return {
 				"address":address,
