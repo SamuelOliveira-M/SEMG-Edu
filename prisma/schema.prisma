@@ -112,6 +112,7 @@ model Nota{
   disciplina              Disciplina  @relation(fields: [disciplinaId],references: [id],onDelete: Cascade)
   matricula               Matricula   @relation(fields: [matriculaId],references: [id],onDelete: Cascade)
 
+
 }
 
 model Disciplina {

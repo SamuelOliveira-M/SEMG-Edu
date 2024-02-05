@@ -19,6 +19,8 @@ schoolRoutes.post("/professor",CreateTeacherController.createTeacherController)
 schoolRoutes.post("/nota",CreateGradeController.CreateGradeController)
 schoolRoutes.post("/gestor",CreateManagerController.createTeacherController)
 
+schoolRoutes.post("/login",CreateManagerController.createTeacherController)
+
 schoolRoutes.post("/professo",ReadTeacherController.readTeacherController)
 schoolRoutes.get("/gestor",ReadManagerController.readManagerController)
 schoolRoutes.get("/class",ReadSchoolClassController.readSchoolClass)
