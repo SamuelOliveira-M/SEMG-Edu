@@ -16,12 +16,11 @@ schoolRoutes.post("/escola",TransetionSchoolController.transetionSchool)
 schoolRoutes.post("/turma/:cod_inep",TransetionSchoolClassController.transetionSchoolClass)
 schoolRoutes.post("/disciplina",CreateSubjectsController.createSubjectsController)
 schoolRoutes.post("/professor",CreateTeacherController.createTeacherController)
-schoolRoutes.post("/nota",CreateGradeController.CreateGradeController)
+schoolRoutes.post("/nota/:registrationId",CreateGradeController.CreateGradeController)
 schoolRoutes.post("/gestor",CreateManagerController.createTeacherController)
-
 schoolRoutes.post("/login",CreateManagerController.createTeacherController)
-
 schoolRoutes.post("/professo",ReadTeacherController.readTeacherController)
+
 schoolRoutes.get("/gestor",ReadManagerController.readManagerController)
 schoolRoutes.get("/class",ReadSchoolClassController.readSchoolClass)
 schoolRoutes.get("/class/:id",ReadSchoolClassController.readSchoolClassFindFirst)

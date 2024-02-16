@@ -6,7 +6,7 @@ class ReadGradeModel{
 		
 		const {nota,mes} = dataGrade
 		
-		const gradeAlreadyExists = await prisma.nota.findFirst({
+		const gradeAlreadyExists = await prisma.avaliacao.findFirst({
 			where: {
 				nota: {
 					equals: nota,
@@ -22,8 +22,21 @@ class ReadGradeModel{
 				}
 			},
 		});
-		
+
 		return gradeAlreadyExists
+	}
+	async readGradeAluno(registrationId:string){
+		
+		const studantGrade = await prisma.avaliacao.findMany({
+			where: {
+				matriculaId:registrationId
+			},
+			include:{
+				disciplina:true
+			}
+		});
+	
+		return studantGrade
 	}
 }
 

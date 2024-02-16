@@ -3,9 +3,9 @@ import { prisma } from "../../../lib/prisma"
 
 
 class ReadRegistrationModel{
-	readRegistration(registrationId:string){
+	async readRegistration(registrationId:string){
 
-		const matriculas = prisma.matricula.findFirst({
+		const matriculas = await prisma.matricula.findFirst({
 			where: {
 				id: registrationId,
 			},
@@ -29,9 +29,9 @@ class ReadRegistrationModel{
 		return matriculas
 	}
 
-	readclassRegistration(turmaId:string){
+	async readclassRegistration(turmaId:string){
 		
-		const matriculas = prisma.matricula.findMany({
+		const matriculas = await prisma.matricula.findMany({
 			where:{
 				turmaId:turmaId
 			},
@@ -42,14 +42,14 @@ class ReadRegistrationModel{
 
 		return matriculas
 	}
-	readclassRegistrationNotes(turmaId:string){
+	async readclassRegistrationNotes(turmaId:string){
 		
-		const matriculas = prisma.matricula.findMany({
+		const matriculas = await prisma.matricula.findMany({
 			where:{
 				turmaId:turmaId
 			},
 			include:{
-				notas:{
+				avaliacao:{
 					include:{
 						disciplina:true
 					}

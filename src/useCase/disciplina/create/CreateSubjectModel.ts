@@ -7,7 +7,7 @@ class CreateSubjectsModel{
 		
 		const {nome,carga_horaria} = dataSubject
 
-		const subjectAlreadyExists= await ReadSubjectModel.readSubject(dataSubject)
+		const subjectAlreadyExists= await ReadSubjectModel.readSubject(nome)
 
 		if (subjectAlreadyExists) {
 			return {

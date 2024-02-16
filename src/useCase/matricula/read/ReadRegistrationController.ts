@@ -10,7 +10,7 @@ class ReadRegistrationController{
 		try{
 			
 			const registration = await ReadRegistrationModel.readclassRegistration(id)
-			
+			console.log(registration)
 			return res.json(registration)
 
 		}catch(e){

@@ -6,7 +6,7 @@ class CreateSchoolYearModel{
 		const {data_inicio} = dataSchooYear
 		
 		
-		const schoolYearAlreadyExist = await ReadSchoolYearModel.readSchoolYear(dataSchooYear)
+		const schoolYearAlreadyExist = await ReadSchoolYearModel.readSchoolYear(dataSchooYear.data_inicio)
 
 		if(schoolYearAlreadyExist){
 			return {

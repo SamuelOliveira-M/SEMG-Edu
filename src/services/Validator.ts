@@ -1,4 +1,4 @@
-import Joi from 'joi';
+import Joi, { number } from 'joi';
 import axios from 'axios';
 
 import IAluno from '../interface/IStudent';
@@ -10,6 +10,7 @@ import ISchoolYear from '../interface/ISchoolYear';
 import ISchollClass from '../interface/ISchoolClass'; 
 import IManager from '../interface/IManager';
 import ITeacher from '../interface/ITeacher';
+import IGrade from '../interface/IGrade';
 
 class Validator {
   
@@ -180,15 +181,21 @@ class Validator {
 		return null;
 	}
 
-	gradeValidator(registration:IRegistration){
+	gradeValidator(grade:IGrade){
+
 		const schema = Joi.object({
-			nota:Joi.number().integer().min(0).max(10),
-			mes:Joi.number().integer().min(0).max(12),
+			tipo:Joi.string().valid('normal', 'recuperação', 'final'),
+			nota:Joi.number().min(0).max(10),
+			mes:Joi.number().min(3).max(11).integer(),
+			semestre:Joi.number().min(1).max(2),
+			anoLetivo:Joi.date(),
+			matriculaId:Joi.string(),
+			disciplina:Joi.string().max(60)
+		});	
 
-		});
 
-		const validationResult = schema.validate(registration);
-
+		const validationResult = schema.validate(grade);
+		
 		if (validationResult.error) {
 			const invalidField = validationResult.error?.details[0].path;
 			return invalidField;

@@ -1,5 +1,5 @@
 interface ISchoolYear{
-  data_inicio: string
+  data_inicio: Date
 } 
 
 export default ISchoolYear

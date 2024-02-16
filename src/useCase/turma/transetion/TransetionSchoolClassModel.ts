@@ -19,10 +19,9 @@ class TransetionSchoolClassModel{
 			if(!SchoolAlreadyExist){
 				return "Escola não existe"
 			}
-
 			const schoolYear = await CreateSchoolYearModel.createSchoolYearModel(dataSchooYear,tx)
-			
-			const nomeTurma = `${dataSchoolClass.serie} ano ${dataSchoolClass.nome} - ${dataSchoolClass.turno} - ${schoolYear.data.data_inicio}`
+			const ano = schoolYear.data.data_inicio.getFullYear()
+			const nomeTurma = `${dataSchoolClass.serie}º ano ${dataSchoolClass.nome} - ${dataSchoolClass.turno} - ${ano}`
 			
 			dataSchoolClass.escolaId = SchoolAlreadyExist.id
 			dataSchoolClass.ano_letivoId = schoolYear.data.id

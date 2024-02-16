@@ -64,10 +64,10 @@ model Escola {
 
 model AnoLetivo{
   id                      String      @id @default(uuid())
-  data_inicio             String    
+  data_inicio             DateTime
 
   turmas                  Turma[]     @relation("AnoLetivoToTurma")
-
+  avaliacoes             Avaliacao[]  
 }
 
 model Turma {
@@ -98,30 +98,35 @@ model Matricula {
   escola                  Escola      @relation(fields: [escolaId],references: [id] ,onDelete: Cascade)
   turma                   Turma       @relation(fields: [turmaId], references: [id],onDelete: Cascade)
   aluno                   Aluno       @relation(fields: [alunoId], references: [id],onDelete: Cascade)
-  notas                   Nota[]
+  avaliacao               Avaliacao[]
 }
 
-model Nota{
+model Avaliacao{
   id                      String      @id @default(uuid())
-  nota                    Int
-  mes                     Int         
+  tipo                    String
+  nota                    Float
+  mes                     Int ?         
+  semestre                Int
 
+  anoLetivoId             String
   disciplinaId            String      
   matriculaId             String      
 
   disciplina              Disciplina  @relation(fields: [disciplinaId],references: [id],onDelete: Cascade)
   matricula               Matricula   @relation(fields: [matriculaId],references: [id],onDelete: Cascade)
-
+  
+  anoLetivo               AnoLetivo   @relation(fields: [anoLetivoId],references: [id],onDelete: Cascade)
 
 }
 
+
 model Disciplina {
   id                      String      @id @default(uuid())
-  nome                    String
+  nome                    String      @unique
   carga_horaria           Int
 
   turmas                  TurmaDisciplina[]
-  notas                   Nota[]
+  avaliacao               Avaliacao[]
 }
 
 model Professor {

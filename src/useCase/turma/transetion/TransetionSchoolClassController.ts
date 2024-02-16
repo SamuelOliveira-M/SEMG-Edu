@@ -11,7 +11,7 @@ class TransetionSchoolClassController{
 		const {cod_inep} = req.params
 
 		try {
-			const dataFormatada = new Date().toISOString().split('T')[0];
+			const dataFormatada = new Date();
 			
 			const createDate: ISchoolYear ={
 				data_inicio: dataFormatada

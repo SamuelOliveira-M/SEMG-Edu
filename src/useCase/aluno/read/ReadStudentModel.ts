@@ -14,6 +14,5 @@ class ReadStudentModel{
 		})
 		return alunoAlreadyExist
 	}
-
 }
 export default new ReadStudentModel()

@@ -2,12 +2,13 @@ import { prisma } from "../../../lib/prisma";
 import IGrade from "../../../interface/IGrade";
 import ReadSubjectModel from "../../disciplina/read/ReadSubjectModel";
 import ReadGradeModel from "../read/ReadGradeModel";
+import ReadSchoolYearModel from "../../anoLetivo/read/ReadSchoolYearModel";
 
 class CreateGradeModel{
 	async createGradeModel(dataGrade:IGrade) {
 		
-		const {nota,mes,disciplina,matriculaId} = dataGrade
-
+		const {tipo,nota,mes,semestre,disciplina,matriculaId,anoLetivo} = dataGrade
+		
 
 		const subjectAlreadyExist = await ReadSubjectModel.readSubject(disciplina)
 
@@ -18,26 +19,36 @@ class CreateGradeModel{
 			})
 		}
 
+		const schoolYearAlreadyExist = await ReadSchoolYearModel.readSchoolYear(anoLetivo)
+		if (!schoolYearAlreadyExist) {
+			return {
+				"message":"Ano letivo não existe",
+				"data":schoolYearAlreadyExist
+			}
+		}
+		
 		const gradeAlreadyExists = await ReadGradeModel.readGrade(
 			dataGrade,
 			subjectAlreadyExist.id,
 			matriculaId
 		)
-
+		
 		if (gradeAlreadyExists) {
 			return {
 				"message":"Nota já existe",
 				"data":gradeAlreadyExists
 			}
 		}
-
-		const grade = await prisma.nota.create({
+		
+		const grade = await prisma.avaliacao.create({
 			data:{
+				tipo,
 				nota,
 				mes,
+				semestre,
+				anoLetivoId:schoolYearAlreadyExist.id,
 				disciplinaId:subjectAlreadyExist.id,
 				matriculaId
-
 			}
 		})
 

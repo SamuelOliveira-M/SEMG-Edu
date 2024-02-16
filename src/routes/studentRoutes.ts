@@ -2,6 +2,8 @@ import express  from "express";
 import TransectionStudentController from "../useCase/aluno/transation/TransectionStudentController";
 import CreateRegistrationController from "../useCase/matricula/create/CreateRegistrationController"; 
 import ReadRegistrationController from "../useCase/matricula/read/ReadRegistrationController";
+import ReadGradeController from "../useCase/notas/read/ReadGradeController";
+import ReadSubjectOfGradeController from "../useCase/disciplina/read/ReadSubjectOfGradeController";
 
 import { uploadImage } from "../middlewares/uploadToFirebaseStorage";
 import Multer from 'multer'
@@ -16,8 +18,10 @@ const studentRoutes = express.Router();
 
 studentRoutes.post("/aluno",multer.single('file'),uploadImage,TransectionStudentController.studentCreationTransaction)
 studentRoutes.post("/matricular",CreateRegistrationController.createMatriculaController)
-studentRoutes.get("/studant/:classId",ReadRegistrationController.readMatriculaController)
+
+studentRoutes.get("/studante/:classId",ReadRegistrationController.readMatriculaController)
 studentRoutes.get("/profile/:registrationId",ReadRegistrationController.readRegistrationUniqueController)
-studentRoutes.get("/profile/notes/:registrationId",ReadRegistrationController.readRegistrationNotesController)
+studentRoutes.get("/grad/:registrationId",ReadGradeController.readRegistrationNotesController)
+studentRoutes.get("/grade/:registrationId",ReadSubjectOfGradeController.gradesBySubject)
 
 export default studentRoutes;
