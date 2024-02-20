@@ -1,6 +1,6 @@
 import { Request,Response } from "express"
 import ReadSubjectModel from "./ReadSubjectModel"
-import { ordenarAvaliacoes } from "../../../services/ordenacao"
+import { criarEstruturaDados } from "../../../services/test"
 
 
 class ReadSubjectOfGradeController{
@@ -10,16 +10,13 @@ class ReadSubjectOfGradeController{
 		
 		try{
 			
+
 			const grade = await ReadSubjectModel.gradesBySubjectModel(matriculaId)
+			const subjectOfGrade = criarEstruturaDados(grade)
+			
+			return res.json(subjectOfGrade)
 
-			grade.map(disciplina => ({
-				...disciplina,
-				avaliacao: ordenarAvaliacoes(disciplina.avaliacao),
-			}));
-
-			return res.json(grade)
-
-		}catch(e){
+		}catch(e){	
 			console.log(e)
 			return res.json({
 				"error":true,
