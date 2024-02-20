@@ -1,6 +1,6 @@
 import { Request,Response } from "express"
 import ReadSubjectModel from "./ReadSubjectModel"
-import { criarEstruturaDados } from "../../../services/test"
+import { criarEstruturaDados } from "../../../services/organizingDataStructures"
 
 
 class ReadSubjectOfGradeController{
@@ -12,6 +12,7 @@ class ReadSubjectOfGradeController{
 			
 
 			const grade = await ReadSubjectModel.gradesBySubjectModel(matriculaId)
+			
 			const subjectOfGrade = criarEstruturaDados(grade)
 			
 			return res.json(subjectOfGrade)
