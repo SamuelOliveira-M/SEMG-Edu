@@ -15,6 +15,7 @@ interface Curso {
 
 interface NotasMateria {
   materia: string;
+	aprovacao:string;
   marco: number;
   abril: number;
   maio: number;
@@ -25,8 +26,8 @@ interface NotasMateria {
   outubro: number;
   novembro: number;
   recup2: number;
-  media: number;
 	provaFinal: number;
+	media: number;
 	[key: string]: number|string;
 }
 
@@ -38,10 +39,13 @@ export function criarEstruturaDados(dadosApi: Curso[]){
 	}
 
 	const list:NotasMateria[] = []
+	let quantNotas = 0
+	let tatalNotas = 0
 
 	dadosApi.map((disciplina)=>{
 		let notas: NotasMateria = {
 			"materia": disciplina.nome,
+			"aprovacao":"",
 			"marco": 0,
 			"abril": 0,
 			"maio": 0,
@@ -57,6 +61,8 @@ export function criarEstruturaDados(dadosApi: Curso[]){
 		};
 
 		disciplina.avaliacao.map((avaliacao)=>{
+			quantNotas+=1
+			tatalNotas+=avaliacao.nota
 			if(avaliacao.semestre==1){
 				if(avaliacao.mes!==null){
 					const mes = obterNomeMes(avaliacao.mes)
@@ -76,16 +82,24 @@ export function criarEstruturaDados(dadosApi: Curso[]){
 				notas.recup2 = avaliacao.nota
 			}
 		})
+		notas.media = tatalNotas/quantNotas
+		if(quantNotas==8){
+			if(notas.media>5){
+				notas.aprovacao = "Aprovação"
+			}
+			notas.aprovacao = "Reprovado"
+		}else{
+			notas.aprovacao = "Cursando"
+		}
+
 		list.push(notas)
 	})
 	return list
 }
 
 function obterNomeMes(numeroMes:number) {
-  if(numeroMes===null){
-		return 'recup'
-	}
-	const data = new Date();
+  const data = new Date();
   data.setMonth(numeroMes - 1);
   return data.toLocaleString('pt-BR', { month: 'long' }); 
 }
+

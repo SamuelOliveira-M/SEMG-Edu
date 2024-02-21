@@ -21,7 +21,6 @@ studentRoutes.post("/matricular",CreateRegistrationController.createMatriculaCon
 
 studentRoutes.get("/studante/:classId",ReadRegistrationController.readMatriculaController)
 studentRoutes.get("/profile/:registrationId",ReadRegistrationController.readRegistrationUniqueController)
-studentRoutes.get("/grad/:registrationId",ReadGradeController.readRegistrationNotesController)
-studentRoutes.get("/grade/:registrationId",ReadSubjectOfGradeController.gradesBySubject)
+studentRoutes.get("/avaliacao/:registrationId",ReadSubjectOfGradeController.gradesBySubject)
 
 export default studentRoutes;
