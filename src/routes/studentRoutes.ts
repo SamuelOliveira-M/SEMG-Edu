@@ -2,7 +2,6 @@ import express  from "express";
 import TransectionStudentController from "../useCase/aluno/transation/TransectionStudentController";
 import CreateRegistrationController from "../useCase/matricula/create/CreateRegistrationController"; 
 import ReadRegistrationController from "../useCase/matricula/read/ReadRegistrationController";
-import ReadGradeController from "../useCase/notas/read/ReadGradeController";
 import ReadSubjectOfGradeController from "../useCase/disciplina/read/ReadSubjectOfGradeController";
 
 import { uploadImage } from "../middlewares/uploadToFirebaseStorage";

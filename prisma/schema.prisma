@@ -80,8 +80,10 @@ model Turma {
   escolaId                String      
   ano_letivoId            String        
   
-  disciplinas             TurmaDisciplina[]
+  disciplinas             Disciplina[]
   matriculas              Matricula[]
+  professor               Professor[]
+  
   escola                  Escola      @relation("EscolaToTurma",fields: [escolaId],references: [id],onDelete: Cascade)
   ano_letivo              AnoLetivo   @relation("AnoLetivoToTurma",fields: [ano_letivoId],references: [id],onDelete: Cascade)
 }
@@ -125,8 +127,10 @@ model Disciplina {
   nome                    String      @unique
   carga_horaria           Int
 
-  turmas                  TurmaDisciplina[]
+  professores             Professor[]
+  turmas                  Turma[]
   avaliacao               Avaliacao[]
+
 }
 
 model Professor {
@@ -139,20 +143,10 @@ model Professor {
 
   refresh_token           RefreshTokenProfessor?
 
-  disciplinas             TurmaDisciplina[]
+  disciplinas             Disciplina[]
+  turmas                  Turma[]
 }
 
-model TurmaDisciplina {
-  turmaId                 String
-  disciplinaId            String
-  professorId             String
-
-  turma                   Turma       @relation(fields: [turmaId], references: [id],onDelete: Cascade)
-  disciplina              Disciplina  @relation(fields: [disciplinaId], references: [id],onDelete: Cascade)
-  professor               Professor   @relation(fields: [professorId], references: [id],onDelete: Cascade)
-  
-  @@id([turmaId, disciplinaId])
-}
 
 model Gestor{
   id                      String      @id @default(uuid())

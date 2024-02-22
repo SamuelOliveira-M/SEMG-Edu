@@ -4,11 +4,14 @@ import CreateSubjectsController from "../useCase/disciplina/create/CreateSubject
 import TransetionSchoolController from "../useCase/escola/transetion/TransetionSchoolController";
 import CreateTeacherController from "../useCase/professor/create/CreateTeacherController";
 import CreateGradeController from "../useCase/notas/create/CreateGradeController";
-
 import CreateManagerController from "../useCase/gestor/create/CreateManagerController";
+
+import AddSubjectToTeacherController from "../useCase/professor/update/AddSubjectToTeacherController";
+
 import ReadTeacherController from "../useCase/professor/read/ReadTeacherController";
 import ReadManagerController from "../useCase/gestor/read/ReadManagerController";
 import ReadSchoolClassController from "../useCase/turma/read/ReadSchoolClassController";
+
 
 const schoolRoutes = express.Router();
 
@@ -19,8 +22,9 @@ schoolRoutes.post("/professor",CreateTeacherController.createTeacherController)
 schoolRoutes.post("/nota/:registrationId",CreateGradeController.CreateGradeController)
 schoolRoutes.post("/gestor",CreateManagerController.createTeacherController)
 schoolRoutes.post("/login",CreateManagerController.createTeacherController)
-schoolRoutes.post("/professo",ReadTeacherController.readTeacherController)
+schoolRoutes.post("/enturmar",AddSubjectToTeacherController.AddSubjectToTeacher)
 
+schoolRoutes.get("/professores",ReadTeacherController.readTeacherController)
 schoolRoutes.get("/gestor",ReadManagerController.readManagerController)
 schoolRoutes.get("/class",ReadSchoolClassController.readSchoolClass)
 schoolRoutes.get("/class/:id",ReadSchoolClassController.readSchoolClassFindFirst)
