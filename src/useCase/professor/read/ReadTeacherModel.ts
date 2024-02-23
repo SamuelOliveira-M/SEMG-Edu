@@ -2,12 +2,15 @@ import { prisma } from "../../../lib/prisma"
 
 
 class ReadTeacherModel{
-	async readTeacher(email:string){
+	async readTeacherModel(email:string){
 		
 		const teacherAlreadyExists= await prisma.professor.findUnique({
 			where: {
 				email: email,
-			}
+			},
+			include: {
+        disciplinas: {}
+      },
 		});
 
 		return teacherAlreadyExists

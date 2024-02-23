@@ -8,7 +8,7 @@ class ReadTeacherController{
 
 		try{
 			console.log(email)
-			const teacher = await ReadTeacherModel.readTeacher(email)
+			const teacher = await ReadTeacherModel.readTeacherModel(email)
 			console.log(teacher)
 			return response.json(teacher)
 
