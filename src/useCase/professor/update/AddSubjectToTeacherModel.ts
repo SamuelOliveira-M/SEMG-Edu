@@ -41,9 +41,7 @@ class AddSubjectToTeacherModel{
 		const disciplinasDoProfessorNaTurma = await prisma.professor.findUnique({
       where: { id: teacher.id },
       select: {
-        disciplinas: {
-					
-				}
+        disciplinas: {}
       },
     });
 

@@ -11,7 +11,7 @@ import AddSubjectToTeacherController from "../useCase/professor/update/AddSubjec
 import ReadTeacherController from "../useCase/professor/read/ReadTeacherController";
 import ReadManagerController from "../useCase/gestor/read/ReadManagerController";
 import ReadSchoolClassController from "../useCase/turma/read/ReadSchoolClassController";
-
+import RemoveSubjectFromTeacherController from "../useCase/professor/delete/RemoveSubjectFromTeacherController";
 
 const schoolRoutes = express.Router();
 
@@ -29,5 +29,6 @@ schoolRoutes.get("/gestor",ReadManagerController.readManagerController)
 schoolRoutes.get("/class",ReadSchoolClassController.readSchoolClass)
 schoolRoutes.get("/class/:id",ReadSchoolClassController.readSchoolClassFindFirst)
 
+schoolRoutes.delete("/remove/disciplina",RemoveSubjectFromTeacherController.removeSubjectFromTeacher)
 
 export default schoolRoutes;
