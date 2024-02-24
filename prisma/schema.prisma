@@ -80,9 +80,9 @@ model Turma {
   escolaId                String      
   ano_letivoId            String        
   
-  disciplinas             Disciplina[]
   matriculas              Matricula[]
-  professor               Professor[]
+  disciplinasTurmas       Professor_Disciplina_Turma[]
+  historicoDisciplinasTurmas Historico_Professor_Disciplina_Turma[]
   
   escola                  Escola      @relation("EscolaToTurma",fields: [escolaId],references: [id],onDelete: Cascade)
   ano_letivo              AnoLetivo   @relation("AnoLetivoToTurma",fields: [ano_letivoId],references: [id],onDelete: Cascade)
@@ -127,10 +127,9 @@ model Disciplina {
   nome                    String      @unique
   carga_horaria           Int
 
-  professores             Professor[]
-  turmas                  Turma[]
   avaliacao               Avaliacao[]
-
+  disciplinasTurmas       Professor_Disciplina_Turma[]
+  historicoDisciplinasTurmas Historico_Professor_Disciplina_Turma[]
 }
 
 model Professor {
@@ -143,8 +142,8 @@ model Professor {
 
   refresh_token           RefreshTokenProfessor?
 
-  disciplinas             Disciplina[]
-  turmas                  Turma[]
+  disciplinasTurmas       Professor_Disciplina_Turma[]
+  historicoDisciplinasTurmas Historico_Professor_Disciplina_Turma[]
 }
 
 
@@ -176,3 +175,40 @@ model RefreshTokenProfessor{
 }
 
 
+model Professor_Disciplina_Turma {
+  id               Int       @id @default(autoincrement())
+  dataAlteracao    DateTime  @default(now())
+  
+  // Chaves estrangeiras
+  professorId      String
+  disciplinaId     String
+  turmaId          String
+
+  // Relações com as tabelas principais
+  professor        Professor  @relation(fields: [professorId], references: [id])
+  disciplina       Disciplina @relation(fields: [disciplinaId], references: [id])
+  turma            Turma      @relation(fields: [turmaId], references: [id])
+  
+  @@index([professorId], name: "idx_professor_id")
+  @@index([disciplinaId], name: "idx_disciplina_id")
+  @@index([turmaId], name: "idx_turma_id")
+}
+
+model Historico_Professor_Disciplina_Turma {
+  id               Int       @id @default(autoincrement())
+  dataAlteracao    DateTime  @default(now())
+
+  // Chaves estrangeiras
+  professorId      String
+  disciplinaId     String
+  turmaId          String
+
+  // Relações com as tabelas principais
+  professor        Professor  @relation(fields: [professorId], references: [id])
+  disciplina       Disciplina @relation(fields: [disciplinaId], references: [id])
+  turma            Turma      @relation(fields: [turmaId], references: [id])
+
+  @@index([professorId], name: "idx_historico_professor_id")
+  @@index([disciplinaId], name: "idx_historico_disciplina_id")
+  @@index([turmaId], name: "idx_historico_turma_id")
+}

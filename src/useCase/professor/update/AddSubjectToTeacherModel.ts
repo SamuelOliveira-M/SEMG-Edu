@@ -1,7 +1,11 @@
 import { prisma } from "../../../lib/prisma"
 
 class AddSubjectToTeacherModel{
-	async addSubjectToTeacher(professorEmail: string, subjectNome: string) {
+	async addSubjectToTeacher(
+		professorEmail: string,
+		subjectNome: string,
+		className:string
+		){
 		
 		
 		const subject = await prisma.disciplina.findUnique({
@@ -28,23 +32,25 @@ class AddSubjectToTeacherModel{
 			return;
 		}
 
-		// Add the subject to the professor
-		const teachersSubjects = await prisma.professor.update({
-			where: { id: teacher.id },
-			data: {
-				disciplinas: {
-					connect: { id: subject.id },
-				},
+
+		const schoolClass = await prisma.turma.findUnique({
+			where: {
+				nome:className
 			},
 		});
+		if (!schoolClass) {
+			console.error('Professor not found');
+			return;
+		}
 
-		const disciplinasDoProfessorNaTurma = await prisma.professor.findUnique({
-      where: { id: teacher.id },
-      select: {
-        disciplinas: {}
-      },
-    });
-
+		const disciplinasDoProfessorNaTurma = await prisma.professor_Disciplina_Turma.create({
+			data: {
+				professorId: teacher.id,
+				disciplinaId: subject.id,
+				turmaId: schoolClass.id,
+			},
+		});
+		
 		return disciplinasDoProfessorNaTurma
 	}
 }

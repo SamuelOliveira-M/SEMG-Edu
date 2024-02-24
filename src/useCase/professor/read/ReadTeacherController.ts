@@ -5,11 +5,20 @@ class ReadTeacherController{
 	async readTeacherController(request:Request, response:Response){
 		
 		const {email} = request.body
-
+		console.log(email)
 		try{
-			console.log(email)
 			const teacher = await ReadTeacherModel.readTeacherModel(email)
-			console.log(teacher)
+			return response.json(teacher)
+
+		}catch(e){
+			response.json(e)
+		}
+	}
+
+	async readAllTeachersController(request:Request, response:Response){
+	
+		try{
+			const teacher = await ReadTeacherModel.readAllTeachersModel()
 			return response.json(teacher)
 
 		}catch(e){

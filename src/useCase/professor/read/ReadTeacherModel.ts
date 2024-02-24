@@ -15,6 +15,13 @@ class ReadTeacherModel{
 
 		return teacherAlreadyExists
 	}
+
+	async readAllTeachersModel(){
+		
+		const teacherAlreadyExists= await prisma.professor.findMany();
+
+		return teacherAlreadyExists
+	}
 }
 
 export default new ReadTeacherModel()
