@@ -135,10 +135,14 @@ model Disciplina {
 model Professor {
   id                      String      @id @default(uuid())
   nome                    String
-  
   cpf                     String ?    @unique
   email                   String      @unique
-  senha                   String      
+  senha                   String
+  data_nascimento         DateTime  
+  uf_nascimento           String
+  url_image               String ?
+  municipio_nascimento    String
+      
 
   refresh_token           RefreshTokenProfessor?
 
@@ -176,7 +180,7 @@ model RefreshTokenProfessor{
 
 
 model Professor_Disciplina_Turma {
-  id               Int       @id @default(autoincrement())
+  id                      String      @id @default(uuid())
   dataAlteracao    DateTime  @default(now())
   
   // Chaves estrangeiras
@@ -195,7 +199,7 @@ model Professor_Disciplina_Turma {
 }
 
 model Historico_Professor_Disciplina_Turma {
-  id               Int       @id @default(autoincrement())
+  id                      String      @id @default(uuid())
   dataAlteracao    DateTime  @default(now())
 
   // Chaves estrangeiras

@@ -25,7 +25,7 @@ schoolRoutes.post("/login",CreateManagerController.createTeacherController)
 schoolRoutes.post("/assigning/subject/teacher",AddSubjectToTeacherController.AddSubjectToTeacher)
 
 schoolRoutes.get("/teachers",ReadTeacherController.readAllTeachersController)
-schoolRoutes.get("/teacher",ReadTeacherController.readTeacherController)
+schoolRoutes.get("/teacherProfile",ReadTeacherController.readTeachersClasses)
 schoolRoutes.get("/gestor",ReadManagerController.readManagerController)
 schoolRoutes.get("/class",ReadSchoolClassController.readSchoolClass)
 schoolRoutes.get("/class/:id",ReadSchoolClassController.readSchoolClassFindFirst)
