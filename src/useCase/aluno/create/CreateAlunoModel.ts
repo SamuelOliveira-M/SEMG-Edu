@@ -37,8 +37,6 @@ class CreateAlunoModel{
 					addressId
 				}
 			})
-			console.log('satttsaa')
-
 
 		return {
 			"message":"Aluno criado com sucesso",	

@@ -139,9 +139,8 @@ model Professor {
   email                   String      @unique
   senha                   String
   data_nascimento         DateTime  
-  uf_nascimento           String
   url_image               String ?
-  municipio_nascimento    String
+  
       
 
   refresh_token           RefreshTokenProfessor?

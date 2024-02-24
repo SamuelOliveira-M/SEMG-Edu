@@ -1,12 +1,16 @@
 import { Request,Response } from "express"
 import Validator from "../../../services/Validator"
 import CreateTeacherModel from "./CreateTeacherModel"
+import ITeacher from "../../../interface/ITeacher"
 
 class CreateTeacherController{
 	async createTeacherController(req:Request,res:Response){
 		
-		let dataTeacher = req.body
-
+		const dataTeacherJson = req.body.data
+		
+		let dataTeacher = JSON.parse(dataTeacherJson) 
+		dataTeacher.url_image = req.headers.filebaseUrl as string;
+		
 		try{
 
 			const validatorTeacher = Validator.teacherValidator(dataTeacher)

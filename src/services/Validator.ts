@@ -165,10 +165,14 @@ class Validator {
 	}
 
 	teacherValidator(teacher:ITeacher){
+		console.log(teacher)
 		const schema = Joi.object({
 			nome: Joi.string().min(2).max(60).required(),
 			email:Joi.string().email().max(60),
 			senha: Joi.string().min(6).max(30).required(),
+			cpf: Joi.string().min(6).max(30).required(),
+			data_nascimento: Joi.string().min(6).max(30).required(),
+			url_image:Joi.string()
 		});
 
 		const validationResult = schema.validate(teacher);

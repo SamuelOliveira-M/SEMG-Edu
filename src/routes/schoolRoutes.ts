@@ -12,19 +12,26 @@ import ReadTeacherController from "../useCase/professor/read/ReadTeacherControll
 import ReadManagerController from "../useCase/gestor/read/ReadManagerController";
 import ReadSchoolClassController from "../useCase/turma/read/ReadSchoolClassController";
 import RemoveSubjectFromTeacherController from "../useCase/professor/delete/RemoveSubjectFromTeacherController";
+import { uploadImage } from "../middlewares/uploadToFirebaseStorage";
+import Multer from 'multer'
+
+
+const multer = Multer({
+	storage: Multer.memoryStorage(),
+});
 
 const schoolRoutes = express.Router();
 
 schoolRoutes.post("/escola",TransetionSchoolController.transetionSchool)
 schoolRoutes.post("/turma/:cod_inep",TransetionSchoolClassController.transetionSchoolClass)
 schoolRoutes.post("/disciplina",CreateSubjectsController.createSubjectsController)
-schoolRoutes.post("/professor",CreateTeacherController.createTeacherController)
+schoolRoutes.post("/professor",multer.single('file'),uploadImage,CreateTeacherController.createTeacherController)
 schoolRoutes.post("/nota/:registrationId",CreateGradeController.CreateGradeController)
 schoolRoutes.post("/gestor",CreateManagerController.createTeacherController)
 schoolRoutes.post("/login",CreateManagerController.createTeacherController)
 schoolRoutes.post("/assigning/subject/teacher",AddSubjectToTeacherController.AddSubjectToTeacher)
 
-schoolRoutes.get("/teachers",ReadTeacherController.readAllTeachersController)
+schoolRoutes.get("/teacherstt",ReadTeacherController.readAllTeachersController)
 schoolRoutes.get("/teacherProfile",ReadTeacherController.readTeachersClasses)
 schoolRoutes.get("/gestor",ReadManagerController.readManagerController)
 schoolRoutes.get("/class",ReadSchoolClassController.readSchoolClass)

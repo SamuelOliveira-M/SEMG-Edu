@@ -6,10 +6,19 @@ import ReadTeacherModel from "../read/ReadTeacherModel";
 
 class CreateTeacherModel{
 	async createTeacherModel(dataTeacher:ITeacher) {
+		const {     
+			nome,
+			cpf, 
+			email,
+			senha,
+			data_nascimento,  
+			url_image 
 		
-		const {nome,email,senha} = dataTeacher
+		} = dataTeacher
 
-		const teacherAlreadyExists= await ReadTeacherModel.readTeacher(email)
+		const dataNascimento = new Date(data_nascimento)
+		
+		const teacherAlreadyExists= await ReadTeacherModel.readTeacherModel(email)
 
 		if (teacherAlreadyExists) {
 			return {
@@ -23,8 +32,11 @@ class CreateTeacherModel{
 		const teacher = await prisma.professor.create({
 			data:{
 				nome,
+				cpf, 
 				email,
-				senha:passwordHash
+				senha:passwordHash,
+				data_nascimento:dataNascimento,  
+				url_image
 			}
 		})
 		

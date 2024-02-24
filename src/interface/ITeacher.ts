@@ -1,8 +1,10 @@
 interface ITeacher{
-	id: string      
+  id: string      
   nome: string
-  cpf: string
+  cpf: string 
   email: string
-  senha: string      
+  senha: string
+  data_nascimento: Date  
+  url_image:string
 }
 export default ITeacher
