@@ -1,18 +1,18 @@
-import { sign } from "jsonwebtoken"
+// import { sign } from "jsonwebtoken"
 
-class GenerateTokenProvider{
+// class GenerateTokenProvider{
 
-	async execute(id:string){
-		const keyToken = process.env.KEY_TOKEN
+// 	async execute(id:string){
+// 		const keyToken = process.env.KEY_TOKEN
 
-		if(keyToken != null){
-			const token = sign({}, keyToken,{
-				subject: id,
-				expiresIn: "60s"
-			})
-			return token
-		}
-	}
-}
+// 		if(keyToken != null){
+// 			const token = sign({}, keyToken,{
+// 				subject: id,
+// 				expiresIn: "60s"
+// 			})
+// 			return token
+// 		}
+// 	}
+// }
 
-export default new GenerateTokenProvider()
+// export default new GenerateTokenProvider()

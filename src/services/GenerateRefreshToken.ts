@@ -1,33 +1,33 @@
-import dayjs from 'dayjs'
+// import dayjs from 'dayjs'
 
-import { prisma } from "../lib/prisma"
+// import { prisma } from "../lib/prisma"
 
-class GenerateRefreshToken{
-	async execute(userId:string){
-		const expiresIn = dayjs().add(7,"days").unix(); 
+// class GenerateRefreshToken{
+// 	async execute(userId:string){
+// 		const expiresIn = dayjs().add(7,"days").unix(); 
 
-		const generateRefreshToken = await prisma.refreshToken.create({
-			data:{
-				userId,
-				expiresIn
-			}
-		})
+// 		const generateRefreshToken = await prisma.refreshToken.create({
+// 			data:{
+// 				userId,
+// 				expiresIn
+// 			}
+// 		})
 
-		return generateRefreshToken
-	}
+// 		return generateRefreshToken
+// 	}
 
-	async refreshTokenSupllier(supllierId:string){
-		const expiresIn = dayjs().add(7,"days").unix(); 
+// 	async refreshTokenSupllier(supllierId:string){
+// 		const expiresIn = dayjs().add(7,"days").unix(); 
 
-		const generateRefreshToken = await prisma.refreshTokenSupllier.create({
-			data:{																	
-				supllierId,
-				expiresIn			
-			}
-		})
+// 		const generateRefreshToken = await prisma.refreshTokenSupllier.create({
+// 			data:{																	
+// 				supllierId,
+// 				expiresIn			
+// 			}
+// 		})
 
-		return generateRefreshToken
-	}
-}
+// 		return generateRefreshToken
+// 	}
+// }
 
-export default new GenerateRefreshToken()
+// export default new GenerateRefreshToken()
