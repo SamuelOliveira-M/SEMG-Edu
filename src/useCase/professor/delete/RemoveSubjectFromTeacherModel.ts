@@ -30,7 +30,7 @@ class RemoveSubjectFromTeacherModel {
 		const teachersSubjects = await prisma.professor.update({
 			where: { id: teacher.id },
 			data: {
-				disciplinas: {
+				disciplinasTurmas: {
 					disconnect: { id: subject.id },
 				},
 			},
