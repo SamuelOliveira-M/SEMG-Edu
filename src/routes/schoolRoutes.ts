@@ -36,6 +36,7 @@ schoolRoutes.get("/teacherProfile",ReadTeacherController.readTeachersClasses)
 schoolRoutes.get("/gestor",ReadManagerController.readManagerController)
 schoolRoutes.get("/class",ReadSchoolClassController.readSchoolClass)
 schoolRoutes.get("/class/:id",ReadSchoolClassController.readSchoolClassFindFirst)
+schoolRoutes.get("/testtt/:id",ReadSchoolClassController.readSubjectAndTeacherOfClass)
 
 schoolRoutes.delete("/remove/disciplina",RemoveSubjectFromTeacherController.removeSubjectFromTeacher)
 

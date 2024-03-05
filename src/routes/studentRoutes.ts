@@ -18,7 +18,7 @@ const studentRoutes = express.Router();
 studentRoutes.post("/aluno",multer.single('file'),uploadImage,TransectionStudentController.studentCreationTransaction)
 studentRoutes.post("/matricular",CreateRegistrationController.createMatriculaController)
 
-studentRoutes.get("/studante/:classId",ReadRegistrationController.readMatriculaController)
+studentRoutes.get("/studantee/:classId",ReadRegistrationController.readMatriculaController)
 studentRoutes.get("/profile/:registrationId",ReadRegistrationController.readRegistrationUniqueController)
 studentRoutes.get("/avaliacao/:registrationId",ReadSubjectOfGradeController.gradesBySubject)
 

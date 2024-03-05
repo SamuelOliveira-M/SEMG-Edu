@@ -1,4 +1,3 @@
-import { Avaliacao } from "@prisma/client";
 import { prisma } from "../../../lib/prisma"
 
 
