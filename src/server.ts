@@ -7,8 +7,10 @@ import admin from "firebase-admin";
 import path from 'path';
 import * as fs from 'fs';
 
+
 import studentRoutes from './routes/studentRoutes';
 import schoolRoutes from './routes/schoolRoutes';
+
 
 dotenv.config();
 
@@ -46,6 +48,10 @@ app.use('/docs',swaggerUi.serve,swaggerUi.setup(swaggerDocs))
 
 app.use(studentRoutes)
 app.use(schoolRoutes)
+
+app.get('/',(req,res)=>{
+  res.status(200).send('<h1>Está Online</h1>')
+})
 
 app.use((error:Error,request:Request,response:Response,next:NextFunction)=>{
   response.json({
