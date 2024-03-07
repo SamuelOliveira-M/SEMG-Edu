@@ -11,9 +11,6 @@
   "keywords": [],
   "author": "Samuel Oliveira de Moura",
   "license": "ISC",
-  "engines": {
-    "node": ">=20.9.0 <21.1.0"
-  },
   "prisma": {
     "schema": "./prisma/schema.prisma"
   },
