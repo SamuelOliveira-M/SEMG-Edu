@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npx prisma generate && tsc -p . --outDir public",
-    "start": "npm run build && node ./public/server.js",
+    "build": "npx prisma generate && tsc -p .",
+    "start": "npm run build && node ./build/server.js",
     "dev": "tsx watch src/server.ts"
   },
   "keywords": [],
