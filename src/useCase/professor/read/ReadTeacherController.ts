@@ -14,9 +14,11 @@ class ReadTeacherController{
 
 	async readTeachersClasses(request:Request, response:Response){
 		try{
-			const { email } = request.body
-			const teacher = await ReadTeacherModel.readTeachersClasses(email)
+			const id = request.params.id
+			const teacher = await ReadTeacherModel.readTeacher(id)
+			console.log(teacher)
 			return response.json(teacher)
+			
 		}catch(e){
 			response.json(e)
 		}

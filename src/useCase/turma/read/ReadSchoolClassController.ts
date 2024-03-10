@@ -40,6 +40,21 @@ class ReadSchoolClassController{
 
 	}
 
+	async ReadTeacherClasses (req:Request,res:Response){
+		
+		const teacherId:string = req.params.id
+
+		try{
+			
+			const teacherClasses = await ReadSchoolClassModel.readTeacherClasses(teacherId)
+			res.json(teacherClasses)
+
+		}catch(e){
+			console.log(e)
+		}
+
+	}
+
 
 }
 

@@ -42,18 +42,11 @@ class ReadTeacherModel{
 		return teacherAlreadyExists
 	}
 
-	async readTeachersClasses( email: string ) {
+	async readTeacher( id: string ) {
 		
 		const teachersClasses = await prisma.professor.findUnique({
 			where:{
-				email
-			},
-			include:{
-				disciplinasTurmas:{
-					include:{
-						turma:true
-					}
-				}
+				id
 			}
 		})
 	return teachersClasses

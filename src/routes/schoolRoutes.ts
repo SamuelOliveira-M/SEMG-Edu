@@ -32,11 +32,13 @@ schoolRoutes.post("/login",CreateManagerController.createTeacherController)
 schoolRoutes.post("/assigning/subject/teacher",AddSubjectToTeacherController.AddSubjectToTeacher)
 
 schoolRoutes.get("/teacherstt",ReadTeacherController.readAllTeachersController)
-schoolRoutes.get("/teacherProfile",ReadTeacherController.readTeachersClasses)
+schoolRoutes.get("/teacherProfile/:id",ReadTeacherController.readTeachersClasses)
+
 schoolRoutes.get("/gestor",ReadManagerController.readManagerController)
 schoolRoutes.get("/class",ReadSchoolClassController.readSchoolClass)
 schoolRoutes.get("/class/:id",ReadSchoolClassController.readSchoolClassFindFirst)
-schoolRoutes.get("/testtt/:id",ReadSchoolClassController.readSubjectAndTeacherOfClass)
+schoolRoutes.get("/t/:id",ReadSchoolClassController.readSubjectAndTeacherOfClass)
+schoolRoutes.get("/tumasdoprofessorrr/:id",ReadSchoolClassController.ReadTeacherClasses)
 
 schoolRoutes.delete("/remove/disciplina",RemoveSubjectFromTeacherController.removeSubjectFromTeacher)
 
