@@ -26,11 +26,12 @@ class ReadTeacherController{
 	}
 
 	async loginTeacher(request:Request, response:Response){
-		
+		console.log("ss")
 		const {email} = request.body
 
 		try{
 			const teacher = await ReadTeacherModel.loginTeacherModel(email)
+			console.log(teacher)
 			return response.json(teacher)
 
 		}catch(e){
