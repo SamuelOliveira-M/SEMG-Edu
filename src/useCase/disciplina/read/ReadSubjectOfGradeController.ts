@@ -7,14 +7,15 @@ class ReadSubjectOfGradeController{
 	async gradesBySubject(req:Request,res:Response){
 		
 		const matriculaId = req.params.registrationId
-		
+		console.log(matriculaId)
+
 		try{
 			
 
 			const grade = await ReadSubjectModel.gradesBySubjectModel(matriculaId)
 			
 			const subjectOfGrade = criarEstruturaDados(grade)
-			
+		
 			return res.json(subjectOfGrade)
 
 		}catch(e){	
