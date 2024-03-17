@@ -28,7 +28,7 @@ schoolRoutes.post("/disciplina",CreateSubjectsController.createSubjectsControlle
 schoolRoutes.post("/professor",multer.single('file'),uploadImage,CreateTeacherController.createTeacherController)
 schoolRoutes.post("/nota/:registrationId",CreateGradeController.CreateGradeController)
 schoolRoutes.post("/gestor",CreateManagerController.createTeacherController)
-schoolRoutes.post("/login",CreateManagerController.createTeacherController)
+schoolRoutes.post("/login",ReadTeacherController.loginTeacher)
 schoolRoutes.post("/assigning/subject/teacher",AddSubjectToTeacherController.AddSubjectToTeacher)
 
 schoolRoutes.get("/teacherstt",ReadTeacherController.readAllTeachersController)

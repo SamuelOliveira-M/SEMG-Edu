@@ -20,6 +20,20 @@ class ReadTeacherController{
 			return response.json(teacher)
 			
 		}catch(e){
+			console.log(e)
+			response.json(e)
+		}
+	}
+
+	async loginTeacher(request:Request, response:Response){
+		
+		const {email} = request.body
+
+		try{
+			const teacher = await ReadTeacherModel.loginTeacherModel(email)
+			return response.json(teacher)
+
+		}catch(e){
 			response.json(e)
 		}
 	}

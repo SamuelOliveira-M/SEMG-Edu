@@ -51,6 +51,17 @@ class ReadTeacherModel{
 		})
 	return teachersClasses
 	}
+
+	async loginTeacherModel(email:string){
+		
+		const teacher = await prisma.professor.findUnique({
+			where: {
+				email: email,
+			}
+		});
+
+		return teacher
+	}
 }
 
 export default new ReadTeacherModel()
