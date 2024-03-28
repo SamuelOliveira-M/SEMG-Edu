@@ -32,6 +32,4 @@ Mencione as ferramentas que você usou para criar seu projeto
 
 ## ✒️ Autores
 
-Lista de pessoas que fizeram parte do projeto:
-
-* ** [Samuel Oliveira](https://github.com/SamuelOliveira-M)** - *Desenvolvedor*
+* [Samuel Oliveira](https://github.com/SamuelOliveira-M)* - *Desenvolvedor*
