@@ -9,7 +9,7 @@
    * Aplicação de princípios de segurança, autenticação e autorização para proteger os dados da secretaria. 
 2. Envolvidos no Projeto:
    * [MAMBEE](https://www.linkedin.com/company/mambee/): Oferecendo uma oportunidade única de imersão no ambiente de trabalho, enriquecendo nossa capacidade de aprendizado e fomentando a troca de conhecimento entre os membros da equipe.
-   *[Jesiel Viana](https://github.com/jesielviana): Oferecendo habilidade em orientar problemas técnicos complexos.
+   * [Jesiel Viana](https://github.com/jesielviana): Oferecendo habilidade em orientar problemas técnicos complexos.
 
 ### 📋 Pré-requisitos
 
