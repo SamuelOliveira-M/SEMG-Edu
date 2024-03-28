@@ -16,8 +16,9 @@
 De que coisas você precisa para acessar a pagina?
 
 ```
-navegadores web: Chrome, Firefox, Safari ou Edge, para acessar o aplicativo web.
-Conexão à Internet
+Conexão de Internet
+URL da API
+Chaves de Autenticação
 ```
 
 ## 🛠️ Tecnologias utilizadas
