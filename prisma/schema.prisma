@@ -162,8 +162,9 @@ model Gestor{
 model RefreshTokenGestor{
   id                      String      @id @default(uuid())
   expiresIn               Int
-  gestor                  Gestor     @relation(fields: [gestorId],references: [id], onDelete: Cascade)
   gestorId                String   @unique
+
+  gestor                  Gestor     @relation(fields: [gestorId],references: [id], onDelete: Cascade)
 
   @@map("refresh_token")
 }
@@ -171,8 +172,9 @@ model RefreshTokenGestor{
 model RefreshTokenProfessor{
   id                      String   @id @default(uuid())
   expiresIn               Int
-  professor               Professor     @relation(fields: [professorId],references: [id], onDelete: Cascade)
   professorId             String   @unique
+
+  professor               Professor     @relation(fields: [professorId],references: [id], onDelete: Cascade)
 
   @@map("refresh_token_professor")
 }
@@ -182,31 +184,28 @@ model Professor_Disciplina_Turma {
   id                      String      @id @default(uuid())
   dataAlteracao    DateTime  @default(now())
   
-  // Chaves estrangeiras
   professorId      String
   disciplinaId     String
   turmaId          String
 
-  // Relações com as tabelas principais
   professor        Professor  @relation(fields: [professorId], references: [id])
   disciplina       Disciplina @relation(fields: [disciplinaId], references: [id])
   turma            Turma      @relation(fields: [turmaId], references: [id])
-  
+  Calendario       Calendario[]
+
   @@index([professorId], name: "idx_professor_id")
   @@index([disciplinaId], name: "idx_disciplina_id")
   @@index([turmaId], name: "idx_turma_id")
 }
 
 model Historico_Professor_Disciplina_Turma {
-  id                      String      @id @default(uuid())
+  id               String      @id @default(uuid())
   dataAlteracao    DateTime  @default(now())
 
-  // Chaves estrangeiras
   professorId      String
   disciplinaId     String
   turmaId          String
 
-  // Relações com as tabelas principais
   professor        Professor  @relation(fields: [professorId], references: [id])
   disciplina       Disciplina @relation(fields: [disciplinaId], references: [id])
   turma            Turma      @relation(fields: [turmaId], references: [id])
@@ -214,4 +213,16 @@ model Historico_Professor_Disciplina_Turma {
   @@index([professorId], name: "idx_historico_professor_id")
   @@index([disciplinaId], name: "idx_historico_disciplina_id")
   @@index([turmaId], name: "idx_historico_turma_id")
+
+}
+
+model Calendario {
+  calendarioId      String      @id @default(uuid())
+  diaSemana         String
+  horarioInicio     DateTime
+  horarioFim        DateTime
+  
+  lotacaoId           String
+  lotacao             Professor_Disciplina_Turma  @relation(fields: [lotacaoId], references: [id])
+
 }
