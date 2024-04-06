@@ -1,6 +1,6 @@
-import { prisma } from "../../../lib/prisma"
+import { prisma } from "../../../../lib/prisma"
 
-class AddSubjectToTeacherModel{
+class AllocationOfTeacherModel{
 	async addSubjectToTeacher(
 		professorEmail: string,
 		subjectNome: string,
@@ -55,4 +55,4 @@ class AddSubjectToTeacherModel{
 	}
 }
 
-export default new AddSubjectToTeacherModel()
+export default new AllocationOfTeacherModel()

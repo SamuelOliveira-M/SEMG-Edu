@@ -6,12 +6,14 @@ import CreateTeacherController from "../useCase/professor/create/CreateTeacherCo
 import CreateGradeController from "../useCase/notas/create/CreateGradeController";
 import CreateManagerController from "../useCase/gestor/create/CreateManagerController";
 
-import AddSubjectToTeacherController from "../useCase/professor/update/AddSubjectToTeacherController";
+import AddSubjectToTeacherController from "../useCase/allocation/allocationOfTeacher/create/AllocationOfTeacherController";
 
 import ReadTeacherController from "../useCase/professor/read/ReadTeacherController";
 import ReadManagerController from "../useCase/gestor/read/ReadManagerController";
 import ReadSchoolClassController from "../useCase/turma/read/ReadSchoolClassController";
 import RemoveSubjectFromTeacherController from "../useCase/professor/delete/RemoveSubjectFromTeacherController";
+import ReadAllocationOfTeacherController from "../useCase/allocation/allocationOfTeacher/read/ReadAllocationOfTeacherController";
+
 import { uploadImage } from "../middlewares/uploadToFirebaseStorage";
 import Multer from 'multer'
 
@@ -37,7 +39,7 @@ schoolRoutes.get("/teacherProfile/:id",ReadTeacherController.readTeachersClasses
 schoolRoutes.get("/gestor",ReadManagerController.readManagerController)
 schoolRoutes.get("/class",ReadSchoolClassController.readSchoolClass)
 schoolRoutes.get("/class/:id",ReadSchoolClassController.readSchoolClassFindFirst)
-schoolRoutes.get("/t/:id",ReadSchoolClassController.readSubjectAndTeacherOfClass)
+schoolRoutes.get("/t/:id",ReadAllocationOfTeacherController.ReadAllocationOfTeacher)
 schoolRoutes.get("/tumasdoprofessorrr/:id",ReadSchoolClassController.ReadTeacherClasses)
 
 schoolRoutes.delete("/remove/disciplina",RemoveSubjectFromTeacherController.removeSubjectFromTeacher)

@@ -1,7 +1,7 @@
 import { Request,Response } from "express"
-import AddSubjectToTeacherModel from "./AddSubjectToTeacherModel"
+import AddSubjectToTeacherModel from "./AllocationOfTeacherModel"
 
-class AddSubjectToTeacherController{
+class AllocationOfTeacherController{
 	async AddSubjectToTeacher(req:Request, res:Response){
 		try{
 			const { professorEmail, subjectNome, className }= req.body
@@ -12,4 +12,4 @@ class AddSubjectToTeacherController{
 		}
 	}
 }
-export default new AddSubjectToTeacherController()
+export default new AllocationOfTeacherController()

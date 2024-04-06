@@ -43,24 +43,6 @@ class ReadSchoolClassModel{
 		return schoolClassAlreadyExist
 	}
 
-	async readSubjectAndTeacherOfClassModel(schoolClassId:string){
-		const schoolClassAlreadyExist = await prisma.turma.findUnique({
-			where:{
-				id:schoolClassId
-			},
-			include:{
-				disciplinasTurmas:{
-					select:{
-						disciplina:true,
-						professor:true
-					}
-				}
-			}
-		})
-					
-		return schoolClassAlreadyExist
-	}
-
 	async readTeacherClasses(teacherId:string){
 		
 		const teacherClasses = await prisma.professor.findUnique({
