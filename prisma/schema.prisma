@@ -222,7 +222,7 @@ model Calendario {
   horarioInicio     DateTime
   horarioFim        DateTime
   
-  lotacaoId           String
-  lotacao             Professor_Disciplina_Turma  @relation(fields: [lotacaoId], references: [id])
+  lotacaoId         String
+  lotacao           Professor_Disciplina_Turma  @relation(fields: [lotacaoId], references: [id])
 
 }

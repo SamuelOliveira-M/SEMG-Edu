@@ -11,6 +11,7 @@ import ISchollClass from '../interface/ISchoolClass';
 import IManager from '../interface/IManager';
 import ITeacher from '../interface/ITeacher';
 import IGrade from '../interface/IGrade';
+import ICalendar from '../interface/ICalendar';
 
 class Validator {
   
@@ -216,6 +217,24 @@ class Validator {
 		});
 
 		const validationResult = schema.validate(manager);
+
+		if (validationResult.error) {
+			const invalidField = validationResult.error?.details[0].path;
+			return invalidField;
+		}
+
+		return null;
+	}
+
+	calendarValidator(calendar:ICalendar){
+		const schema = Joi.object({
+			diaSemana: Joi.string().min(2).max(60).required(),
+			horarioInicio:Joi.string().email().max(60),
+			horariofim: Joi.string().min(6).max(30).required(),
+			lotacaoId: Joi.string()
+		});
+
+		const validationResult = schema.validate(calendar);
 
 		if (validationResult.error) {
 			const invalidField = validationResult.error?.details[0].path;
