@@ -219,8 +219,8 @@ model Historico_Professor_Disciplina_Turma {
 model Calendario {
   calendarioId      String      @id @default(uuid())
   diaSemana         String
-  horarioInicio     DateTime
-  horarioFim        DateTime
+  horarioInicio     String
+  horarioFim        String
   
   lotacaoId         String
   lotacao           Professor_Disciplina_Turma  @relation(fields: [lotacaoId], references: [id])

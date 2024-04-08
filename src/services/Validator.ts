@@ -229,8 +229,8 @@ class Validator {
 	calendarValidator(calendar:ICalendar){
 		const schema = Joi.object({
 			diaSemana: Joi.string().min(2).max(60).required(),
-			horarioInicio:Joi.string().email().max(60),
-			horariofim: Joi.string().min(6).max(30).required(),
+			horarioInicio:Joi.string().min(5).max(5).required(),
+			horarioFim: Joi.string().min(5).max(5).required(),
 			lotacaoId: Joi.string()
 		});
 

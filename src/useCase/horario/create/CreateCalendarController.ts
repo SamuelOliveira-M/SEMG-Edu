@@ -6,18 +6,13 @@ import ICalendar from "../../../interface/ICalendar"
 class CreateCalendarController{
 	async createCalendarModel(req:Request,res:Response){
 		
-		let dataCalendar:ICalendar = req.body
+		const dataCalendar:ICalendar = req.body
 		
-		dataCalendar.horarioFim = new Date(dataCalendar.horarioFim)
-		dataCalendar.horarioInicio = new Date(dataCalendar.horarioInicio)
-		//const validatorTeacher = Validator.calendarValidator(dataCalendar)
+		const validatorTeacher = Validator.calendarValidator(dataCalendar)
 
-		//if(validatorTeacher){
-			//return{
-			//	"message":"Endereço já existe no sistema",
-		//		"data":validatorTeacher
-		//	}
-//		}
+		if(validatorTeacher){
+			return res.json(validatorTeacher)
+		}
 
 		const calendar = await CreateCalendarModel.createCalendarModel(dataCalendar)
 

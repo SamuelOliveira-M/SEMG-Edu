@@ -1,7 +1,7 @@
 interface ICalendar {
   diaSemana:string
-  horarioInicio:Date
-  horarioFim:Date
+  horarioInicio:string
+  horarioFim:string
   lotacaoId:string
 }
 
@@ -10,8 +10,8 @@ export default ICalendar
 interface ICalendarRead {
 	calendarId: string
   diaSemana:string
-  horarioInicio:Date
-  horariofim:Date
+  horarioInicio:string
+  horariofim:string
   professor:string
   disciplina:string
   turma:string
