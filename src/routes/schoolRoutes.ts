@@ -14,9 +14,11 @@ import ReadManagerController from "../useCase/gestor/read/ReadManagerController"
 import ReadSchoolClassController from "../useCase/turma/read/ReadSchoolClassController";
 import RemoveSubjectFromTeacherController from "../useCase/professor/delete/RemoveSubjectFromTeacherController";
 import ReadAllocationOfTeacherController from "../useCase/allocation/allocationOfTeacher/read/ReadAllocationOfTeacherController";
+import ReadGradeController from "../useCase/notas/read/ReadGradeController";
 
 import { uploadImage } from "../middlewares/uploadToFirebaseStorage";
 import Multer from 'multer'
+import ReadCalendarController from "../useCase/horario/read/ReadCalendarController";
 
 
 const multer = Multer({
@@ -33,10 +35,12 @@ schoolRoutes.post("/nota/:registrationId",CreateGradeController.CreateGradeContr
 schoolRoutes.post("/gestor",CreateManagerController.createTeacherController)
 schoolRoutes.post("/login",ReadTeacherController.loginTeacher)
 schoolRoutes.post("/assigning/subject/teacher",AddSubjectToTeacherController.AddSubjectToTeacher)
-schoolRoutes.post("/calendar",CreateCalendarController.createCalendarModel)
+schoolRoutes.post("/calendar",CreateCalendarController.createCalendar)
+
 
 schoolRoutes.get("/teacherstt",ReadTeacherController.readAllTeachersController)
 schoolRoutes.get("/teacherProfile/:id",ReadTeacherController.readTeachersClasses)
+schoolRoutes.get("/calendar",ReadCalendarController.readCalendarController)
 
 schoolRoutes.get("/gestor",ReadManagerController.readManagerController)
 schoolRoutes.get("/class",ReadSchoolClassController.readSchoolClass)

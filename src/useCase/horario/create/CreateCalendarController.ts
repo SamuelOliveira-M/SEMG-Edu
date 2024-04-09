@@ -4,7 +4,7 @@ import CreateCalendarModel from "./CreateCalendarModel"
 import ICalendar from "../../../interface/ICalendar"
 
 class CreateCalendarController{
-	async createCalendarModel(req:Request,res:Response){
+	async createCalendar(req:Request,res:Response){
 		
 		const dataCalendar:ICalendar = req.body
 		
