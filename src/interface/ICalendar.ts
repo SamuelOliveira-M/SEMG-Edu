@@ -1,8 +1,8 @@
+
 interface ICalendar {
   diaSemana:string
-  horarioInicio:string
-  horarioFim:string
   lotacaoId:string
+  horarioId:string
 }
 
 export default ICalendar
