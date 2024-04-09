@@ -4,10 +4,9 @@ import { prisma } from "../../../lib/prisma"
 class CreateCalendarModel{
 	async createCalendarModel(dataCalendar:ICalendar){
 		const {	
-			diaSemana,
-			horarioInicio,
-			horarioFim, 
-			lotacaoId 
+			diaSemana, 
+			lotacaoId,
+			horarioId
 		} = dataCalendar
 
 		const AllocationAlreadExist  = await prisma.professor_Disciplina_Turma.findUnique({
@@ -20,11 +19,22 @@ class CreateCalendarModel{
 			return 'Não exites essa locação de professor'
 		}
 
+
+		const timeRangeAlreadExist  = await prisma.horario.findUnique({
+			where:{
+				id:horarioId
+			}
+		})
+
+		if(!timeRangeAlreadExist){
+			return 'Esse Horário Não está cadastrado no sistema'
+		}
+
+
 		const CalendarAlreadExist  = await prisma.calendario.findFirst({
 			where:{
 				diaSemana,
-				horarioInicio,
-				horarioFim,
+				horarioId,
 				lotacaoId
 			}
 		})
@@ -37,8 +47,7 @@ class CreateCalendarModel{
 		const calendar = await prisma.calendario.create({
 			data:{
 				diaSemana,
-				horarioInicio,
-				horarioFim,
+				horarioId,
 				lotacaoId 
 			}
 		})
