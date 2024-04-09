@@ -5,7 +5,8 @@ import TransetionSchoolController from "../useCase/escola/transetion/TransetionS
 import CreateTeacherController from "../useCase/professor/create/CreateTeacherController";
 import CreateGradeController from "../useCase/notas/create/CreateGradeController";
 import CreateManagerController from "../useCase/gestor/create/CreateManagerController";
-import CreateCalendarController from "../useCase/horario/create/CreateCalendarController";
+import CreateCalendarController from "../useCase/calendario/create/CreateCalendarController";
+import CreateTimeRangeController from "../useCase/horario/create/CreateTimeRangeController";
 
 import AddSubjectToTeacherController from "../useCase/allocation/allocationOfTeacher/create/AllocationOfTeacherController";
 
@@ -15,10 +16,11 @@ import ReadSchoolClassController from "../useCase/turma/read/ReadSchoolClassCont
 import RemoveSubjectFromTeacherController from "../useCase/professor/delete/RemoveSubjectFromTeacherController";
 import ReadAllocationOfTeacherController from "../useCase/allocation/allocationOfTeacher/read/ReadAllocationOfTeacherController";
 import ReadGradeController from "../useCase/notas/read/ReadGradeController";
+import ReadTimeRangeController from "../useCase/horario/read/ReadTimeRangeController";
 
 import { uploadImage } from "../middlewares/uploadToFirebaseStorage";
 import Multer from 'multer'
-import ReadCalendarController from "../useCase/horario/read/ReadCalendarController";
+import ReadCalendarController from "../useCase/calendario/read/ReadCalendarController";
 
 
 const multer = Multer({
@@ -36,7 +38,7 @@ schoolRoutes.post("/gestor",CreateManagerController.createTeacherController)
 schoolRoutes.post("/login",ReadTeacherController.loginTeacher)
 schoolRoutes.post("/assigning/subject/teacher",AddSubjectToTeacherController.AddSubjectToTeacher)
 schoolRoutes.post("/calendar",CreateCalendarController.createCalendar)
-
+schoolRoutes.post("/horario",CreateTimeRangeController.createTimeRange)
 
 schoolRoutes.get("/teacherstt",ReadTeacherController.readAllTeachersController)
 schoolRoutes.get("/teacherProfile/:id",ReadTeacherController.readTeachersClasses)
@@ -47,6 +49,8 @@ schoolRoutes.get("/class",ReadSchoolClassController.readSchoolClass)
 schoolRoutes.get("/class/:id",ReadSchoolClassController.readSchoolClassFindFirst)
 schoolRoutes.get("/t/:id",ReadAllocationOfTeacherController.ReadAllocationOfTeacher)
 schoolRoutes.get("/tumasdoprofessorrr/:id",ReadSchoolClassController.ReadTeacherClasses)
+
+schoolRoutes.get("/horarios",ReadTimeRangeController.readTimeRangeController)
 
 schoolRoutes.delete("/remove/disciplina",RemoveSubjectFromTeacherController.removeSubjectFromTeacher)
 

@@ -12,6 +12,7 @@ import IManager from '../interface/IManager';
 import ITeacher from '../interface/ITeacher';
 import IGrade from '../interface/IGrade';
 import ICalendar from '../interface/ICalendar';
+import ITimeRange from '../interface/ITimeRange';
 
 class Validator {
   
@@ -235,6 +236,22 @@ class Validator {
 		});
 
 		const validationResult = schema.validate(calendar);
+
+		if (validationResult.error) {
+			const invalidField = validationResult.error?.details[0].path;
+			return invalidField;
+		}
+
+		return null;
+	}
+	
+	TimeRangeValidator(TimeRange:ITimeRange){
+		const schema = Joi.object({
+			horarioInicio:Joi.string().pattern(/^([01]\d|2[0-3]):([0-5]\d)$/),
+			horarioFim: Joi.string().pattern(/^([01]\d|2[0-3]):([0-5]\d)$/),
+		});
+
+		const validationResult = schema.validate(TimeRange);
 
 		if (validationResult.error) {
 			const invalidField = validationResult.error?.details[0].path;
