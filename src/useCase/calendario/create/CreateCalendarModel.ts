@@ -19,7 +19,6 @@ class CreateCalendarModel{
 			return 'Não exites essa locação de professor'
 		}
 
-
 		const timeRangeAlreadExist  = await prisma.horario.findUnique({
 			where:{
 				id:horarioId

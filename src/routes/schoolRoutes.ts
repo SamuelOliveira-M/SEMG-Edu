@@ -47,7 +47,7 @@ schoolRoutes.get("/calendar",ReadCalendarController.readCalendarController)
 schoolRoutes.get("/gestor",ReadManagerController.readManagerController)
 schoolRoutes.get("/class",ReadSchoolClassController.readSchoolClass)
 schoolRoutes.get("/class/:id",ReadSchoolClassController.readSchoolClassFindFirst)
-schoolRoutes.get("/t/:id",ReadAllocationOfTeacherController.ReadAllocationOfTeacher)
+schoolRoutes.get("/teachers-subjects/:id",ReadAllocationOfTeacherController.ReadAllocationOfTeacher)
 schoolRoutes.get("/tumasdoprofessorrr/:id",ReadSchoolClassController.ReadTeacherClasses)
 
 schoolRoutes.get("/horarios",ReadTimeRangeController.readTimeRangeController)
