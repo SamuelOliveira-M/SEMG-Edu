@@ -21,6 +21,8 @@ import ReadTimeRangeController from "../useCase/horario/read/ReadTimeRangeContro
 import { uploadImage } from "../middlewares/uploadToFirebaseStorage";
 import Multer from 'multer'
 import ReadCalendarController from "../useCase/calendario/read/ReadCalendarController";
+import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
+import TeacherAutenticationController from "../useCase/autentication/autenticationTeacher/TeacherAutenticationController";
 
 
 const multer = Multer({
@@ -39,10 +41,12 @@ schoolRoutes.post("/login",ReadTeacherController.loginTeacher)
 schoolRoutes.post("/assigning/subject/teacher",AddSubjectToTeacherController.AddSubjectToTeacher)
 schoolRoutes.post("/calendar",CreateCalendarController.createCalendar)
 schoolRoutes.post("/horario",CreateTimeRangeController.createTimeRange)
+schoolRoutes.post("/logint",TeacherAutenticationController.supllierAtentication)
+
 
 schoolRoutes.get("/teacherstt",ReadTeacherController.readAllTeachersController)
 schoolRoutes.get("/teacherProfile/:id",ReadTeacherController.readTeachersClasses)
-schoolRoutes.get("/calendar",ReadCalendarController.readCalendarController)
+schoolRoutes.get("/calendar",ensureAuthenticated,ReadCalendarController.readCalendarController)
 
 schoolRoutes.get("/gestor",ReadManagerController.readManagerController)
 schoolRoutes.get("/class",ReadSchoolClassController.readSchoolClass)
