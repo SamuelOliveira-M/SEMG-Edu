@@ -22,7 +22,7 @@ import { uploadImage } from "../middlewares/uploadToFirebaseStorage";
 import Multer from 'multer'
 import ReadCalendarController from "../useCase/calendario/read/ReadCalendarController";
 import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
-import TeacherAutenticationController from "../useCase/autentication/autenticationTeacher/TeacherAutenticationController";
+import AutenticationController from "../useCase/autentication/AutenticationController";
 
 
 const multer = Multer({
@@ -41,7 +41,7 @@ schoolRoutes.post("/login",ReadTeacherController.loginTeacher)
 schoolRoutes.post("/assigning/subject/teacher",AddSubjectToTeacherController.AddSubjectToTeacher)
 schoolRoutes.post("/calendar",CreateCalendarController.createCalendar)
 schoolRoutes.post("/horario",CreateTimeRangeController.createTimeRange)
-schoolRoutes.post("/logint",TeacherAutenticationController.supllierAtentication)
+schoolRoutes.post("/logint",AutenticationController.authenticate)
 
 
 schoolRoutes.get("/teacherstt",ReadTeacherController.readAllTeachersController)
