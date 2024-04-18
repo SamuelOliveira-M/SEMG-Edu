@@ -1,7 +1,7 @@
 import dayjs from 'dayjs'
-import { prisma } from "../../lib/prisma"
+import { prisma } from "../../../lib/prisma"
 
-class GenerateRefreshToken{
+class CreateRefreshToken{
 	async execute(userId:string, isAdmin:boolean){
 		
 		if(isAdmin){
@@ -30,4 +30,4 @@ class GenerateRefreshToken{
 	}
 }
 
-export default new GenerateRefreshToken()
+export default new CreateRefreshToken()

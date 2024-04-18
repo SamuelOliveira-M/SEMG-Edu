@@ -1,6 +1,6 @@
 import { compare } from "bcryptjs"
 import { prisma } from "../../lib/prisma"
-import GenerateRefreshToken from "../refreshtoken/GenerateRefreshToken"
+import CreateRefreshToken from "../refreshtoken/create/CreateRefreshToken"
 import GenerateTokenProvider from "../../services/GenerateTokenProvider"
 
 
@@ -35,7 +35,7 @@ class AutenticationModel{
 				}
 			})
 
-			const refreshToken = await GenerateRefreshToken.execute(teacherAlreadyExists.id,false)
+			const refreshToken = await CreateRefreshToken.execute(teacherAlreadyExists.id,false)
 			
 			return {teacherAlreadyExists,refreshToken,token}
 		}
@@ -68,7 +68,7 @@ class AutenticationModel{
 			}	
 		})
 
-		const refreshToken = await GenerateRefreshToken.execute(headmistressAlreadyExists.id,true)
+		const refreshToken = await CreateRefreshToken.execute(headmistressAlreadyExists.id,true)
 		
 		return {headmistressAlreadyExists,token,refreshToken}
 	}

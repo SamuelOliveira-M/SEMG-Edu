@@ -23,6 +23,7 @@ import Multer from 'multer'
 import ReadCalendarController from "../useCase/calendario/read/ReadCalendarController";
 import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
 import AutenticationController from "../useCase/autentication/AutenticationController";
+import GenerateTokenController from "../useCase/refreshtoken/generateToken/GenerateTokenController";
 
 
 const multer = Multer({
@@ -41,7 +42,9 @@ schoolRoutes.post("/login",ReadTeacherController.loginTeacher)
 schoolRoutes.post("/assigning/subject/teacher",AddSubjectToTeacherController.AddSubjectToTeacher)
 schoolRoutes.post("/calendar",CreateCalendarController.createCalendar)
 schoolRoutes.post("/horario",CreateTimeRangeController.createTimeRange)
+
 schoolRoutes.post("/logint",AutenticationController.authenticate)
+schoolRoutes.post('/refreshtoken',GenerateTokenController.generateToken)
 
 
 schoolRoutes.get("/teacherstt",ReadTeacherController.readAllTeachersController)
@@ -55,6 +58,7 @@ schoolRoutes.get("/teachers-subjects/:id",ReadAllocationOfTeacherController.Read
 schoolRoutes.get("/tumasdoprofessorrr/:id",ReadSchoolClassController.ReadTeacherClasses)
 
 schoolRoutes.get("/horarios",ReadTimeRangeController.readTimeRangeController)
+
 
 schoolRoutes.delete("/remove/disciplina",RemoveSubjectFromTeacherController.removeSubjectFromTeacher)
 
