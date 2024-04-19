@@ -61,7 +61,7 @@ schoolRoutes.get("/tumasdoprofessorrr/:id",ReadSchoolClassController.ReadTeacher
 
 schoolRoutes.get("/horarios",ReadTimeRangeController.readTimeRangeController)
 
-schoolRoutes.get("/get",GetStatisticsController.getStatistics)
+schoolRoutes.get("/getStatistics",GetStatisticsController.getStatistics)
 
 schoolRoutes.delete("/remove/disciplina",RemoveSubjectFromTeacherController.removeSubjectFromTeacher)
 
