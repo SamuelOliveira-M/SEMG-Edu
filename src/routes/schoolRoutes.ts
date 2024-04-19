@@ -24,6 +24,8 @@ import ReadCalendarController from "../useCase/calendario/read/ReadCalendarContr
 import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
 import AutenticationController from "../useCase/autentication/AutenticationController";
 import GenerateTokenController from "../useCase/refreshtoken/generateToken/GenerateTokenController";
+import { get } from "http";
+import GetStatisticsController from "../useCase/getStatistics/GetStatisticsController";
 
 
 const multer = Multer({
@@ -59,6 +61,7 @@ schoolRoutes.get("/tumasdoprofessorrr/:id",ReadSchoolClassController.ReadTeacher
 
 schoolRoutes.get("/horarios",ReadTimeRangeController.readTimeRangeController)
 
+schoolRoutes.get("/get",GetStatisticsController.getStatistics)
 
 schoolRoutes.delete("/remove/disciplina",RemoveSubjectFromTeacherController.removeSubjectFromTeacher)
 

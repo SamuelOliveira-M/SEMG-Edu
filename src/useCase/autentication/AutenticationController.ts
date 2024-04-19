@@ -7,12 +7,12 @@ class AutenticationController {
 		const {email,senha}=req.body
 
 		try{
-			const token = await AutenticationModel.createAtentication({
+			const authenticatedUser = await AutenticationModel.createAtentication({
 				email,
 				senha
 			})
 	
-			return res.status(201).json(token)
+			return res.status(201).json(authenticatedUser)
 
 		}catch(error){
 			console.log(error)

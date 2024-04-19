@@ -36,8 +36,12 @@ class AutenticationModel{
 			})
 
 			const refreshToken = await CreateRefreshToken.execute(teacherAlreadyExists.id,false)
-			
-			return {teacherAlreadyExists,refreshToken,token}
+			const dataProfile = {
+				nome:teacherAlreadyExists.nome,
+				senha:teacherAlreadyExists.senha
+			}
+
+			return {dataProfile,refreshToken,token}
 		}
 
 		const headmistressAlreadyExists = await prisma.gestor.findFirst({
@@ -69,8 +73,12 @@ class AutenticationModel{
 		})
 
 		const refreshToken = await CreateRefreshToken.execute(headmistressAlreadyExists.id,true)
-		
-		return {headmistressAlreadyExists,token,refreshToken}
+		const dataProfile = {
+			nome:headmistressAlreadyExists.nome,
+			senha:headmistressAlreadyExists.senha
+		}
+
+		return {dataProfile,token,refreshToken}
 	}
 }
 
