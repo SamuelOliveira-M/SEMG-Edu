@@ -2,16 +2,10 @@ import { compare } from "bcryptjs"
 import { prisma } from "../../lib/prisma"
 import CreateRefreshToken from "../refreshtoken/create/CreateRefreshToken"
 import GenerateTokenProvider from "../../services/GenerateTokenProvider"
-
-
-interface IRequest{
-	email:string,
-	senha:string
-
-}
+import ISession from "../../interface/ISession"
 
 class AutenticationModel{
-	async createAtentication({email,senha}:IRequest){
+	async createAtentication(email:string ,senha:string){
 
 		const teacherAlreadyExists = await prisma.professor.findFirst({
 			where:{
@@ -24,11 +18,19 @@ class AutenticationModel{
 			const passwordMatch = await compare(senha,teacherAlreadyExists.senha)
 
 			if(!passwordMatch){
-				throw  new Error("User or password incorrect!")
+				return new Error("User or password incorrect!")
 			}
 
-			const token = await GenerateTokenProvider.execute(teacherAlreadyExists.id,teacherAlreadyExists.nome,false)
+			const token = await GenerateTokenProvider.execute(
+				teacherAlreadyExists.id,
+				teacherAlreadyExists.nome,
+				false
+			)
 			
+			if(!token){
+				return new Error('Erro ao criar o token, Por favor tente novamente')
+			}
+
 			await prisma.refreshTokenProfessor.deleteMany({
 				where:{
 					professorId:teacherAlreadyExists.id
@@ -36,12 +38,21 @@ class AutenticationModel{
 			})
 
 			const refreshToken = await CreateRefreshToken.execute(teacherAlreadyExists.id,false)
-			const dataProfile = {
-				nome:teacherAlreadyExists.nome,
-				senha:teacherAlreadyExists.senha
+
+			if(!refreshToken){
+				return new Error('Erro ao criar o Refresh token, Por favor tente novamente')
+			}
+			
+			const user:ISession = {
+				id:teacherAlreadyExists.id,
+				nome: teacherAlreadyExists.nome,
+				senha: teacherAlreadyExists.senha, 
+				idAdmin:false,
+				token: token,
+				idRefreshToken: refreshToken.id,
 			}
 
-			return {dataProfile,refreshToken,token}
+			return user
 		}
 
 		const headmistressAlreadyExists = await prisma.gestor.findFirst({
@@ -51,13 +62,13 @@ class AutenticationModel{
 		})
 
 		if(!headmistressAlreadyExists){
-			throw new Error("Email or password incorrect!")
+			return new Error("Email or password incorrect!")
 		}
 
 		const passwordMatch = await compare(senha,headmistressAlreadyExists.senha)
 
 		if(!passwordMatch){
-			throw  new Error(" User or password incorrect!")
+			return new Error(" User or password incorrect!")
 		}
 
 		const token = await GenerateTokenProvider.execute(
@@ -66,6 +77,10 @@ class AutenticationModel{
 			true
 		)
 		
+		if(!token){
+			return new Error ('Erro ao criar o token, Por favor tente novamente')
+		}
+		
 		await prisma.refreshTokenGestor.deleteMany({
 			where:{
 				gestorId:headmistressAlreadyExists.id
@@ -73,12 +88,22 @@ class AutenticationModel{
 		})
 
 		const refreshToken = await CreateRefreshToken.execute(headmistressAlreadyExists.id,true)
-		const dataProfile = {
-			nome:headmistressAlreadyExists.nome,
-			senha:headmistressAlreadyExists.senha
+		
+		if(!refreshToken){
+			return new Error('Erro ao criar o Refresh token, Por favor tente novamente')
 		}
 
-		return {dataProfile,token,refreshToken}
+		const user:ISession = {
+			id:headmistressAlreadyExists.id,
+			nome: headmistressAlreadyExists.nome,
+			senha: headmistressAlreadyExists.senha, 
+			idAdmin:false,
+			token: token,
+			idRefreshToken: refreshToken.id,
+		}
+
+		return user
+	
 	}
 }
 
