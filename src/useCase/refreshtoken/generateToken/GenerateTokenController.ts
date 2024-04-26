@@ -5,28 +5,19 @@ class GenerateTokenController{
 
 	async generateToken(req: Request , res:Response){
 
-		const refreshToken = req.body
+		const { refreshTokenId } = req.body
 		
-
-		if(!refreshToken){
+		if(!refreshTokenId){
 			return "RefreshToken not exists"
 		}
+		console.log(refreshTokenId)
 
-		if('professorId' in refreshToken){
-			const token = await GenerateTokenModel.ReadRefreshToken(
-				refreshToken.id,
-			)
-
-			return res.json(token)
-		}
-		
 		const token = await GenerateTokenModel.ReadRefreshToken(
-			refreshToken.id,
+			refreshTokenId
 		)
-		
-		res.json(token)
-	}
 
+		return res.json(token)
+	}
 }
 
 export default new GenerateTokenController
