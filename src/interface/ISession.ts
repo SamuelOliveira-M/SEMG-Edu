@@ -2,7 +2,7 @@ interface ISession{
 	id:string
 	nome: String,
 	senha: string
-	idAdmin:boolean
+	isAdmin:boolean
 	token: string
 	idRefreshToken: string,
 

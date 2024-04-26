@@ -47,7 +47,7 @@ class AutenticationModel{
 				id:teacherAlreadyExists.id,
 				nome: teacherAlreadyExists.nome,
 				senha: teacherAlreadyExists.senha, 
-				idAdmin:false,
+				isAdmin:false,
 				token: token,
 				idRefreshToken: refreshToken.id,
 			}
@@ -97,7 +97,7 @@ class AutenticationModel{
 			id:headmistressAlreadyExists.id,
 			nome: headmistressAlreadyExists.nome,
 			senha: headmistressAlreadyExists.senha, 
-			idAdmin:false,
+			isAdmin:false,
 			token: token,
 			idRefreshToken: refreshToken.id,
 		}
