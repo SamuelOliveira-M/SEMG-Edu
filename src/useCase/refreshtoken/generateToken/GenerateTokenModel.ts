@@ -3,47 +3,41 @@ import GenerateTokenProvider from "../../../services/GenerateTokenProvider"
 
 
 class GenerateTokenModel{
-	async ReadRefreshToken(id:string,userId:string,currentDate:number){
+	async ReadRefreshToken(id:string){
 
-		const isTeacher = await prisma.professor.findUnique({
+		const currentDate = Math.floor(Date.now() / 1000);
+
+		const refreshTokenTeacherAlreadyExists = await prisma.refreshTokenProfessor.findUnique({
 			where:{
-				id:userId
+				id
 			}
 		})
+		
+		if(refreshTokenTeacherAlreadyExists){
 
-		if(isTeacher){
-
-			const refreshTokenAlreadyExists = await prisma.refreshTokenProfessor.findUnique({
-				where:{
-					id
-				}
-			})
-
-			if(!refreshTokenAlreadyExists){
-				return 'Refresh Token invalido'
-			}
-
-			if(refreshTokenAlreadyExists.expiresIn<=currentDate){
+			if(refreshTokenTeacherAlreadyExists.expiresIn<=currentDate){
 				return 'Refreshtoken expirado'
 			}
 
-			const newToken = await GenerateTokenProvider.execute(isTeacher.id,
-				isTeacher.nome,
+			const teacher = await prisma.professor.findUnique({
+				where:{
+					id:refreshTokenTeacherAlreadyExists.professorId
+				}
+			})
+
+			if(!teacher){
+				return 'Professor não existe'
+			}
+
+			const newToken = await GenerateTokenProvider.execute(
+				refreshTokenTeacherAlreadyExists.professorId,
+				teacher?.nome,
 				false
 			)
 
 			return newToken
 		}
-
-		const isHeadmistress = await prisma.professor.findUnique({
-			where:{
-				id:userId
-			}
-		})
-
-		if(!isHeadmistress){
-			return 'Refresh Token invalido'
-		}
+		
 
 		const refreshTokenAlreadyExists = await prisma.refreshTokenGestor.findUnique({
 			where:{
@@ -59,9 +53,19 @@ class GenerateTokenModel{
 			return 'Refreshtoken expirado'
 		}
 
+		const manager = await prisma.professor.findUnique({
+			where:{
+				id:refreshTokenAlreadyExists.gestorId
+			}
+		})
+
+		if(!manager){
+			return "Esse gestor não existe"
+		}
+
 		const newToken = await GenerateTokenProvider.execute(
-			isHeadmistress.id,
-			isHeadmistress.nome,
+			refreshTokenAlreadyExists.gestorId,
+			manager?.nome,
 			true
 		)
 

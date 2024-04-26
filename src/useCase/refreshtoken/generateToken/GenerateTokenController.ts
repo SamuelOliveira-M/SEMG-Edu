@@ -6,7 +6,7 @@ class GenerateTokenController{
 	async generateToken(req: Request , res:Response){
 
 		const refreshToken = req.body
-		const currentDate = Math.floor(Date.now() / 1000);
+		
 
 		if(!refreshToken){
 			return "RefreshToken not exists"
@@ -15,8 +15,6 @@ class GenerateTokenController{
 		if('professorId' in refreshToken){
 			const token = await GenerateTokenModel.ReadRefreshToken(
 				refreshToken.id,
-				refreshToken.professorId,
-				currentDate
 			)
 
 			return res.json(token)
@@ -24,8 +22,6 @@ class GenerateTokenController{
 		
 		const token = await GenerateTokenModel.ReadRefreshToken(
 			refreshToken.id,
-			refreshToken.gestorId,
-			currentDate
 		)
 		
 		res.json(token)
