@@ -40,12 +40,10 @@ schoolRoutes.post("/disciplina",CreateSubjectsController.createSubjectsControlle
 schoolRoutes.post("/professor",multer.single('file'),uploadImage,CreateTeacherController.createTeacherController)
 schoolRoutes.post("/nota/:registrationId",CreateGradeController.CreateGradeController)
 schoolRoutes.post("/gestor",CreateManagerController.createTeacherController)
-schoolRoutes.post("/login",ReadTeacherController.loginTeacher)
 schoolRoutes.post("/assigning/subject/teacher",AddSubjectToTeacherController.AddSubjectToTeacher)
 schoolRoutes.post("/calendar",CreateCalendarController.createCalendar)
 schoolRoutes.post("/horario",CreateTimeRangeController.createTimeRange)
-
-schoolRoutes.post("/logint",AutenticationController.authenticate)
+schoolRoutes.post("/login",AutenticationController.authenticate)
 schoolRoutes.post('/refreshtoken',GenerateTokenController.generateToken)
 
 

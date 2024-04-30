@@ -2,7 +2,7 @@ import { compare } from "bcryptjs"
 import { prisma } from "../../lib/prisma"
 import CreateRefreshToken from "../refreshtoken/create/CreateRefreshToken"
 import GenerateTokenProvider from "../../services/GenerateTokenProvider"
-import ISession from "../../interface/ISession"
+import IUser from "../../interface/IUser"
 
 class AutenticationModel{
 	async createAtentication(email:string ,senha:string){
@@ -43,12 +43,12 @@ class AutenticationModel{
 				return new Error('Erro ao criar o Refresh token, Por favor tente novamente')
 			}
 			
-			const user:ISession = {
+			const user:IUser = {
 				id:teacherAlreadyExists.id,
 				nome: teacherAlreadyExists.nome,
 				senha: teacherAlreadyExists.senha, 
 				isAdmin:false,
-				token: token,
+				accessToken: token,
 				idRefreshToken: refreshToken.id,
 			}
 
@@ -93,12 +93,12 @@ class AutenticationModel{
 			return new Error('Erro ao criar o Refresh token, Por favor tente novamente')
 		}
 
-		const user:ISession = {
+		const user:IUser = {
 			id:headmistressAlreadyExists.id,
 			nome: headmistressAlreadyExists.nome,
 			senha: headmistressAlreadyExists.senha, 
 			isAdmin:false,
-			token: token,
+			accessToken: token,
 			idRefreshToken: refreshToken.id,
 		}
 
