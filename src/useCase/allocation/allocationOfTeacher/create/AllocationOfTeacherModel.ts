@@ -43,7 +43,7 @@ class AllocationOfTeacherModel{
 			return;
 		}
 
-		const disciplinasDoProfessorNaTurma = await prisma.professor_Disciplina_Turma.create({
+		const disciplinasDoProfessorNaTurma = await prisma.lotacao.create({
 			data: {
 				professorId: teacher.id,
 				disciplinaId: subject.id,
