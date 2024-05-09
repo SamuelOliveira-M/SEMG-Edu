@@ -81,8 +81,8 @@ model Turma {
   ano_letivoId            String        
   
   matriculas              Matricula[]
-  disciplinasTurmas       Professor_Disciplina_Turma[]
-  historicoDisciplinasTurmas Historico_Professor_Disciplina_Turma[]
+  disciplinasTurmas       Lotacao[]
+  historicoDisciplinasTurmas Historico_Lotacao[]
   
   escola                  Escola      @relation("EscolaToTurma",fields: [escolaId],references: [id],onDelete: Cascade)
   ano_letivo              AnoLetivo   @relation("AnoLetivoToTurma",fields: [ano_letivoId],references: [id],onDelete: Cascade)
@@ -128,13 +128,13 @@ model Disciplina {
   carga_horaria           Int
 
   avaliacao               Avaliacao[]
-  disciplinasTurmas       Professor_Disciplina_Turma[]
-  historicoDisciplinasTurmas Historico_Professor_Disciplina_Turma[]
+  disciplinasTurmas       Lotacao[]
+  historicoDisciplinasTurmas Historico_Lotacao[]
 }
 
 model Professor {
   id                      String      @id @default(uuid())
-  nome                    String
+  nome                    String      @unique
   cpf                     String ?    @unique
   email                   String      @unique
   senha                   String
@@ -145,8 +145,8 @@ model Professor {
 
   refresh_token           RefreshTokenProfessor?
 
-  disciplinasTurmas       Professor_Disciplina_Turma[]
-  historicoDisciplinasTurmas Historico_Professor_Disciplina_Turma[]
+  disciplinasTurmas       Lotacao[]
+  historicoDisciplinasTurmas Historico_Lotacao[]
 }
 
 
@@ -180,7 +180,7 @@ model RefreshTokenProfessor{
 }
 
 
-model Professor_Disciplina_Turma {
+model Lotacao {
   id               String      @id @default(uuid())
   dataAlteracao    DateTime    @default(now())
   
@@ -191,14 +191,14 @@ model Professor_Disciplina_Turma {
   professor        Professor  @relation(fields: [professorId], references: [id])
   disciplina       Disciplina @relation(fields: [disciplinaId], references: [id])
   turma            Turma      @relation(fields: [turmaId], references: [id])
-  horarios         Horario[]
+  aulas            Aula[]
 
   @@index([professorId], name: "idx_professor_id")
   @@index([disciplinaId], name: "idx_disciplina_id")
   @@index([turmaId], name: "idx_turma_id")
 }
 
-model Historico_Professor_Disciplina_Turma {
+model Historico_Lotacao {
   id               String      @id @default(uuid())
   dataAlteracao    DateTime  @default(now())
 
@@ -216,24 +216,31 @@ model Historico_Professor_Disciplina_Turma {
 
 }
 
+
 model Horario{
   id                String       @id @default(uuid())
   horarioInicio     String       @unique
   horarioFim        String       @unique
-  lotacaoId         String       
-  calendarioId      String
+  aulas             Aula[]
+}
 
-  
-  lotacao           Professor_Disciplina_Turma  @relation(fields: [lotacaoId], references: [id])
-  calendario        Calendario                  @relation(fields: [calendarioId],references: [id],onDelete: Cascade)
+model Aula {
+  id                String       @id @default(uuid())
+  lotacaoId         String 
+  calendarioId      String
+  horarioId         String
+
+  calendario        Calendario   @relation(fields: [calendarioId],references: [id])
+  lotacao           Lotacao  @relation(fields: [lotacaoId], references: [id])
+  horario           Horario @relation(fields: [horarioId],references: [id])
 }
 
 model Calendario {
   id                String      @id @default(uuid())
-  diaSemana         String
+  diaSemana         String      @unique
   ordemSemana       Int
 
-  horarioId         String
-  horario           Horario[]
+  aulas             Aula[]
+
 }
 
