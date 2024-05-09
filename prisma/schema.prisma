@@ -182,7 +182,7 @@ model RefreshTokenProfessor{
 
 model Professor_Disciplina_Turma {
   id               String      @id @default(uuid())
-  dataAlteracao    DateTime  @default(now())
+  dataAlteracao    DateTime    @default(now())
   
   professorId      String
   disciplinaId     String
@@ -191,7 +191,7 @@ model Professor_Disciplina_Turma {
   professor        Professor  @relation(fields: [professorId], references: [id])
   disciplina       Disciplina @relation(fields: [disciplinaId], references: [id])
   turma            Turma      @relation(fields: [turmaId], references: [id])
-  Calendario       Calendario[]
+  horarios         Horario[]
 
   @@index([professorId], name: "idx_professor_id")
   @@index([disciplinaId], name: "idx_disciplina_id")
@@ -220,17 +220,20 @@ model Horario{
   id                String       @id @default(uuid())
   horarioInicio     String       @unique
   horarioFim        String       @unique
+  lotacaoId         String       
+  
+  lotacao           Professor_Disciplina_Turma  @relation(fields: [lotacaoId], references: [id])
+  
   calendarios       Calendario[] 
 }
 
 model Calendario {
   id                String      @id @default(uuid())
   diaSemana         String
-  
-  lotacaoId         String
+  ordemSemana       Int
+
   horarioId         String
 
-  lotacao           Professor_Disciplina_Turma  @relation(fields: [lotacaoId], references: [id])
-  horario           Horario     @relation(fields: [horarioId],references: [id])
+  horario           Horario     @relation(fields: [horarioId],references: [id],onDelete: Cascade)
 }
 
