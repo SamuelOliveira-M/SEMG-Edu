@@ -1,23 +1,14 @@
 import ICalendar from "../../../interface/ICalendar"
 import { prisma } from "../../../lib/prisma"
+import { DiaSemana } from "../../../lib/enums";
+import { obterNumeroDiaSemana } from "../../../services/obterNumeroDiaSemana";
 
 class CreateCalendarModel{
 	async createCalendarModel(dataCalendar:ICalendar){
 		const {	
 			diaSemana, 
-			lotacaoId,
-			horarioId
+			horarioId,
 		} = dataCalendar
-
-		const AllocationAlreadExist  = await prisma.professor_Disciplina_Turma.findUnique({
-			where:{
-				id:lotacaoId
-			}
-		})
-
-		if(!AllocationAlreadExist){
-			return 'Não exites essa locação de professor'
-		}
 
 		const timeRangeAlreadExist  = await prisma.horario.findUnique({
 			where:{
@@ -34,23 +25,27 @@ class CreateCalendarModel{
 			where:{
 				diaSemana,
 				horarioId,
-				lotacaoId
 			}
 		})
 
 		if(CalendarAlreadExist){
 			return "Horario Já preenchido"
 		}
+ 
+		const diaNum = obterNumeroDiaSemana(diaSemana)
 
+		if(diaNum){
+			const calendar = await prisma.calendario.create({
+				data:{
+					diaSemana,
+					ordemSemana:diaNum,
+					horarioId,
+				}
+			})
+			return calendar
+		}
 
-		const calendar = await prisma.calendario.create({
-			data:{
-				diaSemana,
-				horarioId,
-				lotacaoId 
-			}
-		})
-		return calendar
+		return 'Dia na semana não existe'
 	}
 }
 

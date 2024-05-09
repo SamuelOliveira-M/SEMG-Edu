@@ -1,7 +1,6 @@
 
 interface ICalendar {
   diaSemana:string
-  lotacaoId:string
   horarioId:string
 }
 
