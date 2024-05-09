@@ -1,7 +1,6 @@
 
 interface ICalendar {
   diaSemana:string
-  horarioId:string
 }
 
 export default ICalendar

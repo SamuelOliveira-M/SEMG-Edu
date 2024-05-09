@@ -1,45 +1,27 @@
-import ICalendar from "../../../interface/ICalendar"
 import { prisma } from "../../../lib/prisma"
-import { DiaSemana } from "../../../lib/enums";
-import { obterNumeroDiaSemana } from "../../../services/obterNumeroDiaSemana";
+import { getNumberDayWeek } from "../../../services/obterNumeroDiaSemana";
 
 class CreateCalendarModel{
-	async createCalendarModel(dataCalendar:ICalendar){
-		const {	
-			diaSemana, 
-			horarioId,
-		} = dataCalendar
+	async createCalendarModel(weekDay:string, tx:any){
 
-		const timeRangeAlreadExist  = await prisma.horario.findUnique({
+		const CalendarAlreadExist  = await prisma.calendario.findUnique({
 			where:{
-				id:horarioId
-			}
-		})
-
-		if(!timeRangeAlreadExist){
-			return 'Esse Horário Não está cadastrado no sistema'
-		}
-
-
-		const CalendarAlreadExist  = await prisma.calendario.findFirst({
-			where:{
-				diaSemana,
-				horarioId,
+				diaSemana:weekDay,
 			}
 		})
 
 		if(CalendarAlreadExist){
-			return "Horario Já preenchido"
+			return CalendarAlreadExist
 		}
  
-		const diaNum = obterNumeroDiaSemana(diaSemana)
+		const numDay = getNumberDayWeek(weekDay)
 
-		if(diaNum){
-			const calendar = await prisma.calendario.create({
+		if(numDay){
+			const calendar = await tx.calendario.create({
 				data:{
-					diaSemana,
-					ordemSemana:diaNum,
-					horarioId,
+					diaSemana:weekDay,
+					ordemSemana:numDay,
+					
 				}
 			})
 			return calendar

@@ -27,6 +27,7 @@ import GenerateTokenController from "../useCase/refreshtoken/generateToken/Gener
 import { get } from "http";
 import GetStatisticsController from "../useCase/getStatistics/GetStatisticsController";
 
+import TransetionCalendarController from "../useCase/calendario/transetion/TransetionCalendarController";
 
 const multer = Multer({
 	storage: Multer.memoryStorage(),
@@ -40,16 +41,17 @@ schoolRoutes.post("/disciplina",CreateSubjectsController.createSubjectsControlle
 schoolRoutes.post("/professor",multer.single('file'),uploadImage,CreateTeacherController.createTeacherController)
 schoolRoutes.post("/nota/:registrationId",CreateGradeController.CreateGradeController)
 schoolRoutes.post("/gestor",CreateManagerController.createTeacherController)
-schoolRoutes.post("/assigning/subject/teacher",AddSubjectToTeacherController.AddSubjectToTeacher)
-schoolRoutes.post("/calendar",CreateCalendarController.createCalendar)
+schoolRoutes.post("/lotacao",AddSubjectToTeacherController.AddSubjectToTeacher)
+schoolRoutes.post("/calendario",TransetionCalendarController.transetionClassCalendar)
 schoolRoutes.post("/horario",CreateTimeRangeController.createTimeRange)
 schoolRoutes.post("/login",AutenticationController.authenticate)
 schoolRoutes.post('/refreshtoken',GenerateTokenController.generateToken)
 
 
+
 schoolRoutes.get("/teacherstt",ReadTeacherController.readAllTeachersController)
 schoolRoutes.get("/teacherProfile/:id",ReadTeacherController.readTeachersClasses)
-schoolRoutes.get("/calendar",ensureAuthenticated,ReadCalendarController.readCalendarController)
+schoolRoutes.get("/calendar/:classId",ReadCalendarController.readCalendarController)
 
 schoolRoutes.get("/gestor",ReadManagerController.readManagerController)
 schoolRoutes.get("/class",ReadSchoolClassController.readSchoolClass)
