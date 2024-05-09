@@ -12,6 +12,7 @@ class CreateTimeRangeController{
 			const dataTimeRange:IHorario = req.body
 			
 			const validatorTimeRange = Validator.TimeRangeValidator(dataTimeRange)
+			console.log(validatorTimeRange)
 
 			if(validatorTimeRange){
 			 	return res.status(500).json(validatorTimeRange)

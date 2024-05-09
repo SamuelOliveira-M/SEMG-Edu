@@ -6,17 +6,27 @@ class CreateTimeRangeModel{
 	async CreateTimeRangeModel(dataClassSchedule:IHorario){
 		const {	
 			horarioInicio,
-			horarioFim, 
+			horarioFim,
+			lotacaoId
 			 
 		} = dataClassSchedule
 
-		
-		const dataTimeRangeAlreadExist  = await prisma.horario.findUnique({
+		const AllocationAlreadExist  = await prisma.professor_Disciplina_Turma.findUnique({
 			where:{
-				horarioInicio
+				id:lotacaoId
 			}
 		})
+		if(!AllocationAlreadExist){
+			return 'Não exites essa locação de professor'
+		}
 
+
+		const dataTimeRangeAlreadExist  = await prisma.horario.findUnique({
+			where:{
+				horarioInicio,
+				lotacaoId
+			}
+		})
 		if(dataTimeRangeAlreadExist){
 			return "Esse horário já foi cadastrado."
 		}
@@ -25,7 +35,8 @@ class CreateTimeRangeModel{
 		const TimeRange = await prisma.horario.create({
 			data:{
 				horarioInicio,
-				horarioFim, 
+				horarioFim,
+				lotacaoId
 			}
 		})
 		return TimeRange
