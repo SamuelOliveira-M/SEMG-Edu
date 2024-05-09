@@ -2,38 +2,55 @@ import ICalendar from "../../../interface/ICalendar"
 import { prisma } from "../../../lib/prisma"
 
 class ReadCalendarModel{
-	async readCalendarModel(){
+	async readCalendarModel(turmaId:string){
 
-		const calendar = await prisma.calendario.findMany({
-			select:{
-				diaSemana:true,
-				horario:{
-					select:{
-						horarioInicio:true,
-						horarioFim:true
-					}
-				},
+
+		const calendar = prisma.aula.findMany({
+			where:{
 				lotacao:{
+					turma:{
+						id:turmaId
+					}
+				}
+			},
+			orderBy:{
+				calendario:{
+					ordemSemana:'asc'
+				}
+			},
+			select:{
+				calendario:{
 					select:{
-						professor:{
+						diaSemana:true,
+						aulas:{
 							select:{
-								nome:true
-							}
-						},
-						turma:{
-							select:{
-								nome:true
-							}
-						},
-						disciplina:{
-							select:{
-								nome:true
+								lotacao:{
+									select:{
+										professor:{
+											select:{
+												nome:true
+											}
+										},
+										disciplina:{
+											select:{
+												nome:true
+											}
+										}
+									}
+								},
+								horario:{
+									select:{
+										horarioInicio:true,
+										horarioFim:true
+									}
+								}
 							}
 						}
 					}
 				}
-			},					
+			}
 		})
+
 		return calendar
 	}
 }

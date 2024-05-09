@@ -4,7 +4,9 @@ import ReadCalendarModel from "./ReadCalendarModel"
 class ReadCalendarController{
 	async readCalendarController(req:Request,res:Response){
 		
-		const calendar = await ReadCalendarModel.readCalendarModel()
+		const turmaId = req.params.turmaId
+
+		const calendar = await ReadCalendarModel.readCalendarModel(turmaId)
 
 		res.json(calendar)
 	}
