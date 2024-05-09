@@ -221,10 +221,11 @@ model Horario{
   horarioInicio     String       @unique
   horarioFim        String       @unique
   lotacaoId         String       
+  calendarioId      String
+
   
   lotacao           Professor_Disciplina_Turma  @relation(fields: [lotacaoId], references: [id])
-  
-  calendarios       Calendario[] 
+  calendario        Calendario                  @relation(fields: [calendarioId],references: [id],onDelete: Cascade)
 }
 
 model Calendario {
@@ -233,7 +234,6 @@ model Calendario {
   ordemSemana       Int
 
   horarioId         String
-
-  horario           Horario     @relation(fields: [horarioId],references: [id],onDelete: Cascade)
+  horario           Horario[]
 }
 
