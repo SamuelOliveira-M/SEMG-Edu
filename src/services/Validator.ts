@@ -244,7 +244,7 @@ class Validator {
 		return null;
 	}
 	
-	TimeRangeValidator(TimeRange:ITimeRange){
+	timeRangeValidator(TimeRange:ITimeRange){
 		const schema = Joi.object({
 			horarioInicio:Joi.string().pattern(/^([01]\d|2[0-3]):([0-5]\d)$/),
 			horarioFim: Joi.string().pattern(/^([01]\d|2[0-3]):([0-5]\d)$/),
@@ -259,6 +259,42 @@ class Validator {
 
 		return null;
 	}
+
+	weekDayValidate(weekDay:string){
+		const schema = Joi.object({
+			weekDay: Joi.string().min(5).max(10)
+		});
+
+		const validationResult = schema.validate({weekDay:weekDay});
+		if (validationResult.error) {
+			const invalidField = validationResult.error?.details[0].path;
+			return invalidField;
+		}
+
+		return null;
+	}
+
+	alocationOfTeacherValidate(className: string, teacherName: string, subjectName: string) {
+    const schema = Joi.object({
+        className: Joi.string().min(16).max(26),
+        teacherName: Joi.string().min(2).max(60),
+        subjectName: Joi.string().min(5).max(40)
+    });
+
+    const validationResult = schema.validate({
+        className: className,
+        teacherName: teacherName,
+        subjectName: subjectName
+    });
+
+    if (validationResult.error) {
+        const invalidField = validationResult.error.details[0].path;
+				console.log(validationResult)
+        return invalidField;
+    }
+
+    return null;
+}
 
 }
 
