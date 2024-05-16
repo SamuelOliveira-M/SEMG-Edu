@@ -10,7 +10,7 @@ import * as fs from 'fs';
 
 import studentRoutes from './routes/studentRoutes';
 import schoolRoutes from './routes/schoolRoutes';
-
+import teacherRoutes from './routes/teacherRoutes';
 
 dotenv.config();
 
@@ -48,6 +48,7 @@ app.use('/docs',swaggerUi.serve,swaggerUi.setup(swaggerDocs))
 
 app.use(studentRoutes)
 app.use(schoolRoutes)
+app.use(teacherRoutes)
 
 app.get('/',(req,res)=>{
   res.status(200).send('<h1>Está Online</h1>')
