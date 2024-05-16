@@ -15,7 +15,7 @@ class ReadTeacherModel{
 			return;
 		}
 
-		const associacoes = await prisma.professor_Disciplina_Turma.findMany({
+		const associacoes = await prisma.lotacao.findMany({
 			where: {
 				professorId: teacherAlreadyExists.id,
 			},

@@ -18,7 +18,7 @@ class AutenticationModel{
 			const passwordMatch = await compare(senha,teacherAlreadyExists.senha)
 
 			if(!passwordMatch){
-				return new Error("User or password incorrect!")
+				throw new Error("User or password incorrect!")
 			}
 
 			const token = await GenerateTokenProvider.execute(
@@ -28,7 +28,7 @@ class AutenticationModel{
 			)
 			
 			if(!token){
-				return new Error('Erro ao criar o token, Por favor tente novamente')
+				throw new Error('Erro ao criar o token, Por favor tente novamente')
 			}
 
 			await prisma.refreshTokenProfessor.deleteMany({
@@ -40,7 +40,7 @@ class AutenticationModel{
 			const refreshToken = await CreateRefreshToken.execute(teacherAlreadyExists.id,false)
 
 			if(!refreshToken){
-				return new Error('Erro ao criar o Refresh token, Por favor tente novamente')
+				throw new Error('Erro ao criar o Refresh token, Por favor tente novamente')
 			}
 			
 			const user:IUser = {
@@ -62,13 +62,13 @@ class AutenticationModel{
 		})
 
 		if(!headmistressAlreadyExists){
-			return new Error("Email or password incorrect!")
+			throw new Error("Email or password incorrect!")
 		}
 
 		const passwordMatch = await compare(senha,headmistressAlreadyExists.senha)
 
 		if(!passwordMatch){
-			return new Error(" User or password incorrect!")
+			throw new Error(" User or password incorrect!")
 		}
 
 		const token = await GenerateTokenProvider.execute(
@@ -78,7 +78,7 @@ class AutenticationModel{
 		)
 		
 		if(!token){
-			return new Error ('Erro ao criar o token, Por favor tente novamente')
+			throw new Error ('Erro ao criar o token, Por favor tente novamente')
 		}
 		
 		await prisma.refreshTokenGestor.deleteMany({
@@ -90,7 +90,7 @@ class AutenticationModel{
 		const refreshToken = await CreateRefreshToken.execute(headmistressAlreadyExists.id,true)
 		
 		if(!refreshToken){
-			return new Error('Erro ao criar o Refresh token, Por favor tente novamente')
+			throw new Error('Erro ao criar o Refresh token, Por favor tente novamente')
 		}
 
 		const user:IUser = {
