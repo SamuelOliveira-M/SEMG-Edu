@@ -38,5 +38,20 @@ class ReadSubjectModel{
 		return disciplinasComNotas
 
 	}
+
+  async classTeacherSubjects(turmaId:string,professorId:string){
+
+    const subjects = await prisma.lotacao.findMany({
+      where:{
+        professorId,
+        turmaId
+      },
+      select:{
+        disciplina:true
+      }
+    })
+
+    return subjects
+  }
 }
 export default new ReadSubjectModel()
