@@ -53,5 +53,43 @@ class ReadSubjectModel{
 
     return subjects
   }
+
+  async studentPerformanceSheetModel(turmaId:string,professorId:string,disciplinaId:string){
+    
+    const performanceSheet = await prisma.lotacao.findMany({
+      where:{
+        professorId,
+        turmaId,
+        disciplinaId
+      },
+      select:{
+        turma:{
+          select:{
+            matriculas:{
+              select:{
+                aluno:{  
+                  select:{
+                    id:true,
+                    nome:true,
+                  }
+                },
+                avaliacao:{
+                  select:{
+                    id:true,
+                    nota:true,
+                    semestre:true,
+                    mes:true
+                  }
+                }
+      
+              }
+            }
+          }
+        }
+      }
+    })
+
+    return performanceSheet
+  }
 }
 export default new ReadSubjectModel()
