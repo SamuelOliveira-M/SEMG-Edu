@@ -74,6 +74,9 @@ class ReadSubjectModel{
                   }
                 },
                 avaliacao:{
+                  orderBy:{
+                    mes:'asc'
+                  },
                   select:{
                     id:true,
                     nota:true,
