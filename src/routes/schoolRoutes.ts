@@ -5,8 +5,6 @@ import TransetionSchoolController from "../useCase/escola/transetion/TransetionS
 import CreateTeacherController from "../useCase/professor/create/CreateTeacherController";
 import CreateGradeController from "../useCase/notas/create/CreateGradeController";
 import CreateManagerController from "../useCase/gestor/create/CreateManagerController";
-import CreateCalendarController from "../useCase/calendario/create/CreateCalendarController";
-import CreateTimeRangeController from "../useCase/horario/create/CreateTimeRangeController";
 
 import AddSubjectToTeacherController from "../useCase/allocation/allocationOfTeacher/create/AllocationOfTeacherController";
 
@@ -43,7 +41,6 @@ schoolRoutes.post("/nota/:registrationId",CreateGradeController.CreateGradeContr
 schoolRoutes.post("/gestor",CreateManagerController.createTeacherController)
 schoolRoutes.post("/lotacao",AddSubjectToTeacherController.AddSubjectToTeacher)
 schoolRoutes.post("/calendario",TransetionCalendarController.transetionClassCalendar)
-schoolRoutes.post("/horario",CreateTimeRangeController.createTimeRange)
 schoolRoutes.post("/login",AutenticationController.authenticate)
 schoolRoutes.post('/refreshtoken',GenerateTokenController.generateToken)
 
