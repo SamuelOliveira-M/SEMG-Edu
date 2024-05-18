@@ -39,6 +39,19 @@ class CreateGradeModel{
 				"data":gradeAlreadyExists
 			}
 		}
+
+		if(dataGrade.tipo === '1 recuperacao'){
+			dataGrade.mes = 7
+		}
+		
+		if(dataGrade.tipo === '2 recuperacao'){
+			dataGrade.mes = 12
+		}
+
+		if(dataGrade.tipo ==='final'){
+			dataGrade.mes = 13
+		}
+
 		
 		const grade = await prisma.avaliacao.create({
 			data:{
