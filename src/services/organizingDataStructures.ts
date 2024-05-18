@@ -1,105 +1,83 @@
-interface Avaliacao {
-	id: string;
-	tipo: string;
-	nota: number;
-	mes: number|null;
-	semestre: number;
-}
+import { Matricula, Avaliacao } from "../interface/IPerformanceSheet";
 
-interface Curso {
-	id: string;
-	nome: string;
-	carga_horaria: number;
-	avaliacao: Avaliacao[];
-}
+export const addMissingNotas = (matriculas: Matricula[], totalMeses: number): Matricula[] => {
+  return matriculas.map(matricula => {
+    const avaliacoesMap = new Map<number, Avaliacao>();
+    matricula.avaliacao.forEach(avaliacao => {
+      avaliacoesMap.set(avaliacao.mes, avaliacao);
+    });
 
-interface NotasMateria {
-  materia: string;
-	aprovacao:string;
-  marco: number;
-  abril: number;
-  maio: number;
-  junho: number;
-  recup1: number;
-  agosto: number;
-  setembro: number;
-  outubro: number;
-  novembro: number;
-  recup2: number;
-	provaFinal: number;
-	media: number;
-	[key: string]: number|string;
-}
+    // Adicionar notas zero para meses ausentes
+    const avaliacoesCompletas: Avaliacao[] = [];
+    for (let mes = 3; mes <= totalMeses; mes++) {
+      if (avaliacoesMap.has(mes)) {
+        avaliacoesCompletas.push(avaliacoesMap.get(mes)!);
+      } else {
+        if (mes === 7) {
+          avaliacoesCompletas.push({
+            id: null,
+            nota: 0,
+            mes: 7, // Recuperação após junho
+            semestre: null,
+            tipo:'1 Recuperação'
+          });
+        }else{
+          avaliacoesCompletas.push({
+            id: null,
+            nota: 0,
+            mes: mes,
+            semestre: null,
+            tipo:null
+          });
+        }
+      }
+    }
 
+    // Adicionar notas de recuperação e prova final
+    
 
-export function criarEstruturaDados(dadosApi: Curso[]){
-	if (dadosApi.length === 0) {
-		console.error("Dados da API vazios.");
-		return null;
-	}
+    if (totalMeses > 10) {
+      avaliacoesCompletas.push({
+        id: null,
+        nota: 0,
+        mes: 12, // Recuperação após novembro
+        semestre: null,
+        tipo:'2 Recuperação'
+      });
 
-	const list:NotasMateria[] = []
-	let quantNotas = 0
-	let tatalNotas = 0
+      avaliacoesCompletas.push({
+        id: null,
+        nota: 0,
+        mes: 13, // Prova final
+        semestre: null,
+        tipo:'Prova final'
+      });
+    }
 
-	dadosApi.map((disciplina)=>{
-		let notas: NotasMateria = {
-			"materia": disciplina.nome,
-			"aprovacao":"",
-			"marco": 0,
-			"abril": 0,
-			"maio": 0,
-			"junho": 0,
-			"recup1": 0,
-			"agosto": 0,
-			"setembro": 0,
-			"outubro": 0,
-			"novembro": 0,
-			"recup2": 0,
-			"provaFinal": 0,
-			"media": 0
-		};
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth() + 1; // Months are zero-indexed, so add 1 to get the actual month number (1-12)
+    
+    const notas = avaliacoesCompletas.map(avaliacao => avaliacao.nota);
+    
+    if(currentMonth<11){
+      const media = notas.reduce((sum, nota) => sum + nota, 0) / (currentMonth-1);
+      const status: string = media > 6 ? 'Aprovado' : 'Cursando';
+      return {
+        ...matricula,
+        avaliacao: avaliacoesCompletas,
+        media,
+        status
+      };
+    }
 
-		disciplina.avaliacao.map((avaliacao)=>{
-			quantNotas+=1
-			tatalNotas+=avaliacao.nota
-			if(avaliacao.semestre==1){
-				if(avaliacao.mes!==null){
-					const mes = obterNomeMes(avaliacao.mes)
-					notas[mes] = avaliacao.nota
-				}else{
-					notas.recup1 = avaliacao.nota
-				}	
-			}
-			else{
-				if(avaliacao.mes!==null){
-					const mes = obterNomeMes(avaliacao.mes)
-					notas[mes] = avaliacao.nota
-				}
-				if(avaliacao.tipo ==="final"){
-					notas.provaFinal = avaliacao.nota
-				}
-				notas.recup2 = avaliacao.nota
-			}
-		})
-		notas.media = tatalNotas/quantNotas
-		if(quantNotas==8){
-			if(notas.media>5){
-				notas.aprovacao = "Aprovação"
-			}
-			notas.aprovacao = "Reprovado"
-		}else{
-			notas.aprovacao = "Cursando"
-		}
+    const media = notas.reduce((sum, nota) => sum + nota, 0) / currentMonth;
+    const status: string = media > 6 ? 'Aprovado' : 'Reprovado';
 
-		list.push(notas)
-	})
-	return list
-}
-
-function obterNomeMes(numeroMes:number) {
-  const data = new Date();
-  data.setMonth(numeroMes - 1);
-  return data.toLocaleString('pt-BR', { month: 'long' }); 
-}
-
+    return {
+      ...matricula,
+      avaliacao: avaliacoesCompletas,
+      media,
+      status
+    };
+  });
+};

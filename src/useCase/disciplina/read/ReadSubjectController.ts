@@ -22,7 +22,7 @@ class ReadSubjectController{
 		const { turmaId,disciplinaId,professorId} = req.params
 	
 		try{
-			const performanceSheet = await ReadSubjectModel.studentPerformanceSheetModel(turmaId,professorId,disciplinaId)
+			const performanceSheet = await ReadSubjectModel.studentPerformanceSheetModel(turmaId,disciplinaId)
 			return res.status(201).json(performanceSheet)
 			
 		}catch(e){	
