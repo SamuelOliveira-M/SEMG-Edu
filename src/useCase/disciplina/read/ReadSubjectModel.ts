@@ -1,7 +1,7 @@
-import IGrade from "../../../interface/IGrade";
-import ISubject from "../../../interface/ISubject"
 import { prisma } from "../../../lib/prisma"
-
+import { addMissingNotas } from "../../../services/organizingDataStructures";
+import { addMissingNotas2 } from "../../../services/organizingStudentPerformanceSheet";
+import { PerformanceSheet,studentPerformanceSheet,test } from "../../../interface/IPerformanceSheet";
 
 class ReadSubjectModel{
 	async readSubject(nome:string){
@@ -17,26 +17,39 @@ class ReadSubjectModel{
 	}
 
 	async gradesBySubjectModel(matriculaId:string){
-		
-		const disciplinasComNotas = await prisma.disciplina.findMany({
-      include: {
+		const totalMeses = 11; // Número total de meses que deseja considerar
+    const dateObject = new Date(Date.parse('2024'));
+  
+    const studentPerformanceSheet:studentPerformanceSheet[] = await prisma.disciplina.findMany({
+      select:{
+        id:true,
+        nome:true,
+
         avaliacao: {
-          where: {
-            matriculaId,
+          orderBy: {
+            mes: 'asc',
           },
-          select: {
-            id: true,
-            tipo: true,
-            nota: true,
-            mes: true,
-            semestre: true,
+
+        where:{
+          matriculaId:matriculaId
+        },
+        
+        select: {
+          id: true,
+          nota: true,
+          mes: true,
+          semestre: true,
           },
         },
-      },
-    });
+      }
+    }) as studentPerformanceSheet[];
+    
+    const processedData: test = {
+      redimento: addMissingNotas2(studentPerformanceSheet, totalMeses),
+    };
 
-		return disciplinasComNotas
-
+    
+    return processedData;
 	}
 
   async classTeacherSubjects(turmaId:string,professorId:string){
@@ -54,45 +67,49 @@ class ReadSubjectModel{
     return subjects
   }
 
-  async studentPerformanceSheetModel(turmaId:string,professorId:string,disciplinaId:string){
+  async studentPerformanceSheetModel(turmaId:string,disciplinaId:string){
     
-    const performanceSheet = await prisma.lotacao.findMany({
-      where:{
-        professorId,
-        turmaId,
-        disciplinaId
+    
+    
+    const totalMeses = 11; // Número total de meses que deseja considerar
+    
+    const performanceSheet: PerformanceSheet = await prisma.turma.findUnique({
+      where: {
+        id: turmaId,
       },
-      select:{
-        turma:{
-          select:{
-            matriculas:{
-              select:{
-                aluno:{  
-                  select:{
-                    id:true,
-                    nome:true,
-                  }
-                },
-                avaliacao:{
-                  orderBy:{
-                    mes:'asc'
-                  },
-                  select:{
-                    id:true,
-                    nota:true,
-                    semestre:true,
-                    mes:true
-                  }
-                }
-      
-              }
-            }
-          }
-        }
-      }
-    })
-
-    return performanceSheet
-  }
+      select: {
+        matriculas: {
+          select: {
+            aluno: {
+              select: {
+                id: true,
+                nome: true,
+              },
+            },
+            avaliacao: {
+              where: {
+                disciplinaId: disciplinaId,
+              },
+              orderBy: {
+                mes: 'asc',
+              },
+              select: {
+                id: true,
+                nota: true,
+                mes: true,
+                semestre: true,
+              },
+            },
+          },
+        },
+      },
+    }) as PerformanceSheet;
+    
+    const processedData: PerformanceSheet = {
+      matriculas: addMissingNotas(performanceSheet.matriculas, totalMeses),
+    };
+    
+    return processedData;
+  }    
 }
 export default new ReadSubjectModel()

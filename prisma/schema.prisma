@@ -107,7 +107,7 @@ model Avaliacao{
   id                      String      @id @default(uuid())
   tipo                    String
   nota                    Float
-  mes                     Int ?            
+  mes                     Int            
   semestre                Int
 
   anoLetivoId             String
