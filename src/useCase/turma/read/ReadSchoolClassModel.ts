@@ -44,28 +44,24 @@ class ReadSchoolClassModel{
 	}
 
 	async readTeacherClasses(teacherId:string){
-		
-		const teacherClasses = await prisma.professor.findUnique({
+
+		const teacherClasses = await prisma.lotacao.findMany({
 			where:{
-				id:teacherId
+				professorId:teacherId
 			},
-			include:{
-				disciplinasTurmas:{
-					select:{
-						turma:{
-							include:{
-								ano_letivo:true
-							}
-						}
-					}
-				}
-			}
+			select: {
+				turma: {
+					include: {
+							ano_letivo: true,
+					},
+				},
+			},
+
+			distinct: ['turmaId'],
 		})
-					
+				
 		return teacherClasses
 	}
-
-	
 }
 
 export default new ReadSchoolClassModel()
