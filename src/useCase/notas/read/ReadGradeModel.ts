@@ -2,9 +2,14 @@ import { prisma } from "../../../lib/prisma"
 import IGrade from "../../../interface/IGrade"
 
 class ReadGradeModel{
-	async readGrade(dataGrade:IGrade,disciplinaId:string,matriculaId:string){
+	async readGrade(
+		nota: number,
+		mes: number,
+		disciplinaId:string,
+		matriculaId:string
+	){
 		
-		const {nota,mes} = dataGrade
+		// const {nota,mes} = dataGrade
 		
 		const gradeAlreadyExists = await prisma.avaliacao.findFirst({
 			where: {
