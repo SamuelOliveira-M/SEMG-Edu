@@ -43,6 +43,7 @@ schoolRoutes.post("/lotacao",AddSubjectToTeacherController.AddSubjectToTeacher)
 schoolRoutes.post("/calendario",TransetionCalendarController.transetionClassCalendar)
 schoolRoutes.post("/login",AutenticationController.authenticate)
 schoolRoutes.post('/refreshtoken',GenerateTokenController.generateToken)
+schoolRoutes.post("/add/notas",CreateGradeController.ModifyGradeController)
 
 
 

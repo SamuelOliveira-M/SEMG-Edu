@@ -5,9 +5,17 @@ import ReadGradeModel from "../read/ReadGradeModel";
 import ReadSchoolYearModel from "../../anoLetivo/read/ReadSchoolYearModel";
 
 class CreateGradeModel{
-	async createGradeModel(dataGrade:IGrade) {
+	async createGradeModel(
+		tipo:string,
+		nota:number,
+		mes:number,
+		semestre:number,
+		disciplina:string,
+		matriculaId:string,
+		anoLetivo:Date
+	) {
 		
-		const {tipo,nota,mes,semestre,disciplina,matriculaId,anoLetivo} = dataGrade
+		// const {tipo,nota,mes,semestre,disciplina,matriculaId,anoLetivo} = dataGrade
 		
 
 		const subjectAlreadyExist = await ReadSubjectModel.readSubject(disciplina)
@@ -15,7 +23,7 @@ class CreateGradeModel{
 		if(!subjectAlreadyExist){
 			return({
 				"erro":true,
-				"message":"Disciplina inlida, não existe essa disciplina no sistema"
+				"message":"Disciplina invalida, não existe essa disciplina no sistema"
 			})
 		}
 
@@ -28,7 +36,8 @@ class CreateGradeModel{
 		}
 		
 		const gradeAlreadyExists = await ReadGradeModel.readGrade(
-			dataGrade,
+			nota,
+			mes,
 			subjectAlreadyExist.id,
 			matriculaId
 		)
@@ -40,16 +49,16 @@ class CreateGradeModel{
 			}
 		}
 
-		if(dataGrade.tipo === '1 recuperacao'){
-			dataGrade.mes = 7
+		if(tipo === '1 recuperacao'){
+			mes = 7
 		}
 		
-		if(dataGrade.tipo === '2 recuperacao'){
-			dataGrade.mes = 12
+		if(tipo === '2 recuperacao'){
+			mes = 12
 		}
 
-		if(dataGrade.tipo ==='final'){
-			dataGrade.mes = 13
+		if(tipo ==='final'){
+			mes = 13
 		}
 
 		

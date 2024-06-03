@@ -14,6 +14,7 @@ export interface Avaliacao {
 }
 
 export interface Matricula {
+  id:string
   aluno: Aluno;
   avaliacao: Avaliacao[];
 }
