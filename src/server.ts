@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 import admin from "firebase-admin";
 import path from 'path';
 import * as fs from 'fs';
+import cors from 'cors';
 
 
 import studentRoutes from './routes/studentRoutes';
@@ -39,6 +40,11 @@ admin.initializeApp({
 
 const app = express()
 const port = process.env.PORT || 3333
+
+app.use(cors());
+
+app.options('*', cors());
+
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
