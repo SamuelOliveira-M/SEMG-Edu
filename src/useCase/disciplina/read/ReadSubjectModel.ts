@@ -4,11 +4,11 @@ import { addMissingNotas2 } from "../../../services/organizingStudentPerformance
 import { PerformanceSheet,studentPerformanceSheet,test } from "../../../interface/IPerformanceSheet";
 
 class ReadSubjectModel{
-	async readSubject(nome:string){
+	async readSubject(disciplinaId:string){
 		
 		const subjectAlreadyExists= await prisma.disciplina.findFirst({
 			where: {
-				nome: nome,
+				id: disciplinaId,
 			}
 		});
 
@@ -80,6 +80,7 @@ class ReadSubjectModel{
       select: {
         matriculas: {
           select: {
+            id:true,
             aluno: {
               select: {
                 id: true,
