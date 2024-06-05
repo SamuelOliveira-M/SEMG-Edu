@@ -61,7 +61,7 @@ export const addMissingNotas2 = (matriculas: studentPerformanceSheet[], totalMes
     
     if(currentMonth<11){
       const media = notas.reduce((sum, nota) => sum + nota, 0) / (currentMonth-1);
-      const status: string = media > 6 ? 'Aprovado' : 'Cursando';
+      const status: string = 'Cursando';
       return {
         ...matricula,
         avaliacao: avaliacoesCompletas,
