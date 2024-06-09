@@ -71,7 +71,7 @@ class ReadSubjectModel{
     
     
     
-    const totalMeses = 11; // Número total de meses que deseja considerar
+    const totalMeses = 13; // Número total de meses que deseja considerar
     
     const performanceSheet: PerformanceSheet = await prisma.turma.findUnique({
       where: {

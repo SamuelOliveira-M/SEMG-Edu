@@ -2,9 +2,13 @@ import { Matricula, Avaliacao } from "../interface/IPerformanceSheet";
 
 export const addMissingNotas = (matriculas: Matricula[], totalMeses: number): Matricula[] => {
   return matriculas.map(matricula => {
+    let gradeNum = 0
+    
     const avaliacoesMap = new Map<number, Avaliacao>();
+    
     matricula.avaliacao.forEach(avaliacao => {
       avaliacoesMap.set(avaliacao.mes, avaliacao);
+      gradeNum++
     });
 
     // Adicionar notas zero para meses ausentes
@@ -13,6 +17,7 @@ export const addMissingNotas = (matriculas: Matricula[], totalMeses: number): Ma
       if (avaliacoesMap.has(mes)) {
         avaliacoesCompletas.push(avaliacoesMap.get(mes)!);
       } else {
+        
         if (mes === 7) {
           avaliacoesCompletas.push({
             id: null,
@@ -21,46 +26,46 @@ export const addMissingNotas = (matriculas: Matricula[], totalMeses: number): Ma
             semestre: null,
             tipo:'1 Recuperação'
           });
-        }else{
+        }
+
+        if (mes === 12) {
           avaliacoesCompletas.push({
             id: null,
             nota: 0,
-            mes: mes,
+            mes: 12, // Recuperação após novembro
             semestre: null,
-            tipo:null
+            tipo:'2 Recuperação'
           });
+        }
+
+        if (mes === 13) {
+          avaliacoesCompletas.push({
+            id: null,
+            nota: 0,
+            mes: 13, // Prova final
+            semestre: null,
+            tipo:'Prova final'
+          });
+        }
+        
+        else{
+          if(mes!==7 && mes!==12 && mes!==13){
+            avaliacoesCompletas.push({
+              id: null,
+              nota: 0,
+              mes: mes,
+              semestre: null,
+              tipo:null
+            });
+          }
         }
       }
     }
-
-    // Adicionar notas de recuperação e prova final
-    
-
-    if (totalMeses > 10) {
-      avaliacoesCompletas.push({
-        id: null,
-        nota: 0,
-        mes: 12, // Recuperação após novembro
-        semestre: null,
-        tipo:'2 Recuperação'
-      });
-
-      avaliacoesCompletas.push({
-        id: null,
-        nota: 0,
-        mes: 13, // Prova final
-        semestre: null,
-        tipo:'Prova final'
-      });
-    }
-
-    const currentDate = new Date();
-    const currentMonth = currentDate.getMonth() + 1; // Months are zero-indexed, so add 1 to get the actual month number (1-12)
     
     const notas = avaliacoesCompletas.map(avaliacao => avaliacao.nota);
     
-    if(currentMonth<11){
-      const media = notas.reduce((sum, nota) => sum + nota, 0) / (currentMonth-1);
+    if(gradeNum<11){
+      const media = notas.reduce((sum, nota) => sum + nota, 0) / (gradeNum);
       const status: string = media > 6 ? 'Aprovado' : 'Cursando';
       return {
         ...matricula,
@@ -70,7 +75,7 @@ export const addMissingNotas = (matriculas: Matricula[], totalMeses: number): Ma
       };
     }
 
-    const media = notas.reduce((sum, nota) => sum + nota, 0) / currentMonth;
+    const media = notas.reduce((sum, nota) => sum + nota, 0) / gradeNum;
     const status: string = media > 6 ? 'Aprovado' : 'Reprovado';
 
     return {
