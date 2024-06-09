@@ -15,9 +15,6 @@ class CreateGradeModel{
 		anoLetivo:Date
 	) {
 		
-		// const {tipo,nota,mes,semestre,disciplina,matriculaId,anoLetivo} = dataGrade
-		
-
 		const subjectAlreadyExist = await ReadSubjectModel.readSubject(disciplina)
 
 		if(!subjectAlreadyExist){
@@ -43,10 +40,13 @@ class CreateGradeModel{
 		)
 		
 		if (gradeAlreadyExists) {
-			return {
-				"message":"Nota já existe",
-				"data":gradeAlreadyExists
-			}
+			const modifyGrade = prisma.avaliacao.update({
+				where: { id: gradeAlreadyExists.id },
+				data: {
+				nota
+				},
+			});
+			return modifyGrade
 		}
 
 		if(tipo === '1 recuperacao'){

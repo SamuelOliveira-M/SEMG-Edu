@@ -34,14 +34,7 @@ class CreateGradeController{
 				matriculaId,
 				anoLetivo
 			)
-
-			if(grade.erro){
-				return res.json({
-					"error":grade.erro,
-					"message":grade.message
-				})
-			}
-
+			
 			return res.json(grade)
 
 		}catch(e){
@@ -57,11 +50,9 @@ class CreateGradeController{
 	async ModifyGradeController(req:Request,res:Response){
 		const dataGrade:ICreteGrade = req.body
 		const newSchoolYear = new Date(dataGrade.anoLetivo,0,1)
-
+		const avaliacao = []
 		for (let key in dataGrade.avaliacao) {
-			console.log(dataGrade.disciplinaId)
 			const { mes, tipo, semestre } = assessmentData[dataGrade.avaliacao[key].header];
-
 			if (mes !== undefined && tipo !== undefined && semestre !== undefined) {
 	
 				try {
@@ -76,13 +67,16 @@ class CreateGradeController{
 						newSchoolYear
 
 					);
+					avaliacao.push(gradeModel)
 			
 				} catch (error) {
 					console.error("Erro ao criar grade model:", error);
 					return res.json(error); // Isso irá parar a execução do loop caso ocorra um erro
 				}
+				
 			}
 		}
+		return avaliacao
 	}
 }
 
