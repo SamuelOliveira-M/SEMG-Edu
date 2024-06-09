@@ -17,8 +17,7 @@ class ReadSubjectModel{
 	}
 
 	async gradesBySubjectModel(matriculaId:string){
-		const totalMeses = 11; // Número total de meses que deseja considerar
-    const dateObject = new Date(Date.parse('2024'));
+		const totalMeses = 13; // Número total de meses que deseja considerar
   
     const studentPerformanceSheet:studentPerformanceSheet[] = await prisma.disciplina.findMany({
       select:{
