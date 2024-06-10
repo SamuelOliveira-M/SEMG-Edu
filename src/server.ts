@@ -12,14 +12,15 @@ import cors from 'cors';
 import studentRoutes from './routes/studentRoutes';
 import schoolRoutes from './routes/schoolRoutes';
 import teacherRoutes from './routes/teacherRoutes';
+import { formatPrivateKey } from './services/formatPrivateKey';
 
 dotenv.config();
 
-const dataGradeString = {
+const serviceAccount = {
   "type": process.env.type,
   "project_id":process.env.project_id,
   "private_key_id": process.env.private_key_id,
-  "private_key": process.env.private_key,
+  "private_key":formatPrivateKey(process.env.private_key),
   "client_email":process.env.client_email ,
   "client_id": process.env.client_id,
   "auth_uri": process.env.auth_uri,
@@ -27,11 +28,7 @@ const dataGradeString = {
   "auth_provider_x509_cert_url":process.env.auth_provider_x509_cert_url,
   "client_x509_cert_url":process.env.client_x509_cert_url, 
   "universe_domain": process.env.universe_domain
-};
-
-const dataGrade = JSON.stringify(dataGradeString)
-
-const serviceAccount = JSON.parse(dataGrade) as admin.ServiceAccount;
+} as admin.ServiceAccount ;
 
 const BUCKET = process.env.FIREBASE_STORAGE_BUCKET;
 
