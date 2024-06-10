@@ -15,19 +15,20 @@ import teacherRoutes from './routes/teacherRoutes';
 
 dotenv.config();
 
-const configPath = process.env.FIREBASE_CONFIG_PATH;
+const serviceAccount = {
+  "type": process.env.type,
+  "project_id":process.env.project_id,
+  "private_key_id": process.env.private_key_id,
+  "private_key": process.env.private_key,
+  "client_email":process.env.client_email ,
+  "client_id": process.env.client_id,
+  "auth_uri": process.env.auth_uri,
+  "token_uri": process.env.token_uri,
+  "auth_provider_x509_cert_url":process.env.auth_provider_x509_cert_url,
+  "client_x509_cert_url":process.env.client_x509_cert_url, 
+  "universe_domain": process.env.universe_domain
+} as admin.ServiceAccount;
 
-if (!configPath) {
-  console.error('Variável de ambiente FIREBASE_CONFIG_PATH não definida.');
-  process.exit(1);
-}
-
-// Crie o caminho absoluto para o arquivo de configuração JSON
-const absoluteConfigPath = path.resolve(__dirname, configPath);
-// Carrega o arquivo de configuração JSON usando fs.readFileSync
-const configData = fs.readFileSync(absoluteConfigPath, 'utf8');
-
-const serviceAccount = JSON.parse(configData) as admin.ServiceAccount;
 
 const BUCKET = process.env.FIREBASE_STORAGE_BUCKET;
 
