@@ -15,7 +15,7 @@ import teacherRoutes from './routes/teacherRoutes';
 
 dotenv.config();
 
-const serviceAccount = {
+const dataGradeString = {
   "type": process.env.type,
   "project_id":process.env.project_id,
   "private_key_id": process.env.private_key_id,
@@ -27,8 +27,11 @@ const serviceAccount = {
   "auth_provider_x509_cert_url":process.env.auth_provider_x509_cert_url,
   "client_x509_cert_url":process.env.client_x509_cert_url, 
   "universe_domain": process.env.universe_domain
-} as admin.ServiceAccount;
+};
 
+const dataGrade = JSON.stringify(dataGradeString)
+
+const serviceAccount = JSON.parse(dataGrade) as admin.ServiceAccount;
 
 const BUCKET = process.env.FIREBASE_STORAGE_BUCKET;
 
