@@ -8,7 +8,6 @@ class CreateTeacherModel{
 	async createTeacherModel(dataTeacher:ITeacher) {
 		const {     
 			nome,
-			cpf, 
 			email,
 			senha,
 			data_nascimento,  
@@ -31,8 +30,7 @@ class CreateTeacherModel{
 
 		const teacher = await prisma.professor.create({
 			data:{
-				nome,
-				cpf, 
+				nome, 
 				email,
 				senha:passwordHash,
 				data_nascimento:dataNascimento,  

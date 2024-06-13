@@ -135,7 +135,6 @@ model Disciplina {
 model Professor {
   id                      String      @id @default(uuid())
   nome                    String      @unique
-  cpf                     String ?    @unique
   email                   String      @unique
   senha                   String
   data_nascimento         DateTime  

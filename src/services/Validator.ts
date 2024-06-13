@@ -48,7 +48,7 @@ class Validator {
 
 	studentValidator(aluno:IAluno ) {
     const schema = Joi.object({
-      nome: Joi.string().min(2).max(60).required(),
+      nome: Joi.string().min(2).max(100).required(),
       data_nascimento: Joi.date().iso().max('now').required(),
 			cpf: Joi.string().min(11).max(11),
 			municipio_nascimento: Joi.string().min(2).max(40).required(),
@@ -67,8 +67,8 @@ class Validator {
 
 	studentGuardionsValidator(studentGuardians:IStudentGuardians){
 	const schema = Joi.object({
-		nome_pai: Joi.string().min(2).max(60).required(),
-		nome_mae: Joi.string().min(2).max(60).required(),
+		nome_pai: Joi.string().min(2).max(100).required(),
+		nome_mae: Joi.string().min(2).max(100).required(),
     telefone:Joi.string().pattern(/^\d{11}$/).required(),
 		telefone_secundario:Joi.string().pattern(/^\d{11}$/)
     });  
@@ -83,9 +83,9 @@ class Validator {
 
 	schoolValidator(school:ISchool){
 		const schema = Joi.object({
-			nome: Joi.string().min(2).max(60).required(),
+			nome: Joi.string().min(2).max(100).required(),
 			cod_inep: Joi.string().min(8).max(8).trim().pattern(/^[0-9]+$/),
-			email:Joi.string().email().max(60),
+			email:Joi.string().email().max(100),
 		});
 
 		const validationResult = schema.validate(school);
@@ -152,7 +152,7 @@ class Validator {
 
 	subjectValidator(registration:IRegistration){
 		const schema = Joi.object({
-			nome: Joi.string().min(2).max(60).required(),
+			nome: Joi.string().min(2).max(100).required(),
 			carga_horaria:Joi.number().integer().positive().max(9999),
 		});
 
@@ -169,10 +169,9 @@ class Validator {
 	teacherValidator(teacher:ITeacher){
 		console.log(teacher)
 		const schema = Joi.object({
-			nome: Joi.string().min(2).max(60).required(),
-			email:Joi.string().email().max(60),
+			nome: Joi.string().min(2).max(100).required(),
+			email:Joi.string().email().max(100),
 			senha: Joi.string().min(6).max(30).required(),
-			cpf: Joi.string().min(6).max(30).required(),
 			data_nascimento: Joi.string().min(6).max(30).required(),
 			url_image:Joi.string()
 		});
@@ -196,7 +195,7 @@ class Validator {
 			semestre:Joi.number().min(1).max(2),
 			anoLetivo:Joi.date(),
 			matriculaId:Joi.string(),
-			disciplina:Joi.string().max(60)
+			disciplina:Joi.string().max(100)
 		});	
 
 
@@ -212,8 +211,8 @@ class Validator {
 
 	managerValidator(manager:IManager){
 		const schema = Joi.object({
-			nome: Joi.string().min(2).max(60).required(),
-			email:Joi.string().email().max(60),
+			nome: Joi.string().min(2).max(100).required(),
+			email:Joi.string().email().max(100),
 			senha: Joi.string().min(6).max(30).required(),
 		});
 
@@ -229,7 +228,7 @@ class Validator {
 
 	calendarValidator(calendar:ICalendar){
 		const schema = Joi.object({
-			diaSemana: Joi.string().min(2).max(60).required(),
+			diaSemana: Joi.string().min(2).max(100).required(),
 			horarioId:Joi.string(),
 			lotacaoId: Joi.string()
 		});
@@ -277,7 +276,7 @@ class Validator {
 	alocationOfTeacherValidate(className: string, teacherName: string, subjectName: string) {
     const schema = Joi.object({
         className: Joi.string().min(16).max(26),
-        teacherName: Joi.string().min(2).max(60),
+        teacherName: Joi.string().min(2).max(100),
         subjectName: Joi.string().min(5).max(40)
     });
 
