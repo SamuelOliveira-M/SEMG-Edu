@@ -24,7 +24,7 @@ import AutenticationController from "../useCase/autentication/AutenticationContr
 import GenerateTokenController from "../useCase/refreshtoken/generateToken/GenerateTokenController";
 import { get } from "http";
 import GetStatisticsController from "../useCase/getStatistics/GetStatisticsController";
-
+import DeleteTeacherController from "../useCase/professor/delete/DeleteTeacherController";
 import TransetionCalendarController from "../useCase/calendario/transetion/TransetionCalendarController";
 
 const multer = Multer({
@@ -62,5 +62,6 @@ schoolRoutes.get("/horarios",ReadTimeRangeController.readTimeRangeController)
 schoolRoutes.get("/getStatistics",GetStatisticsController.getStatistics)
 
 schoolRoutes.delete("/remove/disciplina",RemoveSubjectFromTeacherController.removeSubjectFromTeacher)
+schoolRoutes.delete("/remove/teacher/:id",DeleteTeacherController.deleteTeacherController)
 
 export default schoolRoutes;
