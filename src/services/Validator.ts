@@ -118,7 +118,7 @@ class Validator {
 			nome: Joi.string().min(1).max(1).required(),
 			serie: Joi.number().integer().positive().max(9),
 			turno: Joi.string().min(2).max(40).required(),
-			status: Joi.string().valid('concluido', 'pendente').required(),
+			status: Joi.string().valid('concluido', 'aberta',).required(),
 		});
 
 		const validationResult = schema.validate(schoolClass);
