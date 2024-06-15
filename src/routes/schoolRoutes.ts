@@ -26,6 +26,8 @@ import { get } from "http";
 import GetStatisticsController from "../useCase/getStatistics/GetStatisticsController";
 import DeleteTeacherController from "../useCase/professor/delete/DeleteTeacherController";
 import TransetionCalendarController from "../useCase/calendario/transetion/TransetionCalendarController";
+import DeleteClassController from "../useCase/turma/delete/DeleteClassController";
+
 
 const multer = Multer({
 	storage: Multer.memoryStorage(),
@@ -34,7 +36,7 @@ const multer = Multer({
 const schoolRoutes = express.Router();
 
 schoolRoutes.post("/escola",TransetionSchoolController.transetionSchool)
-schoolRoutes.post("/turma/:cod_inep",TransetionSchoolClassController.transetionSchoolClass)
+schoolRoutes.post("/create/turma/:cod_inep",TransetionSchoolClassController.transetionSchoolClass)
 schoolRoutes.post("/disciplina",CreateSubjectsController.createSubjectsController)
 schoolRoutes.post("/create/professor",multer.single('file'),uploadImage,CreateTeacherController.createTeacherController)
 schoolRoutes.post("/nota/:registrationId",CreateGradeController.CreateGradeController)
@@ -63,5 +65,6 @@ schoolRoutes.get("/getStatistics",GetStatisticsController.getStatistics)
 
 schoolRoutes.delete("/remove/disciplina",RemoveSubjectFromTeacherController.removeSubjectFromTeacher)
 schoolRoutes.delete("/remove/teacher/:id",DeleteTeacherController.deleteTeacherController)
+schoolRoutes.delete("/remove/class/:classId",DeleteClassController.deleteclass)
 
 export default schoolRoutes;
