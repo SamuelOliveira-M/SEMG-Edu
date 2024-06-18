@@ -10,6 +10,16 @@ class CreateRegistrationModel{
 
 		const studentAlreadyExists = await ReadStudentModel.readStudent(cpf)
 
+		const agora = new Date();
+		const dataHora = agora.getFullYear().toString() +
+				(agora.getMonth() + 1).toString().padStart(2, '0') +
+				agora.getDate().toString().padStart(2, '0')
+
+		const sufixo = Math.floor(1000 + Math.random() * 9000).toString();
+
+		const matricula =  `${dataHora}${sufixo}`;
+		console.log(matricula)
+
 		if (studentAlreadyExists && studentAlreadyExists.matricula) {
 			return {
 				"message":"Aluno já possui uma matricula",
@@ -37,7 +47,7 @@ class CreateRegistrationModel{
 				if(studentAlreadyExists){
 					const registration = await prisma.matricula.create({
 						data:{
-							numero_matricula,
+							numero_matricula:matricula,
 							status,
 							escolaId:school.id,
 							turmaId:school.turmas[0].id,
