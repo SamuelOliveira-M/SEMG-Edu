@@ -3,6 +3,7 @@ import TransectionStudentController from "../useCase/aluno/transation/Transectio
 import CreateRegistrationController from "../useCase/matricula/create/CreateRegistrationController"; 
 import ReadRegistrationController from "../useCase/matricula/read/ReadRegistrationController";
 import ReadSubjectOfGradeController from "../useCase/disciplina/read/ReadSubjectOfGradeController";
+import ReadStudantController from "../useCase/aluno/read/ReadStudantController";
 
 import { uploadImage } from "../middlewares/uploadToFirebaseStorage";
 import Multer from 'multer'
@@ -21,5 +22,7 @@ studentRoutes.post("/matricular",CreateRegistrationController.createMatriculaCon
 studentRoutes.get("/studantee/:classId",ReadRegistrationController.readMatriculaController)
 studentRoutes.get("/profile/:registrationId",ReadRegistrationController.readRegistrationUniqueController)
 studentRoutes.get("/avaliacaos/:registrationId",ReadSubjectOfGradeController.gradesBySubject)
+studentRoutes.get("/studant/noClasses",ReadStudantController.readNoRegistration)
+
 
 export default studentRoutes;
