@@ -4,8 +4,8 @@ import AddSubjectToTeacherModel from "./AllocationOfTeacherModel"
 class AllocationOfTeacherController{
 	async AddSubjectToTeacher(req:Request, res:Response){
 		try{
-			const { professorEmail, subjectNome, className }= req.body
-			const teachersSubjects = await AddSubjectToTeacherModel.addSubjectToTeacher(professorEmail, subjectNome,className)
+			const { teacherId, subjectId, classId }= req.body
+			const teachersSubjects = await AddSubjectToTeacherModel.addSubjectToTeacher( teacherId, subjectId, classId )
 			res.json(teachersSubjects)
 		}catch(e){
 			console.log(e)

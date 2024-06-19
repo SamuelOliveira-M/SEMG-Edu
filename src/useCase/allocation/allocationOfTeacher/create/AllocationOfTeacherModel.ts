@@ -2,45 +2,52 @@ import { prisma } from "../../../../lib/prisma"
 
 class AllocationOfTeacherModel{
 	async addSubjectToTeacher(
-		professorEmail: string,
-		subjectNome: string,
-		className:string
+		teacherId: string,
+		subjectId: string,
+		classId:string
 		){
-		
 		
 		const subject = await prisma.disciplina.findUnique({
 			where:{
-				nome:subjectNome
+				id:subjectId
 			}
 		})
 
 		if(!subject){
 			console.log('Disciplina não existe')
-			return;
+			return {
+				'error': true,
+				'message':'Disciplina não existe'
+			}
 		}
 		
 		
 		const teacher = await prisma.professor.findUnique({
 			where: {
-					email: professorEmail 
+					id: teacherId 
 			},
 		});
 
-		// Check if the professor exists
+		
 		if (!teacher) {
 			console.error('Professor not found');
-			return;
+			return {
+				'error': true,
+				'message':'Professor não Existe'
+			}
 		}
 
 
 		const schoolClass = await prisma.turma.findUnique({
 			where: {
-				nome:className
+				id:classId
 			},
 		});
 		if (!schoolClass) {
-			console.error('Professor not found');
-			return;
+			return {
+				'error': true,
+				'message':'Turma não existe'
+			}
 		}
 
 		const disciplinasDoProfessorNaTurma = await prisma.lotacao.create({
@@ -51,7 +58,10 @@ class AllocationOfTeacherModel{
 			},
 		});
 		
-		return disciplinasDoProfessorNaTurma
+		return {
+			'error': false,
+			'data':disciplinasDoProfessorNaTurma
+		}
 	}
 }
 
