@@ -34,6 +34,23 @@ class ReadSubjectController{
 		}
 	}
 
+	async allSubjects(req:Request,res:Response){
+		
+		try{
+			const subjects = await ReadSubjectModel.readAllSubjectModel()
+			
+			return res.status(200).json(subjects)
+		
+		} catch(e){	
+			console.log(e)
+			return res.status(500).json({
+				"error":true,
+				"message":"Erro desconhecido"
+			})
+		}
+	}
+	
+
 }
 
 export default new ReadSubjectController()

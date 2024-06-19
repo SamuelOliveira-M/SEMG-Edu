@@ -16,6 +16,12 @@ class ReadSubjectModel{
 		
 	}
 
+  async readAllSubjectModel(){
+		
+		const subjects = await prisma.disciplina.findMany();
+    return subjects 
+	}
+
 	async gradesBySubjectModel(matriculaId:string){
 		const totalMeses = 13; // Número total de meses que deseja considerar
   

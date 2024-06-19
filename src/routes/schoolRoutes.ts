@@ -27,6 +27,7 @@ import GetStatisticsController from "../useCase/getStatistics/GetStatisticsContr
 import DeleteTeacherController from "../useCase/professor/delete/DeleteTeacherController";
 import TransetionCalendarController from "../useCase/calendario/transetion/TransetionCalendarController";
 import DeleteClassController from "../useCase/turma/delete/DeleteClassController";
+import ReadSubjectController from "../useCase/disciplina/read/ReadSubjectController";
 
 
 const multer = Multer({
@@ -41,7 +42,7 @@ schoolRoutes.post("/disciplina",CreateSubjectsController.createSubjectsControlle
 schoolRoutes.post("/create/professor",multer.single('file'),uploadImage,CreateTeacherController.createTeacherController)
 schoolRoutes.post("/nota/:registrationId",CreateGradeController.CreateGradeController)
 schoolRoutes.post("/gestor",CreateManagerController.createTeacherController)
-schoolRoutes.post("/lotacao",AddSubjectToTeacherController.AddSubjectToTeacher)
+schoolRoutes.post("/allocation/teacher",AddSubjectToTeacherController.AddSubjectToTeacher)
 schoolRoutes.post("/calendario",TransetionCalendarController.transetionClassCalendar)
 schoolRoutes.post("/login",AutenticationController.authenticate)
 schoolRoutes.post('/refreshtoken',GenerateTokenController.generateToken)
@@ -57,6 +58,8 @@ schoolRoutes.get("/gestor",ReadManagerController.readManagerController)
 schoolRoutes.get("/class",ReadSchoolClassController.readSchoolClass)
 schoolRoutes.get("/class/:id",ReadSchoolClassController.readSchoolClassFindFirst)
 schoolRoutes.get("/teachers-subjects/:id",ReadAllocationOfTeacherController.ReadAllocationOfTeacher)
+schoolRoutes.get("/subjects",ReadSubjectController.allSubjects)
+
 schoolRoutes.get("/tumasdoprofessorrr/:id",ReadSchoolClassController.ReadTeacherClasses)
 
 schoolRoutes.get("/horarios",ReadTimeRangeController.readTimeRangeController)
