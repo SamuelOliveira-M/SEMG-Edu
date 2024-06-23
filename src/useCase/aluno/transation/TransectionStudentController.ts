@@ -17,11 +17,11 @@ class TransactionStudantController{
 		const urlImage = req.headers.filebaseUrl as string;
 		try{
 				
-			const address = await CreateAddresController.createAddress(dataAddress)
+			// const address = await CreateAddresController.createAddress(dataAddress)
 			
-			if(address.error){
-				error.push(address)
-			}
+			// if(address.error){
+			// 	error.push(address)
+			// }
 			const resposibile = await CreateStudentGuardiansController.CreateStudentGuardians(dataResponsibile)
 			if(resposibile.error){
 				error.push(resposibile)

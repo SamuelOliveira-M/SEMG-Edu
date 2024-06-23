@@ -1,6 +1,6 @@
 // import { prisma } from "../../../lib/prisma";
 import IStudent from "../../../interface/IStudent";
-import ReadStudentModel from "../read/ReadStudentModel";
+import ReadStudentModel from "../read/ReadStudantModel";
 
 class CreateAlunoModel{
 	async createAlunoModel (
