@@ -1,6 +1,6 @@
 import { prisma } from "../../../lib/prisma";
 import IRegistration from "../../../interface/IRegistration";
-import ReadStudentModel from "../../aluno/read/ReadStudentModel";
+import ReadStudentModel from "../../aluno/read/ReadStudantModel";
 
 
 class CreateRegistrationModel{
