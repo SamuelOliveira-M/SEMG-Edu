@@ -14,16 +14,29 @@ class CreateAddressModel{
 				"data":addressAlreadyExists
 			}
 		}
+		if(cep){
+			const address = await tx.address.create({
+				data:{
+					rua,
+					cidade,
+					estado,
+					cep
+				}
+			})	
 
+			return{
+				"message":"Endereço criado com sucesso",
+				"data":address
+			}
+		}
+		
 		const address = await tx.address.create({
 			data:{
 				rua,
 				cidade,
 				estado,
-				cep
 			}
 		})
-
 		return{
 			"message":"Endereço criado com sucesso",
 			"data":address
