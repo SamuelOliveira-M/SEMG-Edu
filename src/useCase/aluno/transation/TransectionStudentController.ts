@@ -35,8 +35,10 @@ class TransactionStudantController{
 			}
 
 			if(error.length>0){
-				res.json(error) 
+				return res.status(400).json(error) 
 			}
+
+			
 
 			const transactionStudant = await TransectionStudentModel.transactionStudantModel({
 				dataStudent,
@@ -45,7 +47,9 @@ class TransactionStudantController{
 				urlImage
 			})
 			
-			res.json(transactionStudant)
+			res.status(200).json({
+				data:transactionStudant
+			})
 
 		}catch(e){
 			if(error.length>0){

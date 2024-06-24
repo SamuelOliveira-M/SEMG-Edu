@@ -50,7 +50,7 @@ class Validator {
     const schema = Joi.object({
       nome: Joi.string().min(2).max(100).required(),
       data_nascimento: Joi.date().iso().max('now').required(),
-			cpf: Joi.string().min(11).max(11),
+			cpf: Joi.string().min(11).max(11).optional(),
 			municipio_nascimento: Joi.string().min(2).max(40).required(),
       uf_nascimento: Joi.string().min(2).max(2).required()
     });  
@@ -66,11 +66,12 @@ class Validator {
   }
 
 	studentGuardionsValidator(studentGuardians:IStudentGuardians){
-	const schema = Joi.object({
+		console.log( studentGuardians.telefone_secundario)
+		const schema = Joi.object({
 		nome_pai: Joi.string().min(2).max(100).required(),
 		nome_mae: Joi.string().min(2).max(100).required(),
-    telefone:Joi.string().pattern(/^\d{11}$/).required(),
-		telefone_secundario:Joi.string().pattern(/^\d{11}$/)
+    telefone:Joi.string().pattern(/^\d{11}$/).optional(),
+		telefone_secundario:Joi.string().pattern(/^\d{11}$/).optional()
     });  
     const validationResult = schema.validate(studentGuardians);
 
