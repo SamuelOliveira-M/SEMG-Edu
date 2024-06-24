@@ -48,10 +48,10 @@ class TransactionStudantController{
 			res.json(transactionStudant)
 
 		}catch(e){
-			// if(error.length>0){
-			// 	res.json(error)
-			// }
-			// res.status(500).json(e)
+			if(error.length>0){
+				res.status(400).json(error)
+			}
+			res.status(500).json(e)
 			console.log(e)
 		}
 	}
