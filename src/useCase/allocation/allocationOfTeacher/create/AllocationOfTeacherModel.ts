@@ -50,6 +50,19 @@ class AllocationOfTeacherModel{
 			}
 		}
 
+		const AllocationOfTeacherAlreadExist = await prisma.lotacao.findFirst({
+			where:{
+				professorId:teacherId,
+				disciplinaId:subjectId,
+				turmaId:classId
+			}
+		})
+		if (AllocationOfTeacherAlreadExist) {
+			return {
+				'error': true,
+				'message':'O professor já está lotado com essa disciplina'
+			}
+		}
 		const disciplinasDoProfessorNaTurma = await prisma.lotacao.create({
 			data: {
 				professorId: teacher.id,
