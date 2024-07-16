@@ -273,29 +273,6 @@ class Validator {
 
 		return null;
 	}
-
-	alocationOfTeacherValidate(className: string, teacherName: string, subjectName: string) {
-    const schema = Joi.object({
-        className: Joi.string().min(16).max(26),
-        teacherName: Joi.string().min(2).max(100),
-        subjectName: Joi.string().min(5).max(40)
-    });
-
-    const validationResult = schema.validate({
-        className: className,
-        teacherName: teacherName,
-        subjectName: subjectName
-    });
-
-    if (validationResult.error) {
-        const invalidField = validationResult.error.details[0].path;
-				console.log(validationResult)
-        return invalidField;
-    }
-
-    return null;
-}
-
 }
 
 export default new Validator;
