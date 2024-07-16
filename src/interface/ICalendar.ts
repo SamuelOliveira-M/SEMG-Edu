@@ -1,16 +1,8 @@
+import { ICalendarClass } from "./IClassroom"
 
-interface ICalendar {
-  diaSemana:string
+
+export interface ICalendarRead {
+	diaSemana:string
+  aulas:ICalendarClass[]
 }
 
-export default ICalendar
-
-interface ICalendarRead {
-	calendarId: string
-  diaSemana:string
-  horarioInicio:string
-  horariofim:string
-  professor:string
-  disciplina:string
-  turma:string
-}

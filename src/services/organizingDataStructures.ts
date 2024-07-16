@@ -1,4 +1,6 @@
+import { ICalendarRead } from "../interface/ICalendar";
 import { Matricula, Avaliacao } from "../interface/IPerformanceSheet";
+import { DiaSemana } from "../lib/enums";
 
 export const addMissingNotas = (matriculas: Matricula[], totalMeses: number): Matricula[] => {
   return matriculas.map(matricula => {
@@ -82,7 +84,130 @@ export const addMissingNotas = (matriculas: Matricula[], totalMeses: number): Ma
       ...matricula,
       avaliacao: avaliacoesCompletas,
       media,
-      status
+      status  
     };
   });
 };
+
+export function adicionarAulas(lista: ICalendarRead[]): ICalendarRead[] {
+  const diasSemana =['Segunda','Terça','Quarta',"Quinta","Sexta"]
+  
+  while (lista.length < 5) {
+    for(let i = 0; i <= diasSemana.length - 1; i++) {
+      if(lista[i]){
+        while(lista[i].aulas.length<5){
+          lista[i].aulas.push({
+            lotacao: {
+              professor: {
+                id: 'dddsdfs',
+                nome: 'Professor'
+              },
+              disciplina: {
+                id: 'id-padrao-disciplina',
+                nome: 'Disciplina'
+              }
+            },
+            horario: {
+              id: 'id-padrao-horario',
+              horarioInicio: '00:00',
+              horarioFim: '01:00'
+            }
+          });
+        }
+      }
+      else{
+        lista.push({
+          diaSemana: diasSemana[i], // Pega o dia da semana baseado no índice
+          aulas: [
+            {
+              lotacao: {
+                professor: {
+                  id: 'dddsdfs',
+                  nome: 'Professor'
+                },
+                disciplina: {
+                  id: 'id-padrao-disciplina',
+                  nome: 'Disciplina'
+                }
+              },
+              horario: {
+                id: 'id-padrao-horario',
+                horarioInicio: '00:00',
+                horarioFim: '01:00'
+              }
+            },
+            {
+              lotacao: {
+                professor: {
+                  id: 'dddsdfs',
+                  nome: 'Professor'
+                },
+                disciplina: {
+                  id: 'id-padrao-disciplina',
+                  nome: 'Disciplina'
+                }
+              },
+              horario: {
+                id: 'id-padrao-horario',
+                horarioInicio: '00:00',
+                horarioFim: '01:00'
+              }
+            },
+            {
+              lotacao: {
+                professor: {
+                  id: 'dddsdfs',
+                  nome: 'Professor'
+                },
+                disciplina: {
+                  id: 'id-padrao-disciplina',
+                  nome: 'Disciplina'
+                }
+              },
+              horario: {
+                id: 'id-padrao-horario',
+                horarioInicio: '00:00',
+                horarioFim: '01:00'
+              }
+            },
+            {
+              lotacao: {
+                professor: {
+                  id: 'dddsdfs',
+                  nome: 'Professor'
+                },
+                disciplina: {
+                  id: 'id-padrao-disciplina',
+                  nome: 'Disciplina'
+                }
+              },
+              horario: {
+                id: 'id-padrao-horario',
+                horarioInicio: '00:00',
+                horarioFim: '01:00'
+              }
+            },
+            {
+              lotacao: {
+                professor: {
+                  id: 'dddsdfs',
+                  nome: 'Professor'
+                },
+                disciplina: {
+                  id: 'id-padrao-disciplina',
+                  nome: 'Disciplina'
+                }
+              },
+              horario: {
+                id: 'id-padrao-horario',
+                horarioInicio: '00:00',
+                horarioFim: '01:00'
+              }
+            }
+          ]
+        });
+      }
+    }
+  }
+  return lista;
+}
