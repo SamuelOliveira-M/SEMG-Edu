@@ -1,7 +1,7 @@
 
 export enum DiaSemana {
   segunda = 1,
-  terca = 2,
+  terça = 2,
   quarta = 3,
   quinta = 4,
   sexta = 5,
