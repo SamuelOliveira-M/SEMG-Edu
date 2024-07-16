@@ -1,5 +1,5 @@
 import { date } from "joi"
-import IClassroom from "../../../interface/IClassroom"
+import { IClassroom } from "../../../interface/IClassroom"
 import { prisma } from "../../../lib/prisma"
 
 class CreateClassroomModel{

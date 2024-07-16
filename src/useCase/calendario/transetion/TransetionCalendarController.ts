@@ -9,10 +9,7 @@ class TransetionCalendarController{
 		const {
 			weekDay,
 			dataHorario,
-			className,
-			teacherName,
-			subjectName 
-		
+			allocationId,
 		} = req.body
 			
 
@@ -26,23 +23,11 @@ class TransetionCalendarController{
 			if(validatorTimeRange){
 				return res.json(validatorTimeRange)
 			}
-
-			const validatorAlocationOfTeacher = Validator.alocationOfTeacherValidate(
-				className,
-				teacherName,
-				subjectName
-			)
-			if(validatorAlocationOfTeacher){
-				return res.json(validatorAlocationOfTeacher)
-			}
-			
-
+		
 			const aula = await TransetionCalendarModel.transetionSchoolModel(
 				weekDay,
 				dataHorario,
-				className,
-				teacherName,
-				subjectName 
+				allocationId, 
 			)
 
 			return res.json(aula)

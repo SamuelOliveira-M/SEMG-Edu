@@ -4,16 +4,14 @@ import ITimeRange from "../../../interface/ITimeRange"
 import CreateCalendarModel from "../create/CreateCalendarModel";
 import CreateTimeRangeModel from "../../horario/create/CreateTimeRangeModel";
 import CreateClassroomModel from "../../aula/create/CreateClassroomModel";
-import IClassroom from "../../../interface/IClassroom";
+import { IClassroom } from "../../../interface/IClassroom";
 import ReadAllocationOfTeacherModel from "../../allocation/allocationOfTeacher/read/ReadAllocationOfTeacherModel";
 
 class TransetionCalendarModel{
 	async transetionSchoolModel(
 		weekDay:string,
 		dataHorario:ITimeRange,
-		className:string,
-		teacherName:string,
-		subjectName:string
+		allocationId:string,
 	){
 		const schoolCreationTransaction = await prisma.$transaction(async (tx) => {
 			
@@ -28,9 +26,7 @@ class TransetionCalendarModel{
 			)
 
 			const lotacao = await ReadAllocationOfTeacherModel.lotacaoAlreadExist(
-				className,
-				teacherName,
-				subjectName
+				allocationId
 			) 
 
 			if(!calendar.id){
