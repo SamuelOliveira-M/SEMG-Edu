@@ -11,7 +11,7 @@ import ISchollClass from '../interface/ISchoolClass';
 import IManager from '../interface/IManager';
 import ITeacher from '../interface/ITeacher';
 import IGrade from '../interface/IGrade';
-import ICalendar from '../interface/ICalendar';
+import { ICalendarClass } from '../interface/IClassroom';
 import ITimeRange from '../interface/ITimeRange';
 
 class Validator {
@@ -218,23 +218,6 @@ class Validator {
 		});
 
 		const validationResult = schema.validate(manager);
-
-		if (validationResult.error) {
-			const invalidField = validationResult.error?.details[0].path;
-			return invalidField;
-		}
-
-		return null;
-	}
-
-	calendarValidator(calendar:ICalendar){
-		const schema = Joi.object({
-			diaSemana: Joi.string().min(2).max(100).required(),
-			horarioId:Joi.string(),
-			lotacaoId: Joi.string()
-		});
-
-		const validationResult = schema.validate(calendar);
 
 		if (validationResult.error) {
 			const invalidField = validationResult.error?.details[0].path;
