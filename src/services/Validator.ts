@@ -11,7 +11,6 @@ import ISchollClass from '../interface/ISchoolClass';
 import IManager from '../interface/IManager';
 import ITeacher from '../interface/ITeacher';
 import IGrade from '../interface/IGrade';
-import { ICalendarClass } from '../interface/IClassroom';
 import ITimeRange from '../interface/ITimeRange';
 
 class Validator {
