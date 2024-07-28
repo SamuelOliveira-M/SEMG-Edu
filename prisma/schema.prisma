@@ -41,8 +41,8 @@ model Aluno{
   cpf                     String ?    @unique
   url_image               String ?
 
-  responsavelId           String      @unique
-  addressId               String      @unique
+  responsavelId           String     
+  addressId               String
   matricula               Matricula?   
   
   responsavel             Responsavel @relation("ResposibleToAlunos",fields: [responsavelId], references: [id],onDelete: Cascade)
