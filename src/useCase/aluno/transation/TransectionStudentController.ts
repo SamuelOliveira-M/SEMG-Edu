@@ -47,9 +47,7 @@ class TransactionStudantController{
 				urlImage
 			})
 			
-			res.status(200).json({
-				data:transactionStudant
-			})
+			res.status(200).json(transactionStudant)
 
 		}catch(e){
 			if(error.length>0){

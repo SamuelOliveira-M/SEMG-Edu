@@ -1,4 +1,5 @@
 // import { prisma } from "../../../lib/prisma";
+import IResponse from "../../../interface/IResponse";
 import IStudent from "../../../interface/IStudent";
 import ReadStudentModel from "../read/ReadStudantModel";
 
@@ -9,7 +10,7 @@ class CreateAlunoModel{
 		responsavelId:string,
 		addressId:string,
 		urlImage:string
-		) {
+		):Promise<IResponse>{
 		
 		const {nome,data_nascimento,municipio_nascimento,uf_nascimento,cpf} = dataStudent 
 		
@@ -20,8 +21,9 @@ class CreateAlunoModel{
 
 			if(alunoAlreadyExist){
 				return {
-					"message":"Aluno já existe no sistema",
-					"data":alunoAlreadyExist
+					error:true,
+					message:"Aluno já existe no sistema",
+					data:alunoAlreadyExist
 				}
 			}
 			
@@ -39,8 +41,9 @@ class CreateAlunoModel{
 			})
 
 		return {
-			"message":"Aluno criado com sucesso",	
-			"data":aluno
+			error:false,
+			message:"Aluno criado com sucesso",	
+			data:aluno
 		}
 	}
 }

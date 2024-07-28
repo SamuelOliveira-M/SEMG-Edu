@@ -4,10 +4,11 @@ import { prisma } from "../../../lib/prisma";
 import CreateAddressModel from "../../endereco/create/CreateAddressModel"; 
 import CreateAlunoModel from "../create/CreateAlunoModel";
 import CreateStudentGuardiansModel from "../../responsaveis/create/CreateStudentGuardiansModel";
+import IResponse from "../../../interface/IResponse";
 
 
 class TransactionStudantModel{
-	async transactionStudantModel({dataStudent,dataAddress,dataResponsibile,urlImage}:ITransaction){
+	async transactionStudantModel({dataStudent,dataAddress,dataResponsibile,urlImage}:ITransaction):Promise<IResponse>{
 		
 		const StudentCreationTransaction = await prisma.$transaction(async (tx) => {
 			
@@ -25,11 +26,18 @@ class TransactionStudantModel{
 				addressId,
 				urlImage
 			);
+
+			if(student.error){
+				return {
+					error: true,
+					message:`${student.message}`
+				}
+			}
 			
 			return {
-				"address":address,
-				"guardians":guardians,
-				"student":student
+				error: false,
+				message:'Aluno Criado com sucesso!',
+				data: student
 			};
 		});
 
