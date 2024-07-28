@@ -187,9 +187,9 @@ model Lotacao {
   disciplinaId     String
   turmaId          String
 
-  professor        Professor  @relation(fields: [professorId], references: [id])
-  disciplina       Disciplina @relation(fields: [disciplinaId], references: [id])
-  turma            Turma      @relation(fields: [turmaId], references: [id])
+  professor        Professor  @relation(fields: [professorId], references: [id],onDelete:Cascade)
+  disciplina       Disciplina @relation(fields: [disciplinaId], references: [id],onDelete:Cascade)
+  turma            Turma      @relation(fields: [turmaId], references: [id],onDelete:Cascade)
   aulas            Aula[]
 
   @@index([professorId], name: "idx_professor_id")
@@ -229,9 +229,9 @@ model Aula {
   calendarioId      String
   horarioId         String
 
-  calendario        Calendario   @relation(fields: [calendarioId],references: [id])
-  lotacao           Lotacao  @relation(fields: [lotacaoId], references: [id])
-  horario           Horario @relation(fields: [horarioId],references: [id])
+  calendario        Calendario   @relation(fields: [calendarioId],references: [id],onDelete:Cascade)
+  lotacao           Lotacao  @relation(fields: [lotacaoId], references: [id],onDelete:Cascade)
+  horario           Horario @relation(fields: [horarioId],references: [id],onDelete:Cascade)
 }
 
 model Calendario {
