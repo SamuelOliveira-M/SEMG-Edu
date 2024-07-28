@@ -2,11 +2,11 @@ import { prisma } from "../../../lib/prisma";
 import ITeacher from "../../../interface/ITeacher";
 import { hash } from "bcryptjs";
 import ReadTeacherModel from "../read/ReadTeacherModel";
+import IResponse from "../../../interface/IResponse";
 
 
 class DeleteTeacherModel{
-	async deleteTeacherModel(teacherId:string) {
-		
+	async deleteTeacherModel(teacherId:string):Promise<IResponse> {
 		const teacherAlreadyExists = await prisma.professor.findUnique({
 			where:{
 				id:teacherId
@@ -15,8 +15,8 @@ class DeleteTeacherModel{
 
 		if (!teacherAlreadyExists) {
 			return {
-				"erro":true,
-				"message":"Professor não encontrado",
+				error:true,
+				message:"Professor não encontrado",
 			}
 		}
 		
@@ -27,7 +27,9 @@ class DeleteTeacherModel{
 		})
 		
 		return {	
-			"data":teacher
+			error:false,
+			message:'Professor foi deletado',
+			data:teacher
 		}
 	}
 }
