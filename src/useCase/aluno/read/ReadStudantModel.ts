@@ -1,12 +1,16 @@
+import { any } from "joi";
 import IStudent from "../../../interface/IStudent"
 import { prisma } from "../../../lib/prisma"
 
 class ReadStudentModel{
-	async readStudent(cpf:string){
+	async readStudent(studantName:string, MotherId:string){
 		
 		const alunoAlreadyExist = await prisma.aluno.findFirst({
-			where:{
-				cpf
+			where: {
+				nome: studantName,
+				responsavel: {
+					id: MotherId
+				}
 			},
 			include: {
 				matricula: true,
