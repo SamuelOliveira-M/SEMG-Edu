@@ -9,10 +9,11 @@ export function uploadImage (req: Request, res: Response, next: NextFunction) {
   const bucket = admin.storage().bucket();
   
   if (!req.file) {
-    return res.status(400).json({
-      "error":true,
-      "message":"Imagem é obrigatoria"
-    }) ;
+    return next()
+  }
+
+  if (req.file?.size === 0) {
+    return next()
   }
 
   const imagem = req.file;
