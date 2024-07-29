@@ -6,7 +6,7 @@ interface ITransaction {
   dataStudent: IAluno; 
   dataAddress: IEndereco; 
   dataResponsibile: IStudentGuardians;
-  urlImage:string;
+  urlImage:string|undefined;
 }
 
 

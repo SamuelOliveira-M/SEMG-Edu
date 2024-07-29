@@ -9,16 +9,15 @@ class CreateAlunoModel{
 		tx:any,
 		responsavelId:string,
 		addressId:string,
-		urlImage:string
+		urlImage:string|undefined
 		):Promise<IResponse>{
 		
 		const {nome,data_nascimento,municipio_nascimento,uf_nascimento,cpf} = dataStudent 
 		
 		const dataNascimentos = new Date(data_nascimento)
 		
-		const alunoAlreadyExist = await ReadStudentModel.readStudent(cpf)
+		const alunoAlreadyExist = await ReadStudentModel.readStudent(nome,responsavelId)
 			
-
 			if(alunoAlreadyExist){
 				return {
 					error:true,
@@ -27,6 +26,27 @@ class CreateAlunoModel{
 				}
 			}
 			
+			if(urlImage){
+				const aluno = await tx.aluno.create({
+					data:{
+						nome,
+						data_nascimento:dataNascimentos,
+						municipio_nascimento,
+						uf_nascimento,
+						cpf,
+						url_image:urlImage,
+						responsavelId,
+						addressId
+					}
+				})
+	
+				return {
+					error:false,
+					message:"Aluno criado com sucesso",	
+					data:aluno
+				}
+			}
+
 			const aluno = await tx.aluno.create({
 				data:{
 					nome,
@@ -34,7 +54,6 @@ class CreateAlunoModel{
 					municipio_nascimento,
 					uf_nascimento,
 					cpf,
-					url_image:	urlImage,
 					responsavelId,
 					addressId
 				}
