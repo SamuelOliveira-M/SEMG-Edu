@@ -18,7 +18,7 @@ class TransactionStudantModel{
 			
 			const addressId = address.data.id
 			const responsavelId = guardians.data.id
-
+			
 			const student = await CreateAlunoModel.createAlunoModel(
 				dataStudent,
 				tx,
@@ -37,7 +37,7 @@ class TransactionStudantModel{
 			return {
 				error: false,
 				message:'Aluno Criado com sucesso!',
-				data: student
+				data: student.data
 			};
 		});
 

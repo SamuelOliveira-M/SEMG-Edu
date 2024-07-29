@@ -14,32 +14,15 @@ class TransactionStudantController{
 		const jsonString = req.body.data
 		const { dataStudent, dataAddress, dataResponsibile } = JSON.parse(jsonString);
 		
-		const urlImage = req.headers.filebaseUrl as string;
+		const urlImage = req.headers.filebaseUrl as string||undefined;
 		try{
 				
-			// const address = await CreateAddresController.createAddress(dataAddress)
+			const errorStudent = await CreateAlunoController.createAlunoController(dataStudent) 
 			
-			// if(address.error){
-			// 	error.push(address)
-			// }
-			const resposibile = await CreateStudentGuardiansController.CreateStudentGuardians(dataResponsibile)
-			if(resposibile.error){
-				error.push(resposibile)
+			if(errorStudent?.error){
+				return res.status(400).json(errorStudent) 
 			}
-
-			dataStudent.data_nascimento = new Date(dataStudent.data_nascimento)
 			
-			const student = await CreateAlunoController.createAlunoController(dataStudent) 
-			if(student?.error){
-				error.push(student)
-			}
-
-			if(error.length>0){
-				return res.status(400).json(error) 
-			}
-
-			
-
 			const transactionStudant = await TransectionStudentModel.transactionStudantModel({
 				dataStudent,
 				dataAddress,
@@ -50,11 +33,7 @@ class TransactionStudantController{
 			res.status(200).json(transactionStudant)
 
 		}catch(e){
-			if(error.length>0){
-				res.status(400).json(error)
-			}
 			res.status(500).json(e)
-			console.log(e)
 		}
 	}
 }
