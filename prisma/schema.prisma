@@ -25,8 +25,8 @@ model Address{
 model Responsavel{
   id                      String      @id @default(uuid())
   nome_pai                String ?
-  nome_mae                String ?
-  telefone                String
+  nome_mae                String
+  telefone                String?
   telefone_secundario     String ?
  
   aluno                 Aluno[]       @relation("ResposibleToAlunos")
