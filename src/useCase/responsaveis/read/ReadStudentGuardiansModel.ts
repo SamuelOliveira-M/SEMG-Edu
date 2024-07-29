@@ -2,7 +2,7 @@ import { prisma } from "../../../lib/prisma"
 
 
 class ReadStudentGuardiansModel{
-	async readStudentGuardians(nome_pai:string,nome_mae:string){
+	async readStudentGuardians(nome_pai:string|undefined,nome_mae:string){
 		
 		const studentGuardiansAlreadyExists = await prisma.responsavel.findFirst({
 			where: {
