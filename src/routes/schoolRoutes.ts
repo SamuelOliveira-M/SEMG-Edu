@@ -8,12 +8,10 @@ import CreateManagerController from "../useCase/gestor/create/CreateManagerContr
 
 import AddSubjectToTeacherController from "../useCase/allocation/allocationOfTeacher/create/AllocationOfTeacherController";
 
-import ReadTeacherController from "../useCase/professor/read/ReadTeacherController";
 import ReadManagerController from "../useCase/gestor/read/ReadManagerController";
 import ReadSchoolClassController from "../useCase/turma/read/ReadSchoolClassController";
 import RemoveSubjectFromTeacherController from "../useCase/professor/delete/RemoveSubjectFromTeacherController";
 import ReadAllocationOfTeacherController from "../useCase/allocation/allocationOfTeacher/read/ReadAllocationOfTeacherController";
-import ReadGradeController from "../useCase/notas/read/ReadGradeController";
 import ReadTimeRangeController from "../useCase/horario/read/ReadTimeRangeController";
 
 import { uploadImage } from "../middlewares/uploadToFirebaseStorage";
@@ -49,8 +47,7 @@ schoolRoutes.post("/add/notas",CreateGradeController.ModifyGradeController)
 
 
 
-schoolRoutes.get("/teacherstt",ReadTeacherController.readAllTeachersController)
-schoolRoutes.get("/teacherProfile/:id",ReadTeacherController.readTeachersClasses)
+
 schoolRoutes.get("/calendar/:classId",ReadCalendarController.readCalendarController)
 
 schoolRoutes.get("/gestor",ReadManagerController.readManagerController)
