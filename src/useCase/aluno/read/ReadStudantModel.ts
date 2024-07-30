@@ -31,7 +31,23 @@ class ReadStudentModel{
 		return matriculas
 	}
 
-	async readStudantsModel(){
+	async readStudantsModel(searchTerm:string){
+
+		if(searchTerm){
+			const studants = await prisma.aluno.findMany({
+				where: {
+					nome: {
+						contains: searchTerm, // Pesquisa de aproximação
+						mode: 'insensitive', // Torna a pesquisa case-insensitive
+					},
+				},
+				include:{
+					address:true,
+					responsavel:true
+				}
+			});
+			return studants
+		}
 
 		const studants = await prisma.aluno.findMany({
 			include:{

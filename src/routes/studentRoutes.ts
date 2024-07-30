@@ -24,7 +24,7 @@ studentRoutes.get("/studantee/:classId",ReadRegistrationController.readMatricula
 studentRoutes.get("/profile/:registrationId",ReadRegistrationController.readRegistrationUniqueController)
 studentRoutes.get("/avaliacaos/:registrationId",ReadSubjectOfGradeController.gradesBySubject)
 studentRoutes.get("/studant/noClasses",ReadStudantController.readNoRegistration)
-studentRoutes.get("/studants",ReadStudantController.readAllStudants)
+studentRoutes.get("/studantss/:query?",ReadStudantController.readAllStudants)
 
 studentRoutes.delete("/remove/studant/:studantId",DeleteStudantController.DeleteStudant)
 

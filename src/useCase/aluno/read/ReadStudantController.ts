@@ -20,10 +20,10 @@ class ReadStudantController{
 	}
 
 	async readAllStudants(req:Request,res:Response){
-
+		const {query} = req.params
 		try{
 			
-			const studants = await ReadStudantModel.readStudantsModel()
+			const studants = await ReadStudantModel.readStudantsModel(query)
 			return res.status(200).json(studants)
 
 		}catch(e){
