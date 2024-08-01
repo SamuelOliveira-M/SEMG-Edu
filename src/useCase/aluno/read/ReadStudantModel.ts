@@ -3,14 +3,11 @@ import IStudent from "../../../interface/IStudent"
 import { prisma } from "../../../lib/prisma"
 
 class ReadStudentModel{
-	async readStudent(studantName:string, MotherId:string){
+	async readStudent(studantId:string){
 		
 		const alunoAlreadyExist = await prisma.aluno.findFirst({
 			where: {
-				nome: studantName,
-				responsavel: {
-					id: MotherId
-				}
+				id:studantId
 			},
 			include: {
 				matricula: true,
