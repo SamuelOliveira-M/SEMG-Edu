@@ -5,6 +5,8 @@ interface IRegistration{
 	escola: string          
   idTurma: string
 	cpf: string
+	alunoId:string
 }
+
 
 export default IRegistration

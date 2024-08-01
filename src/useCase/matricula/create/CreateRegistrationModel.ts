@@ -6,9 +6,9 @@ import ReadStudentModel from "../../aluno/read/ReadStudantModel";
 class CreateRegistrationModel{
 	async createMatriculaModel(dataRegistration:IRegistration) {
 		
-		const {numero_matricula,status,escola,idTurma,cpf} = dataRegistration
+		const {status,escola,idTurma,alunoId} = dataRegistration
 
-		const studentAlreadyExists = await ReadStudentModel.readStudent(cpf)
+		const studentAlreadyExists = await ReadStudentModel.readStudent(alunoId)
 
 		const agora = new Date();
 		const dataHora = agora.getFullYear().toString() +
