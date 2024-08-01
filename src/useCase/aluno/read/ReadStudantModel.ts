@@ -5,7 +5,7 @@ import { prisma } from "../../../lib/prisma"
 class ReadStudentModel{
 	async readStudent(studantId:string){
 		
-		const alunoAlreadyExist = await prisma.aluno.findFirst({
+		const alunoAlreadyExist = await prisma.aluno.findUnique({
 			where: {
 				id:studantId
 			},
