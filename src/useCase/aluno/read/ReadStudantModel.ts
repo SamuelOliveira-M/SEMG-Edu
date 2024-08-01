@@ -43,7 +43,12 @@ class ReadStudentModel{
 				},
 				include:{
 					address:true,
-					responsavel:true
+					responsavel:true,
+					matricula:{
+						select:{
+							id:true
+						}
+					}
 				}
 			});
 			return studants
@@ -52,11 +57,38 @@ class ReadStudentModel{
 		const studants = await prisma.aluno.findMany({
 			include:{
 				address:true,
-				responsavel:true
+				responsavel:true,
+				matricula:{
+					select:{
+						id:true
+					}
+				},
 			}
 		});
 		
 		return studants
 	}
+
+	async readStudantUniqueModel(studantId:string){
+		const studant = await prisma.aluno.findUnique({
+			where: {
+				id:studantId
+			},
+			include:{
+				matricula:{
+					include:{
+						turma:{
+							include:{
+								ano_letivo:true
+							}
+						}
+					}
+				},
+				address:true,
+				responsavel:true
+			}
+		});
+		return studant
+	}	
 }
 export default new ReadStudentModel()

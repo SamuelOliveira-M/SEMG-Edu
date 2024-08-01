@@ -21,7 +21,7 @@ studentRoutes.post("/aluno/create",multer.single('file'),uploadImage,Transection
 studentRoutes.post("/matricular",CreateRegistrationController.createMatriculaController)
 
 studentRoutes.get("/studantee/:classId",ReadRegistrationController.readMatriculaController)
-studentRoutes.get("/profile/:registrationId",ReadRegistrationController.readRegistrationUniqueController)
+studentRoutes.get("/profile/:studantId",ReadStudantController.readStudantUniqueController)
 studentRoutes.get("/avaliacaos/:registrationId",ReadSubjectOfGradeController.gradesBySubject)
 studentRoutes.get("/studant/noClasses",ReadStudantController.readNoRegistration)
 studentRoutes.get("/studantss/:query?",ReadStudantController.readAllStudants)

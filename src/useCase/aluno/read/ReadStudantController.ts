@@ -34,6 +34,26 @@ class ReadStudantController{
 			})
 		}
 	}
+
+
+
+	async readStudantUniqueController (req:Request,res:Response){
+
+		const studantId = req.params.studantId
+
+		try{
+			
+			const studant = await ReadStudantModel.readStudantUniqueModel(studantId)
+			return res.json(studant)
+
+		}catch(e){
+			console.log(e)
+			return res.json({
+				"error":true,
+				"message":"Erro desconhecido"
+			})
+		}
+	}
 }
 
 
