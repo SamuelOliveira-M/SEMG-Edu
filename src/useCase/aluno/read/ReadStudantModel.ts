@@ -16,6 +16,23 @@ class ReadStudentModel{
 		return alunoAlreadyExist
 	}
 
+	async alunoAlreadyExistCreateFrom(studantName:string, MotherId:string){
+		
+		const alunoAlreadyExist = await prisma.aluno.findFirst({
+			where: {
+				nome: studantName,
+				responsavel: {
+					id: MotherId
+				}
+			},
+			include: {
+				matricula: true,
+			},
+		})
+		return alunoAlreadyExist
+	}
+
+
 	async readNoRegistrationModel(){
 
 		const matriculas = await prisma.aluno.findMany({

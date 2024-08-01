@@ -16,7 +16,7 @@ class CreateAlunoModel{
 		
 		const dataNascimentos = new Date(data_nascimento)
 		
-		const alunoAlreadyExist = await ReadStudentModel.readStudent(nome,responsavelId)
+		const alunoAlreadyExist = await ReadStudentModel.alunoAlreadyExistCreateFrom(nome,responsavelId)
 			
 			if(alunoAlreadyExist){
 				return {
