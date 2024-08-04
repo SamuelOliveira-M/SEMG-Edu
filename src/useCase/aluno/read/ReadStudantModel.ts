@@ -39,6 +39,9 @@ class ReadStudentModel{
 			where:{
 				matricula:null
 			},
+			orderBy:{
+				nome:'asc'
+			}
 		});
 		console.log(matriculas)
 		
