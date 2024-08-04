@@ -16,9 +16,17 @@ class ReadSubjectModel{
 		
 	}
 
-  async readAllSubjectModel(){
+  async readAllSubjectOfClassModel(classId:string){
 		
-		const subjects = await prisma.disciplina.findMany();
+		const subjects = await prisma.disciplina.findMany({      
+      where: {
+        disciplinasTurmas: {
+          none: {
+            turmaId: classId
+          }
+        }
+      }           
+    });
     return subjects 
 	}
 

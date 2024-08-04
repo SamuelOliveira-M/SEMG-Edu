@@ -36,9 +36,9 @@ class ReadSubjectController{
 
 	async allSubjects(req:Request,res:Response){
 		
+		const { classId } = req.params
 		try{
-			const subjects = await ReadSubjectModel.readAllSubjectModel()
-			
+			const subjects = await ReadSubjectModel.readAllSubjectOfClassModel(classId)			
 			return res.status(200).json(subjects)
 		
 		} catch(e){	

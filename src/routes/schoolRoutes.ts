@@ -53,7 +53,7 @@ schoolRoutes.get("/gestor",ReadManagerController.readManagerController)
 schoolRoutes.get("/class",ReadSchoolClassController.readSchoolClass)
 schoolRoutes.get("/class/:id",ReadSchoolClassController.readSchoolClassFindFirst)
 
-schoolRoutes.get("/subjects",ReadSubjectController.allSubjects)
+schoolRoutes.get("/subjects/:classId",ReadSubjectController.allSubjects)
 
 schoolRoutes.get("/tumasdoprofessorrr/:id",ReadSchoolClassController.ReadTeacherClasses)
 
