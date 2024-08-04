@@ -19,7 +19,24 @@ class ReadSchoolClassModel{
 		return schoolClassAlreadyExist
 	}
 
-	async readSchoolClassAll(){
+	async readSchoolClassAll(searchTerm:string|undefined){
+		if(searchTerm){
+			const schoolClassAlreadyExist = await prisma.turma.findMany({
+				where: {
+					nome: {
+						contains: searchTerm, // Pesquisa de aproximação
+						mode: 'insensitive', // Torna a pesquisa case-insensitive
+					},
+				},
+				include:{
+					ano_letivo:true
+				}
+	
+			})
+						
+			return schoolClassAlreadyExist	
+		}
+		
 		const schoolClassAlreadyExist = await prisma.turma.findMany({
 			include:{
 				ano_letivo:true
@@ -39,7 +56,7 @@ class ReadSchoolClassModel{
 				matriculas:true
 			}
 		})
-					
+
 		return schoolClassAlreadyExist
 	}
 

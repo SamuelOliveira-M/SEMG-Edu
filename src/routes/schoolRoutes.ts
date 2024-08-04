@@ -50,8 +50,8 @@ schoolRoutes.post("/add/notas",CreateGradeController.ModifyGradeController)
 schoolRoutes.get("/calendar/:classId",ReadCalendarController.readCalendarController)
 
 schoolRoutes.get("/gestor",ReadManagerController.readManagerController)
-schoolRoutes.get("/class",ReadSchoolClassController.readSchoolClass)
-schoolRoutes.get("/class/:id",ReadSchoolClassController.readSchoolClassFindFirst)
+schoolRoutes.get("/class/:query?",ReadSchoolClassController.readSchoolClass)
+schoolRoutes.get("/classroom/:id",ReadSchoolClassController.readSchoolClassFindFirst)
 
 schoolRoutes.get("/subjects/:classId",ReadSubjectController.allSubjects)
 

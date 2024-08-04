@@ -3,8 +3,9 @@ import ReadSchoolClassModel from "./ReadSchoolClassModel"
 
 class ReadSchoolClassController{
 	async readSchoolClass(req:Request,res:Response){
+		const { query } = req.params
 		try{
-			const schoolClass = await ReadSchoolClassModel.readSchoolClassAll()
+			const schoolClass = await ReadSchoolClassModel.readSchoolClassAll(query)
 			res.json(schoolClass)
 		}catch(e){
 			console.log(e)
