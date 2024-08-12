@@ -4,11 +4,13 @@ import IAddress from "../../../interface/IAddrees"
 class ReadAddressModel{
 	async readAddress(dataAddress:IAddress){
 		
-		const {cep} = dataAddress
+		const { rua, estado, cidade } = dataAddress
 
-		const addressAlreadyExists = await prisma.address.findUnique({
+		const addressAlreadyExists = await prisma.address.findFirst({
 			where:{
-				cep:cep
+				rua,
+				estado,
+				cidade
 			}
 		})
 
