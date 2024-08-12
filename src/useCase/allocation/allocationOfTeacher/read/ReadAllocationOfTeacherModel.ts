@@ -17,6 +17,9 @@ class ReadAllocationOfTeacherController{
 						email:true,
 						url_image:true,
 						disciplinasTurmas:{
+							where:{
+								turmaId:schoolClassId
+							},
 							select:{
 								disciplina:{
 									select:{
