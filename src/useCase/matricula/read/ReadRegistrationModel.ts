@@ -31,15 +31,14 @@ class ReadRegistrationModel{
 
 	async readclassRegistration(turmaId:string){
 		
-		const matriculas = await prisma.matricula.findMany({
-			where:{
-				turmaId:turmaId
-			},
-			include:{
-				aluno:true
-			}
-		})
-
+		const matriculas = await prisma.$queryRaw`
+			SELECT * FROM "Aluno"
+			WHERE "id" IN (
+					SELECT "alunoId" FROM "Matricula"
+					WHERE "turmaId" = ${turmaId}
+			)
+			ORDER BY unaccent(LOWER("nome")) ASC; `;
+		
 		return matriculas
 	}
 	async readclassRegistrationNotes(turmaId:string){
